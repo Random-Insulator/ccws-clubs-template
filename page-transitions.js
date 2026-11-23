@@ -216,10 +216,26 @@
     }, 1800);
   }
 
+  // ─── CARD DECK HOVER SPREAD CONTROLLER ─────────────────────────
+  function initCardDeckSpread() {
+    document.querySelectorAll('.v2-reason-cards').forEach(deck => {
+      const cards = deck.querySelectorAll('.v2-reason-card');
+      cards.forEach((card, idx) => {
+        card.addEventListener('mouseenter', () => {
+          deck.setAttribute('data-hover-card', String(idx + 1));
+        });
+        card.addEventListener('mouseleave', () => {
+          deck.removeAttribute('data-hover-card');
+        });
+      });
+    });
+  }
+
   function init() {
     createCurtain();
     attachLinkInterceptors();
     initScrollAnimations();
+    initCardDeckSpread();
   }
 
   if (document.readyState === 'loading') {
