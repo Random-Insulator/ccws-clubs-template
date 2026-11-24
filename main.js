@@ -109,46 +109,87 @@
 
     const list = document.getElementById('clubsList');
     if (list) {
-      list.innerHTML = '';
-      activeClubs.forEach((c, i) => {
-        const row = document.createElement('div');
-        row.className = 'club-row' + (i % 2 !== 0 ? ' flip' : '');
-        const col = c.color || '#5A390C';
-        const bg = c.bg || `${col}1a`;
-        const border = c.border || `${col}33`;
-        row.style.cssText = `--cc:${col}; --cb:${bg}; --cbr:${border}`;
+      function renderFilteredRows(filterKey, query) {
+        list.innerHTML = '';
+        const q = (query || '').trim().toLowerCase();
+        const stemCats = ['technology', 'science', 'robotics'];
+        const artsCats = ['speaking', 'arts', 'theatre', 'literary', 'drama'];
+        const lifeCats = ['life skills', 'environment', 'cookery', 'eco'];
 
-        const clubLink = c.link ? (_prefix + c.link) : '#';
-        row.style.cursor = 'pointer';
-        row.addEventListener('click', (e) => {
-          if (!e.target.closest('a')) {
-            window.location.href = clubLink;
-          }
+        const filtered = activeClubs.filter(c => {
+          const cat = (c.category || '').toLowerCase();
+          const name = (c.name || '').toLowerCase();
+          const desc = (c.desc || '').toLowerCase();
+
+          let matchFilter = true;
+          if (filterKey === 'stem') matchFilter = stemCats.some(k => cat.includes(k) || name.includes(k));
+          else if (filterKey === 'arts') matchFilter = artsCats.some(k => cat.includes(k) || name.includes(k));
+          else if (filterKey === 'life') matchFilter = lifeCats.some(k => cat.includes(k) || name.includes(k));
+
+          const matchQuery = !q || name.includes(q) || cat.includes(q) || desc.includes(q);
+          return matchFilter && matchQuery;
         });
 
-        row.innerHTML = `
-          <div class="club-img-wrap">
-            <img src="${_prefix + (c.img || 'images/favicon.jpg')}" alt="${c.name} club photo"
-                 onload="this.nextElementSibling.style.display='none'"
-                 onerror="this.style.display='none'">
-            <div class="img-placeholder">
-              ${imgIcon}
-              <span>${c.name}</span>
+        filtered.forEach((c, i) => {
+          const row = document.createElement('div');
+          row.className = 'club-row visible' + (i % 2 !== 0 ? ' flip' : '');
+          const col = c.color || '#1b2a3a';
+          const bg = c.bg || `${col}1a`;
+          const border = c.border || `${col}33`;
+          row.style.cssText = `--cc:${col}; --cb:${bg}; --cbr:${border}`;
+
+          const clubLink = c.link ? (_prefix + c.link) : '#';
+          row.style.cursor = 'pointer';
+          row.addEventListener('click', (e) => {
+            if (!e.target.closest('a')) {
+              window.location.href = clubLink;
+            }
+          });
+
+          row.innerHTML = `
+            <div class="club-img-wrap">
+              <img src="${_prefix + (c.img || 'images/favicon.jpg')}" alt="${c.name} club photo"
+                   onload="this.nextElementSibling.style.display='none'"
+                   onerror="this.style.display='none'">
+              <div class="img-placeholder">
+                ${imgIcon}
+                <span>${c.name}</span>
+              </div>
             </div>
-          </div>
-          <div class="club-info">
-            <div class="club-category">${c.category || 'General'}</div>
-            <div class="club-name">${c.formattedName || c.name}</div>
-            <div class="club-desc">${c.desc || ''}</div>
-            <div class="club-footer">
-              <a href="${clubLink}" class="learn-btn">Learn more →</a>
+            <div class="club-info">
+              <div class="club-category">${c.category || 'General'}</div>
+              <div class="club-name">${c.formattedName || c.name}</div>
+              <div class="club-desc">${c.desc || ''}</div>
+              <div class="club-footer">
+                <a href="${clubLink}" class="learn-btn">Learn more</a>
+              </div>
             </div>
-          </div>
-        `;
-        list.appendChild(row);
+          `;
+          list.appendChild(row);
+        });
+      }
+
+      let currentFilter = 'all';
+      let currentQuery = '';
+      renderFilteredRows(currentFilter, currentQuery);
+
+      const filterBtns = document.querySelectorAll('#exploreFilters .explore-filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          currentFilter = btn.dataset.filter || 'all';
+          renderFilteredRows(currentFilter, currentQuery);
+        });
       });
 
-      document.querySelectorAll('.club-row').forEach(row => observer.observe(row));
+      const searchInput = document.getElementById('clubSearchInput');
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          currentQuery = searchInput.value;
+          renderFilteredRows(currentFilter, currentQuery);
+        });
+      }
     }
 
     // ── Update Nav Links ──
@@ -429,6 +470,38 @@
       }
     }
 
+    // Wire starter chips (Recognition over Recall)
+    document.querySelectorAll('.chat-chip-btn').forEach(chip => {
+      chip.addEventListener('click', () => {
+        if (_chatLocked || !chatInput) return;
+        chatInput.value = chip.dataset.chip || chip.textContent;
+        sendMessage();
+      });
+    });
+
+    function _updateChatProgress(step, isDone) {
+      const lbl = document.getElementById('chatStepLabel');
+      const fill = document.getElementById('chatProgressFill');
+      if (!lbl || !fill) return;
+      if (isDone) {
+        lbl.textContent = 'Match Found (3/3)';
+        fill.style.width = '100%';
+      } else {
+        const clamped = Math.min(3, Math.max(1, step));
+        lbl.textContent = `Step ${clamped} of 3`;
+        fill.style.width = `${Math.round((clamped / 3) * 100)}%`;
+      }
+    }
+
+    function _findMatchedClub(text) {
+      const lower = (text || '').toLowerCase();
+      return (window._activeClubs || DEFAULT_CLUBS).find(c =>
+        lower.includes((c.name || '').toLowerCase()) ||
+        (c.clubId === 'Theatre' && lower.includes('drama')) ||
+        (c.clubId === 'Technocrates' && lower.includes('science'))
+      );
+    }
+
     // ── Send message ──────────────────────────────────────
     async function sendMessage() {
       if (_chatLocked) return;
@@ -469,15 +542,33 @@
         chatHistory.push({ role: 'assistant', content: data.response });
         if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
 
-        // ── End conversation immediately after club recommendation is given ──
+        const currentStep = Math.floor(chatHistory.length / 2) + 1;
+        _updateChatProgress(currentStep, isRec);
+
+        // ── End conversation immediately after club recommendation is given (Peak-End Card) ──
         if (isRec) {
           _lockChat();
+          const match = _findMatchedClub(data.response);
           setTimeout(() => {
-            addMessage(
-              "That's my top recommendation! This chat session is now complete — feel free to explore the club page above and get involved!",
-              'bot'
-            );
-          }, 400);
+            if (match && chatMessages) {
+              const cardWrap = document.createElement('div');
+              cardWrap.className = 'msg bot';
+              cardWrap.innerHTML = `
+                <div class="chat-match-card">
+                  <div class="chat-match-title">${match.name} Club</div>
+                  <div class="chat-match-meta">${match.category}</div>
+                  <a href="${_prefix + match.link}" class="chat-match-btn">Visit ${match.name} Club</a>
+                </div>
+              `;
+              chatMessages.appendChild(cardWrap);
+              chatMessages.scrollTop = chatMessages.scrollHeight;
+            } else {
+              addMessage(
+                "That's my top recommendation! Explore the club page above to get involved.",
+                'bot'
+              );
+            }
+          }, 350);
         }
 
       } catch (err) {

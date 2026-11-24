@@ -38,23 +38,6 @@
       min-height: 100vh;
     }
 
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(70px);
-      animation: float 14s ease-in-out infinite;
-      pointer-events: none;
-    }
-    .blob-1 { width: 380px; height: 380px; background: rgba(224, 32, 32, 0.12); top: -120px; right: -60px; animation-delay: 0s; }
-    .blob-2 { width: 300px; height: 300px; background: rgba(246, 187, 105, 0.14); bottom: -80px; left: -80px; animation-delay: -5s; }
-    .blob-3 { width: 180px; height: 180px; background: rgba(255, 255, 255, 0.06); top: 55%; right: 55%; animation-delay: -10s; }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33%       { transform: translate(-18px, 25px) scale(1.04); }
-      66%       { transform: translate(20px, -18px) scale(0.97); }
-    }
-
     .logo-ring {
       width: 130px; height: 130px;
       border-radius: 50%;
@@ -62,39 +45,18 @@
       display: flex; align-items: center; justify-content: center;
       position: relative;
       margin-bottom: 32px;
-      animation: pulse-ring 3.5s ease-in-out infinite;
     }
-    .logo-ring::before {
-      content: ''; position: absolute; inset: -14px; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.06); animation: pulse-ring 3.5s ease-in-out infinite reverse;
-    }
-    .logo-ring::after {
-      content: ''; position: absolute; inset: -28px; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
-    @keyframes pulse-ring { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
     .logo-ring img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
 
-    .left-eyebrow {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(255,255,255,0.4);
-      margin-bottom: 12px; text-align: center;
-    }
     .left-title {
       font-family: 'Syne', sans-serif;
       font-size: clamp(1.8rem, 3vw, 2.6rem);
       font-weight: 800; color: #fff; text-align: center;
       line-height: 1.1; letter-spacing: -1px; margin-bottom: 12px;
     }
-    .left-title .accent {
-      font-family: 'Caveat', cursive; font-size: 1.1em;
-      background: linear-gradient(135deg, #f6bb69, #ff8a00);
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; display: block; line-height: 1;
-    }
     .left-subtitle {
-      font-size: 0.9rem; color: rgba(255,255,255,0.5); text-align: center;
-      line-height: 1.65; max-width: 300px; margin-bottom: 40px;
+      font-size: 0.9rem; color: rgba(255,255,255,0.72); text-align: center;
+      line-height: 1.65; max-width: 300px; margin-bottom: 24px;
     }
 
     .features { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 320px; }
@@ -741,67 +703,26 @@
 
     <!-- LEFT PANEL -->
     <div class="left-panel">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-
       <div class="logo-ring">
         <img src="../images/favicon.jpg" alt="CCWS Logo" />
       </div>
 
-      <p class="left-eyebrow">Cambridge Court World School</p>
-
-      <h2 class="left-title">
-        Admin
-        <span class="accent">Control Centre</span>
-      </h2>
+      <h2 class="left-title">Admin Control Centre</h2>
 
       <p class="left-subtitle">
         Review and approve club submissions before they appear on the website.
       </p>
 
-      <div class="features">
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </div>
-          <div class="feature-text">
-            <strong>Review Submissions</strong>
-            <span>See all pending club uploads</span>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div class="feature-text">
-            <strong>Approve or Reject</strong>
-            <span>Control what appears publicly</span>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
-          </div>
-          <div class="feature-text">
-            <strong>Manage Deletions</strong>
-            <span>Approve teacher removal requests</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="left-footer">Cambridge Court World School · Admin Portal</div>
+      <div class="left-footer">Cambridge Court World School</div>
     </div>
 
     <!-- RIGHT PANEL -->
     <div class="right-panel">
       <a href="../explore.html" class="back-link">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         Back to CambridgeClubs
       </a>
 
       <div class="form-wrap">
-        <p class="form-eyebrow">Admin Portal <span class="admin-badge-inline">Restricted</span></p>
         <h1>Admin Login</h1>
         <p class="subtitle">Access the control panel to review and manage all club activity submissions.</p>
 
@@ -822,9 +743,6 @@
           <button type="submit" class="submit-btn" id="loginBtn">
             <span class="btn-inner">
               Sign in
-              <span class="btn-arrow">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </span>
             </span>
           </button>
 
@@ -875,7 +793,10 @@
           CAMBRIDGE<span>CLUBS</span><span class="admin-badge">Admin</span>
         </div>
       </div>
-      <button class="logout-btn" id="logoutBtn">Sign out</button>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button type="button" class="contrast-toggle-btn" id="contrastToggleBtn" aria-pressed="false" onclick="toggleHighContrast(this)">High Contrast</button>
+        <button class="logout-btn" id="logoutBtn">Sign out</button>
+      </div>
     </header>
 
     <main>
@@ -1682,6 +1603,19 @@
     });
 
     init();
+
+    function toggleHighContrast(btn) {
+      const enabled = document.documentElement.getAttribute('data-high-contrast') === 'true';
+      const next = !enabled;
+      document.documentElement.setAttribute('data-high-contrast', String(next));
+      if (btn) btn.setAttribute('aria-pressed', String(next));
+      localStorage.setItem('ccws_high_contrast', String(next));
+    }
+    if (localStorage.getItem('ccws_high_contrast') === 'true') {
+      document.documentElement.setAttribute('data-high-contrast', 'true');
+      const b = document.getElementById('contrastToggleBtn');
+      if (b) b.setAttribute('aria-pressed', 'true');
+    }
   </script>
   <script>
     // Spin keyframe for login loader

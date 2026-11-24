@@ -137,7 +137,7 @@
       line-height: 1.1;
     }
 
-    /* ─── KINETIC CURTAINS (WHITE • CRIMSON • NAVY) ─── */
+    /* ─── KINETIC CURTAINS (WHITE / CRIMSON / NAVY) ─── */
     .c2-curtains-stage {
       display: flex;
       width: 100%;
@@ -151,8 +151,8 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: clamp(50px, 9vh, 96px) clamp(32px, 4.5vw, 64px);
+      justify-content: center;
+      padding: clamp(40px, 6vh, 72px) clamp(32px, 4.5vw, 64px);
       overflow: hidden;
       cursor: pointer;
       text-decoration: none;
@@ -177,87 +177,72 @@
 
     /* ── SLICE 1: WHITE (GUEST / EXPLORER) ── */
     .c2-slice.slice-white {
-      background: linear-gradient(170deg, #ffffff 0%, #f6f8fb 60%, #e9eef5 100%);
+      background: linear-gradient(170deg, #ffffff 0%, #f5f7fa 60%, #e8eef5 100%);
       color: var(--ccws-navy);
       border-right: 1.5px solid rgba(27, 42, 58, 0.12);
     }
 
-    .c2-slice.slice-white .slice-watermark {
-      color: rgba(27, 42, 58, 0.04);
-    }
-    .c2-slice.slice-white:hover .slice-watermark {
-      color: rgba(27, 42, 58, 0.08);
-    }
-
     .c2-slice.slice-white .slice-title {
       color: var(--ccws-navy);
+      font-weight: 800;
+      letter-spacing: -0.03em;
     }
 
     .c2-slice.slice-white .slice-subtitle {
       color: var(--ccws-crimson);
     }
 
-    /* ── SLICE 2: CRIMSON (STUDENT / BELONG) ── */
+    /* ── SLICE 2: CRIMSON (STUDENT / BELONG) — Simultaneous Contrast & Irradiation Compensation ── */
     .c2-slice.slice-crimson {
-      background: linear-gradient(170deg, #7b1725 0%, #9b2031 55%, #590c17 100%);
+      background: linear-gradient(170deg, #741522 0%, #8f1d2c 55%, #590c17 100%);
       color: #ffffff;
-      border-right: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-right: 1.5px solid rgba(255, 255, 255, 0.14);
     }
 
-    .c2-slice.slice-crimson .slice-watermark {
-      color: rgba(255, 255, 255, 0.05);
-    }
-    .c2-slice.slice-crimson:hover .slice-watermark {
-      color: rgba(255, 255, 255, 0.12);
+    .c2-slice.slice-crimson:hover {
+      background: linear-gradient(170deg, #7e1826 0%, #9b2031 55%, #620f1b 100%);
     }
 
     .c2-slice.slice-crimson .slice-title {
       color: #ffffff;
+      font-weight: 700;
+      letter-spacing: -0.012em; /* Counter white-on-dark irradiation bleed */
     }
 
     .c2-slice.slice-crimson .slice-subtitle {
-      color: var(--ccws-gold-pale);
+      color: #faf0d7; /* Simultaneous contrast lifted cream-gold */
     }
 
-    /* ── SLICE 3: NAVY (MENTOR / LEAD) ── */
+    /* ── SLICE 3: NAVY (MENTOR / LEAD) — Analogous & Chromostereopsis Safe ── */
     .c2-slice.slice-navy {
-      background: linear-gradient(170deg, #132232 0%, #1c3044 55%, #0c1622 100%);
+      background: linear-gradient(170deg, #132232 0%, #1c3146 55%, #0c1622 100%);
       color: #ffffff;
     }
 
-    .c2-slice.slice-navy .slice-watermark {
-      color: rgba(255, 255, 255, 0.04);
-    }
-    .c2-slice.slice-navy:hover .slice-watermark {
-      color: rgba(255, 255, 255, 0.09);
+    .c2-slice.slice-navy:hover {
+      background: linear-gradient(170deg, #182a3d 0%, #233b54 55%, #101d2c 100%);
     }
 
     .c2-slice.slice-navy .slice-title {
       color: #ffffff;
+      font-weight: 700;
+      letter-spacing: -0.012em; /* Counter white-on-dark irradiation bleed */
     }
 
     .c2-slice.slice-navy .slice-subtitle {
-      color: var(--ccws-gold);
+      color: #ebd075; /* High-luminance warm gold on deep navy */
     }
 
-    /* ── SLICE TYPOGRAPHY & WATERMARKS ── */
-    .slice-watermark {
-      position: absolute;
-      top: 40px;
-      right: -10px;
-      font-family: 'Champ', sans-serif;
-      font-size: clamp(120px, 20vw, 260px);
-      font-weight: 900;
-      line-height: 0.8;
-      pointer-events: none;
-      user-select: none;
-      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), color 0.85s ease;
+    @media (prefers-contrast: more) {
+      .c2-slice {
+        border: 2px solid currentColor !important;
+      }
+      .c2-curtains-stage:hover .c2-slice {
+        filter: none !important;
+      }
     }
 
-    .c2-slice:hover .slice-watermark {
-      transform: translateY(-20px) scale(1.06);
-    }
-
+    /* ── SLICE TYPOGRAPHY ── */
     .slice-body {
       position: relative;
       z-index: 5;
@@ -329,12 +314,11 @@
     </div>
   </header>
 
-  <!-- 3 Kinetic Slices: White • Crimson • Navy -->
+  <!-- 3 Kinetic Slices: White / Crimson / Navy -->
   <main class="c2-curtains-stage">
 
     <!-- Slice 1: WHITE (GUEST / EXPLORER) -->
     <a href="explore.html" class="c2-slice slice-white js-explore-trigger">
-      <div class="slice-watermark">01</div>
       <div class="slice-body">
         <h1 class="slice-title">EXPLORE</h1>
         <span class="slice-subtitle">Just Visiting</span>
@@ -343,7 +327,6 @@
 
     <!-- Slice 2: CRIMSON (STUDENT / BELONG) -->
     <a href="student.html" class="c2-slice slice-crimson js-student-trigger">
-      <div class="slice-watermark">02</div>
       <div class="slice-body">
         <h2 class="slice-title">BELONG</h2>
         <span class="slice-subtitle">Enrolled Student</span>
@@ -352,7 +335,6 @@
 
     <!-- Slice 3: NAVY (FACULTY / LEAD) -->
     <a href="backend/portal/mentor.html" class="c2-slice slice-navy js-mentor-trigger">
-      <div class="slice-watermark">03</div>
       <div class="slice-body">
         <h2 class="slice-title">LEAD</h2>
         <span class="slice-subtitle">Club Mentor</span>

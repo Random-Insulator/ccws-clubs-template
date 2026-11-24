@@ -1,42 +1,75 @@
 /* ═══════════════════════════════════════════════════════════════════
-   CAMBRIDGE COURT WORLD SCHOOL — UNIFIED ACADEMIC COLOR SCHEME
-   Primary: Oxford Navy (#1b2a3a) & Regal Crimson (#8b1d2c)
-   Accents: Warm Gold (#d4af37) & Crisp White (#ffffff)
+   CAMBRIDGE COURT WORLD SCHOOL — PERCEPTUAL COLOR & UX DESIGN SYSTEM
+   Implements: OKLCH + sRGB Gamut, Stevens' Power Law steps, Tint/Shade/Tone,
+   Simultaneous Contrast, Irradiation compensation, Helmholtz-Kohlrausch
+   & Hunt chroma balancing, and Increase Contrast Mode.
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
+  /* sRGB Fallbacks */
   --ccws-navy: #1b2a3a;
   --ccws-navy-deep: #0f1c29;
   --ccws-navy-light: #25394e;
+  --ccws-navy-tint: #edf1f6;
+  --ccws-navy-shade: rgba(15, 28, 41, 0.14);
+
   --ccws-crimson: #8b1d2c;
   --ccws-crimson-deep: #68111d;
   --ccws-crimson-light: #a82739;
+  --ccws-crimson-tint: #faecef; /* Abney-compensated warm rose tint */
+
   --ccws-gold: #d4af37;
   --ccws-gold-pale: #f7eed8;
   --ccws-white: #ffffff;
   --ccws-bg: #f8fafc;
+
+  /* Navy-desaturated slate tones (Tone = Hue + Gray) */
+  --ccws-tone-muted: #475569;
+  --ccws-tone-subtle: #64748b;
+  --ccws-border-tone: rgba(27, 42, 58, 0.12);
+
+  /* Stevens' Power Law perceptual hero steps (fallbacks) */
+  --band-step-1: #0f1c29;
+  --band-step-2: #1c2f42;
+  --band-step-3: #8b1d2c;
+  --band-step-4: #24394e;
 }
 
-html {
-  background: var(--ccws-bg) !important;
+/* Gamut & Stevens' Power Law perceptual lightness curves */
+@supports (color: oklch(0.5 0.1 250)) {
+  :root {
+    --ccws-navy: oklch(0.28 0.04 245);
+    --ccws-navy-deep: oklch(0.20 0.04 245);
+    --ccws-navy-light: oklch(0.35 0.045 245);
+    --ccws-navy-tint: oklch(0.95 0.012 245);
+    --ccws-crimson: oklch(0.41 0.145 14);
+    --ccws-crimson-deep: oklch(0.32 0.135 14);
+    --ccws-crimson-light: oklch(0.48 0.155 14);
+    --ccws-crimson-tint: oklch(0.95 0.018 10); /* shifted toward warm orange-red to counter Abney pink drift */
+
+    --band-step-1: oklch(0.20 0.04 245);
+    --band-step-2: oklch(0.29 0.045 245);
+    --band-step-3: oklch(0.41 0.145 14);
+    --band-step-4: oklch(0.26 0.04 245);
+  }
 }
 
-body {
+html, body {
   background: var(--ccws-bg) !important;
-  color: #1a1a1a !important;
+  color: #111827 !important;
 }
 
 body::after {
-  background: radial-gradient(circle at 50% 0%, rgba(27, 42, 58, 0.08) 0%, transparent 100%) !important;
+  background: none !important;
 }
 
-/* Nav */
+/* Nav — solid tinted glass with clear hierarchy */
 nav {
-  background: rgba(255, 255, 255, 0.94) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
-  border-bottom: 1.5px solid rgba(27, 42, 58, 0.1) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+  border-bottom: 1.5px solid var(--ccws-border-tone) !important;
+  box-shadow: 0 4px 20px rgba(15, 28, 41, 0.05) !important;
 }
 
 .nav-logo {
@@ -44,12 +77,13 @@ nav {
 }
 
 .nav-links a {
-  color: #4b5563 !important;
+  color: var(--ccws-tone-muted) !important;
+  transition: color 0.18s ease, background 0.18s ease !important;
 }
 
 .nav-links a:hover, .nav-links a.active {
   color: var(--ccws-crimson) !important;
-  background: rgba(139, 29, 44, 0.06) !important;
+  background: var(--ccws-crimson-tint) !important;
 }
 
 .nav-chat-btn {
@@ -59,41 +93,143 @@ nav {
   background: var(--ccws-crimson) !important;
 }
 
-/* Hero Bands */
+/* Hero Bands — Analogous & Stevens' Power Law steps + Irradiation compensation */
 .hero-band {
   background: var(--ccws-bg) !important;
 }
 
+.hero-band .band-content {
+  /* Irradiation compensation: white-on-dark bleeds thicker, open tracking + slightly softer weight */
+  letter-spacing: 0.01em;
+}
+
 .band-1::before {
-  background: linear-gradient(135deg, #0f1c29 0%, #1b2a3a 100%) !important;
+  background: linear-gradient(135deg, var(--band-step-1) 0%, #162638 100%) !important;
 }
 
 .band-2::before {
-  background: linear-gradient(135deg, #1b2a3a 0%, #25394e 100%) !important;
+  background: linear-gradient(135deg, var(--band-step-2) 0%, #263d54 100%) !important;
 }
 
 .band-3::before {
-  background: linear-gradient(135deg, #8b1d2c 0%, #a82739 100%) !important;
+  background: linear-gradient(135deg, var(--band-step-3) 0%, #9f2334 100%) !important;
 }
 
 .band-4::before {
-  background: linear-gradient(135deg, #162433 0%, #0f1c29 100%) !important;
+  background: linear-gradient(135deg, var(--band-step-4) 0%, #152333 100%) !important;
 }
 
+/* Von Restorff Primary Hero CTA — balanced chroma for Hunt effect against bright surfaces */
 .hero-cta {
   background: var(--ccws-crimson) !important;
   color: #ffffff !important;
-  box-shadow: 0 4px 18px rgba(139, 29, 44, 0.35) !important;
+  box-shadow: 0 4px 18px rgba(139, 29, 44, 0.28) !important;
 }
 
 .hero-cta:hover {
   background: var(--ccws-crimson-light) !important;
-  box-shadow: 0 8px 25px rgba(139, 29, 44, 0.45) !important;
+  box-shadow: 0 8px 24px rgba(139, 29, 44, 0.36) !important;
 }
 
-/* Clubs List Cards / Rows */
+/* Clubs Filter Toolbar (Cognitive Load + Recognition over Recall) */
+.explore-toolbar {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 28px 40px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.explore-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.explore-filter-btn {
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1.5px solid var(--ccws-border-tone);
+  background: #ffffff;
+  color: var(--ccws-tone-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.explore-filter-btn:hover {
+  border-color: var(--ccws-navy);
+  color: var(--ccws-navy);
+  background: var(--ccws-navy-tint);
+}
+
+.explore-filter-btn.is-active {
+  background: var(--ccws-navy);
+  border-color: var(--ccws-navy);
+  color: #ffffff;
+}
+
+.explore-search-input {
+  padding: 9px 16px;
+  border-radius: 100px;
+  border: 1.5px solid var(--ccws-border-tone);
+  background: #ffffff;
+  color: #111827;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  min-width: 240px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.explore-search-input:focus {
+  border-color: var(--ccws-crimson);
+  box-shadow: 0 0 0 3px rgba(139, 29, 44, 0.12);
+}
+
+/* Law of Proximity + Common Region on Club Rows */
+.clubs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 12px !important;
+}
+
+.club-row {
+  background: #ffffff;
+  border: 1px solid var(--ccws-border-tone) !important;
+  border-radius: 18px;
+  padding: 28px 32px !important;
+  box-shadow: 0 4px 18px rgba(15, 28, 41, 0.04);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease !important;
+}
+
+.club-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15, 28, 41, 0.08);
+  border-color: rgba(27, 42, 58, 0.22) !important;
+}
+
+.club-name {
+  color: var(--ccws-navy) !important;
+}
+
+.club-category {
+  color: var(--ccws-crimson) !important;
+  font-weight: 700 !important;
+}
+
+.club-desc {
+  color: var(--ccws-tone-muted) !important;
+}
+
 .club-tag {
-  background: rgba(139, 29, 44, 0.08) !important;
+  background: var(--ccws-crimson-tint) !important;
   color: var(--ccws-crimson) !important;
 }
 
@@ -106,11 +242,119 @@ nav {
   background: var(--ccws-crimson) !important;
 }
 
-.club-name {
-  color: var(--ccws-navy) !important;
+/* Goal-Gradient + Uniform Connectedness Progress Rail in Club Buddy */
+.chat-progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ccws-tone-muted);
 }
 
-/* Footer & Back buttons */
-.footer-links a:hover {
-  color: var(--ccws-crimson) !important;
+.chat-progress-track {
+  flex: 1;
+  height: 5px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.chat-progress-fill {
+  height: 100%;
+  width: 33%;
+  background: var(--ccws-crimson);
+  border-radius: 10px;
+  transition: width 0.35s ease;
+}
+
+.chat-starter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.chat-chip-btn {
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid rgba(27, 42, 58, 0.18);
+  background: #ffffff;
+  color: var(--ccws-navy);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.chat-chip-btn:hover {
+  background: var(--ccws-navy-tint);
+  border-color: var(--ccws-navy);
+}
+
+/* Peak-End Club Match Card */
+.chat-match-card {
+  background: #ffffff;
+  border: 1.5px solid var(--ccws-navy);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 6px;
+  box-shadow: 0 6px 18px rgba(15, 28, 41, 0.08);
+}
+
+.chat-match-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ccws-navy);
+  margin-bottom: 4px;
+}
+
+.chat-match-meta {
+  font-size: 12px;
+  color: var(--ccws-tone-muted);
+  margin-bottom: 10px;
+}
+
+.chat-match-btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--ccws-crimson);
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.chat-match-btn:hover {
+  background: var(--ccws-crimson-light);
+}
+
+/* Increase Contrast Mode (Accessibility & Law #4) */
+@media (prefers-contrast: more) {
+  body, html {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .club-row, .explore-filter-btn, .explore-search-input {
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+  }
+  .club-desc, .club-category {
+    color: #000000 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .explore-toolbar {
+    padding: 20px 18px 8px;
+  }
+  .explore-search-input {
+    width: 100%;
+  }
 }

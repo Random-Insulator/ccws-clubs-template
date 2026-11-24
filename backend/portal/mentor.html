@@ -37,40 +37,6 @@
       min-height: 100vh;
     }
 
-    /* Animated floating blobs */
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      animation: float 12s ease-in-out infinite;
-      pointer-events: none;
-    }
-    .blob-1 {
-      width: 400px; height: 400px;
-      background: rgba(246, 187, 105, 0.18);
-      top: -150px; left: -100px;
-      animation-delay: 0s;
-    }
-    .blob-2 {
-      width: 300px; height: 300px;
-      background: rgba(224, 32, 32, 0.12);
-      bottom: -100px; right: -80px;
-      animation-delay: -4s;
-    }
-    .blob-3 {
-      width: 200px; height: 200px;
-      background: rgba(255, 200, 100, 0.15);
-      top: 50%; left: 60%;
-      animation-delay: -8s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33%       { transform: translate(20px, -30px) scale(1.05); }
-      66%       { transform: translate(-15px, 20px) scale(0.96); }
-    }
-
-    /* Decorative ring behind logo */
     .logo-ring {
       width: 140px; height: 140px;
       border-radius: 50%;
@@ -80,26 +46,6 @@
       justify-content: center;
       position: relative;
       margin-bottom: 36px;
-      animation: pulse-ring 3s ease-in-out infinite;
-    }
-    .logo-ring::before {
-      content: '';
-      position: absolute;
-      inset: -14px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.08);
-      animation: pulse-ring 3s ease-in-out infinite reverse;
-    }
-    .logo-ring::after {
-      content: '';
-      position: absolute;
-      inset: -28px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.04);
-    }
-    @keyframes pulse-ring {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50%       { transform: scale(1.04); opacity: 0.7; }
     }
 
     .logo-ring img {
@@ -107,17 +53,6 @@
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    }
-
-    .left-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 12px;
-      text-align: center;
     }
 
     .left-title {
@@ -131,24 +66,13 @@
       margin-bottom: 12px;
     }
 
-    .left-title .accent {
-      font-family: 'Caveat', cursive;
-      font-size: 1.15em;
-      background: linear-gradient(135deg, #f6bb69, #ff8a00);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: block;
-      line-height: 1;
-    }
-
     .left-subtitle {
       font-size: 0.95rem;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.72);
       text-align: center;
       line-height: 1.65;
       max-width: 320px;
-      margin-bottom: 44px;
+      margin-bottom: 24px;
     }
 
     /* Feature list */
@@ -505,67 +429,26 @@
 
   <!-- ── LEFT PANEL ─────────────────────────────────── -->
   <div class="left-panel">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
     <div class="logo-ring">
       <img src="../images/favicon.jpg" alt="CCWS Logo" />
     </div>
 
-    <p class="left-eyebrow">Cambridge Court World School</p>
-
-    <h2 class="left-title">
-      Mentor
-      <span class="accent">Portal</span>
-    </h2>
+    <h2 class="left-title">Mentor Portal</h2>
 
     <p class="left-subtitle">
       Upload memories, log activities, and keep your club's page up to date.
     </p>
 
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-        </div>
-        <div class="feature-text">
-          <strong>Upload Photos</strong>
-          <span>Share your club's best moments</span>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <div class="feature-text">
-          <strong>Log Activities</strong>
-          <span>Document events and workshops</span>
-        </div>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <div class="feature-text">
-          <strong>Go Live Fast</strong>
-          <span>Approved content publishes instantly</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="left-footer">Cambridge Court World School · Mentor Portal</div>
+    <div class="left-footer">Cambridge Court World School</div>
   </div>
 
   <!-- ── RIGHT PANEL ─────────────────────────────────── -->
   <div class="right-panel">
     <a href="../explore.html" class="back-link">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       Back to CambridgeClubs
     </a>
 
     <div class="form-wrap">
-      <p class="form-eyebrow">Mentor Portal</p>
       <h1>Welcome back</h1>
       <p class="subtitle">Sign in to manage your club's gallery and submit activities for approval.</p>
 
@@ -608,9 +491,6 @@
         <button type="submit" class="submit-btn" id="loginBtn">
           <span class="btn-inner">
             Sign in
-            <span class="btn-arrow">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </span>
           </span>
         </button>
 

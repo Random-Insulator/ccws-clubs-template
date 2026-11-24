@@ -467,9 +467,8 @@ nav::-webkit-scrollbar {
   align-items: center;
   padding: 36px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .club-row:first-child {
@@ -657,32 +656,8 @@ nav::-webkit-scrollbar {
 }
 
 
-.chat-fab::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(circle at top left, rgba(255,255,255,0.4), transparent);
-  animation: glowPulse 3s infinite;
-  pointer-events: none;
-}
-
-.chat-fab.chat-closed::before {
-  display: none;
-}
-
-@keyframes glowPulse {
-  0% { opacity: 0; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.1); }
-  100% { opacity: 0; transform: scale(0.9); }
-}
-
-
 .chat-fab::after {
-  content: "Club Buddy ✨";
+  content: "Club Buddy";
   position: absolute;
   top: -8px;
   right: -8px;

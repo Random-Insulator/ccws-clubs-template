@@ -6,6 +6,7 @@
   <title>Mentor Dashboard — CambridgeClubs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="portal-theme.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -367,6 +368,7 @@
       CAMBRIDGE<span>CLUBS</span> <span class="cool-clubs">Mentor Dashboard</span>
     </div>
     <div class="header-right">
+      <button type="button" class="contrast-toggle-btn" id="contrastToggleBtn" aria-pressed="false" onclick="toggleHighContrast(this)">High Contrast</button>
       <div class="mentor-badge"><strong id="headerMentor"></strong><span id="headerClub"></span></div>
       <button class="logout-btn" id="logoutBtn">Sign out</button>
     </div>
@@ -404,6 +406,7 @@
           <textarea id="descInput" placeholder="Brief description of what happened…"></textarea>
 
           <label>Photos (Select up to 3 photos) *</label>
+          <p style="font-size:0.78rem; color:#475569; margin:-4px 0 10px;">Photos are cropped and automatically compressed for fast web loading.</p>
           <div id="maxPhotoWarning" style="display:none; padding:10px 12px; margin-bottom:10px; background:#fffbeb; border:1px solid #fde68a; color:#b45309; border-radius:8px; font-size:0.82rem; font-weight:600; line-height:1.4;"></div>
           <div class="file-zone" id="fileZone">
             <input type="file" id="imageInput" name="images" accept="image/*" multiple required />
@@ -977,6 +980,19 @@
     }
 
     loadActivities();
+
+    function toggleHighContrast(btn) {
+      const enabled = document.documentElement.getAttribute('data-high-contrast') === 'true';
+      const next = !enabled;
+      document.documentElement.setAttribute('data-high-contrast', String(next));
+      if (btn) btn.setAttribute('aria-pressed', String(next));
+      localStorage.setItem('ccws_high_contrast', String(next));
+    }
+    if (localStorage.getItem('ccws_high_contrast') === 'true') {
+      document.documentElement.setAttribute('data-high-contrast', 'true');
+      const b = document.getElementById('contrastToggleBtn');
+      if (b) b.setAttribute('aria-pressed', 'true');
+    }
   </script>
   <script src="../nav-previews.js"></script>
 </body>
