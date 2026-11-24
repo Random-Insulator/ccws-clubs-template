@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concept 2 — Kinetic Curtains | Cambridge Court World School</title>
+  
+  <link rel="icon" href="images/favicon.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="fonts/fonts.css" onerror="this.onerror=null;">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── AARDVARK INSP0 FONTS ─── */
+    @font-face {
+      font-family: 'Champ';
+      src: url('fonts/Champ-ExtraBold.woff') format('woff'),
+           url('https://cdn.prod.website-files.com/696173cb00865d1b386e4af8/6963d2cdeaa0084ad1abd7f0_Champ-ExtraBold.woff') format('woff');
+      font-weight: 700 900;
+      font-display: swap;
+    }
+
+    :root {
+      --ccws-white: #ffffff;
+      --ccws-ivory: #fcfcfb;
+      --ccws-navy: #1b2a3a;
+      --ccws-navy-deep: #0f1c29;
+      --ccws-navy-light: #25394e;
+      --ccws-crimson: #8b1d2c;
+      --ccws-crimson-deep: #68111d;
+      --ccws-crimson-light: #a82739;
+      --ccws-gold: #d4af37;
+      --ccws-gold-pale: #f7eed8;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--ccws-navy-deep);
+      color: #111;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── FLOATING TOP HEADER ─── */
+    .c2-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px clamp(20px, 4vw, 54px);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(27, 42, 58, 0.12);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .c2-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      text-align: left;
+    }
+
+    .c2-crest {
+      width: 44px;
+      height: 52px;
+      object-fit: contain;
+      background: transparent;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.25, 1);
+    }
+
+    .c2-brand:hover .c2-crest {
+      transform: rotate(-6deg) scale(1.1);
+    }
+
+    .c2-brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .c2-school-title {
+      font-family: 'Champ', 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ccws-navy);
+      line-height: 1.2;
+    }
+
+    .c2-school-sub {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ccws-crimson);
+      margin-top: 2px;
+    }
+
+    .c2-center-pill {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: var(--ccws-navy);
+      background: rgba(27, 42, 58, 0.05);
+      border: 1.5px solid rgba(27, 42, 58, 0.12);
+      padding: 6px 26px 8px;
+      border-radius: 30px;
+      pointer-events: none;
+      white-space: nowrap;
+      line-height: 1.1;
+    }
+
+    /* ─── KINETIC CURTAINS (WHITE • CRIMSON • NAVY) ─── */
+    .c2-curtains-stage {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      flex: 1;
+      padding-top: 88px;
+    }
+
+    .c2-slice {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(50px, 9vh, 96px) clamp(32px, 4.5vw, 64px);
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 
+        flex 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.6s ease,
+        filter 0.5s ease;
+      will-change: flex;
+    }
+
+    .c2-curtains-stage:hover .c2-slice {
+      flex: 0.8;
+      filter: brightness(0.92);
+    }
+
+    .c2-curtains-stage .c2-slice:hover {
+      flex: 2.3;
+      filter: brightness(1);
+      z-index: 10;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.28);
+    }
+
+    /* ── SLICE 1: WHITE (GUEST / EXPLORER) ── */
+    .c2-slice.slice-white {
+      background: linear-gradient(170deg, #ffffff 0%, #f6f8fb 60%, #e9eef5 100%);
+      color: var(--ccws-navy);
+      border-right: 1.5px solid rgba(27, 42, 58, 0.12);
+    }
+
+    .c2-slice.slice-white .slice-watermark {
+      color: rgba(27, 42, 58, 0.04);
+    }
+    .c2-slice.slice-white:hover .slice-watermark {
+      color: rgba(27, 42, 58, 0.08);
+    }
+
+    .c2-slice.slice-white .slice-title {
+      color: var(--ccws-navy);
+    }
+
+    .c2-slice.slice-white .slice-subtitle {
+      color: var(--ccws-crimson);
+    }
+
+    /* ── SLICE 2: CRIMSON (STUDENT / BELONG) ── */
+    .c2-slice.slice-crimson {
+      background: linear-gradient(170deg, #7b1725 0%, #9b2031 55%, #590c17 100%);
+      color: #ffffff;
+      border-right: 1.5px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .c2-slice.slice-crimson .slice-watermark {
+      color: rgba(255, 255, 255, 0.05);
+    }
+    .c2-slice.slice-crimson:hover .slice-watermark {
+      color: rgba(255, 255, 255, 0.12);
+    }
+
+    .c2-slice.slice-crimson .slice-title {
+      color: #ffffff;
+    }
+
+    .c2-slice.slice-crimson .slice-subtitle {
+      color: var(--ccws-gold-pale);
+    }
+
+    /* ── SLICE 3: NAVY (MENTOR / LEAD) ── */
+    .c2-slice.slice-navy {
+      background: linear-gradient(170deg, #132232 0%, #1c3044 55%, #0c1622 100%);
+      color: #ffffff;
+    }
+
+    .c2-slice.slice-navy .slice-watermark {
+      color: rgba(255, 255, 255, 0.04);
+    }
+    .c2-slice.slice-navy:hover .slice-watermark {
+      color: rgba(255, 255, 255, 0.09);
+    }
+
+    .c2-slice.slice-navy .slice-title {
+      color: #ffffff;
+    }
+
+    .c2-slice.slice-navy .slice-subtitle {
+      color: var(--ccws-gold);
+    }
+
+    /* ── SLICE TYPOGRAPHY & WATERMARKS ── */
+    .slice-watermark {
+      position: absolute;
+      top: 40px;
+      right: -10px;
+      font-family: 'Champ', sans-serif;
+      font-size: clamp(120px, 20vw, 260px);
+      font-weight: 900;
+      line-height: 0.8;
+      pointer-events: none;
+      user-select: none;
+      transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), color 0.85s ease;
+    }
+
+    .c2-slice:hover .slice-watermark {
+      transform: translateY(-20px) scale(1.06);
+    }
+
+    .slice-body {
+      position: relative;
+      z-index: 5;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .c2-slice:hover .slice-body {
+      transform: translateY(-8px);
+    }
+
+    .slice-title {
+      font-family: 'Champ', 'Syne', sans-serif;
+      font-size: clamp(52px, 7.8vw, 114px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: letter-spacing 0.5s ease;
+    }
+
+    .c2-slice:hover .slice-title {
+      letter-spacing: -0.01em;
+    }
+
+    .slice-subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(26px, 3.4vw, 46px);
+      margin-top: 10px;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        height: auto;
+        overflow: auto;
+      }
+      .c2-curtains-stage {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+      }
+      .c2-slice {
+        flex: 1 !important;
+        min-height: 290px;
+        border-right: none;
+        border-bottom: 1.5px solid rgba(27, 42, 58, 0.12);
+      }
+      .c2-center-pill {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Glass Header -->
+  <header class="c2-header">
+    <div class="c2-brand">
+      <img src="images/ccws_badge.png" alt="Cambridge Court World School Crest" class="c2-crest">
+      <div class="c2-brand-text">
+        <span class="c2-school-title">Cambridge Court World School</span>
+        <span class="c2-school-sub">Where Passion Meets Purpose</span>
+      </div>
+    </div>
+
+    <div class="c2-center-pill">
+      Choose Your Journey
+    </div>
+  </header>
+
+  <!-- 3 Kinetic Slices: White • Crimson • Navy -->
+  <main class="c2-curtains-stage">
+
+    <!-- Slice 1: WHITE (GUEST / EXPLORER) -->
+    <a href="explore.html" class="c2-slice slice-white js-explore-trigger">
+      <div class="slice-watermark">01</div>
+      <div class="slice-body">
+        <h1 class="slice-title">EXPLORE</h1>
+        <span class="slice-subtitle">Just Visiting</span>
+      </div>
+    </a>
+
+    <!-- Slice 2: CRIMSON (STUDENT / BELONG) -->
+    <a href="student.html" class="c2-slice slice-crimson js-student-trigger">
+      <div class="slice-watermark">02</div>
+      <div class="slice-body">
+        <h2 class="slice-title">BELONG</h2>
+        <span class="slice-subtitle">Enrolled Student</span>
+      </div>
+    </a>
+
+    <!-- Slice 3: NAVY (FACULTY / LEAD) -->
+    <a href="backend/portal/mentor.html" class="c2-slice slice-navy js-mentor-trigger">
+      <div class="slice-watermark">03</div>
+      <div class="slice-body">
+        <h2 class="slice-title">LEAD</h2>
+        <span class="slice-subtitle">Club Mentor</span>
+      </div>
+    </a>
+
+  </main>
+
+  <script src="kinetic-portal.js"></script>
+</body>
+</html>

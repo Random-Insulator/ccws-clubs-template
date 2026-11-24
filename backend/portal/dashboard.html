@@ -533,7 +533,7 @@
     const clubName   = localStorage.getItem('cc_clubName');
     const mentorName = localStorage.getItem('cc_mentorName');
 
-    if (!token || !clubId) { window.location.href = 'login.html'; }
+    if (!token || !clubId) { window.location.href = 'mentor.html'; }
 
     document.getElementById('headerMentor').textContent = mentorName + ' · ';
     document.getElementById('headerClub').textContent   = clubName + ' Club';
@@ -545,7 +545,7 @@
     // ── Logout ──────────────────────────────────────────────────────
     document.getElementById('logoutBtn').addEventListener('click', () => {
       localStorage.clear();
-      window.location.href = 'login.html';
+      window.location.href = 'mentor.html';
     });
 
     // ── File / crop logic ───────────────────────────────────────────

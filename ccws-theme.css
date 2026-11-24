@@ -1,0 +1,116 @@
+/* ═══════════════════════════════════════════════════════════════════
+   CAMBRIDGE COURT WORLD SCHOOL — UNIFIED ACADEMIC COLOR SCHEME
+   Primary: Oxford Navy (#1b2a3a) & Regal Crimson (#8b1d2c)
+   Accents: Warm Gold (#d4af37) & Crisp White (#ffffff)
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ccws-navy: #1b2a3a;
+  --ccws-navy-deep: #0f1c29;
+  --ccws-navy-light: #25394e;
+  --ccws-crimson: #8b1d2c;
+  --ccws-crimson-deep: #68111d;
+  --ccws-crimson-light: #a82739;
+  --ccws-gold: #d4af37;
+  --ccws-gold-pale: #f7eed8;
+  --ccws-white: #ffffff;
+  --ccws-bg: #f8fafc;
+}
+
+html {
+  background: var(--ccws-bg) !important;
+}
+
+body {
+  background: var(--ccws-bg) !important;
+  color: #1a1a1a !important;
+}
+
+body::after {
+  background: radial-gradient(circle at 50% 0%, rgba(27, 42, 58, 0.08) 0%, transparent 100%) !important;
+}
+
+/* Nav */
+nav {
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-bottom: 1.5px solid rgba(27, 42, 58, 0.1) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+.nav-logo {
+  color: var(--ccws-navy) !important;
+}
+
+.nav-links a {
+  color: #4b5563 !important;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: var(--ccws-crimson) !important;
+  background: rgba(139, 29, 44, 0.06) !important;
+}
+
+.nav-chat-btn {
+  background: var(--ccws-navy) !important;
+}
+.nav-chat-btn:hover {
+  background: var(--ccws-crimson) !important;
+}
+
+/* Hero Bands */
+.hero-band {
+  background: var(--ccws-bg) !important;
+}
+
+.band-1::before {
+  background: linear-gradient(135deg, #0f1c29 0%, #1b2a3a 100%) !important;
+}
+
+.band-2::before {
+  background: linear-gradient(135deg, #1b2a3a 0%, #25394e 100%) !important;
+}
+
+.band-3::before {
+  background: linear-gradient(135deg, #8b1d2c 0%, #a82739 100%) !important;
+}
+
+.band-4::before {
+  background: linear-gradient(135deg, #162433 0%, #0f1c29 100%) !important;
+}
+
+.hero-cta {
+  background: var(--ccws-crimson) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 18px rgba(139, 29, 44, 0.35) !important;
+}
+
+.hero-cta:hover {
+  background: var(--ccws-crimson-light) !important;
+  box-shadow: 0 8px 25px rgba(139, 29, 44, 0.45) !important;
+}
+
+/* Clubs List Cards / Rows */
+.club-tag {
+  background: rgba(139, 29, 44, 0.08) !important;
+  color: var(--ccws-crimson) !important;
+}
+
+.club-btn {
+  background: var(--ccws-navy) !important;
+  color: #ffffff !important;
+}
+
+.club-btn:hover {
+  background: var(--ccws-crimson) !important;
+}
+
+.club-name {
+  color: var(--ccws-navy) !important;
+}
+
+/* Footer & Back buttons */
+.footer-links a:hover {
+  color: var(--ccws-crimson) !important;
+}

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Member Portal — Cambridge Court World School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Syne:wght@600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="images/favicon.jpg" type="image/jpeg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ccws-navy: #1b2a3a;
+      --ccws-navy-deep: #0f1c29;
+      --ccws-navy-light: #25394e;
+      --ccws-crimson: #8b1d2c;
+      --ccws-crimson-deep: #68111d;
+      --ccws-crimson-light: #a82739;
+      --ccws-gold: #d4af37;
+      --ccws-gold-pale: #f7eed8;
+      --ccws-white: #ffffff;
+      --ccws-bg: #f8fafc;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--ccws-navy-deep);
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+    }
+
+    /* ─── LEFT HERO PANEL ─── */
+    .left-panel {
+      flex: 1.1;
+      background: linear-gradient(155deg, #0b1520 0%, #162433 45%, #7a1725 100%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(36px, 6vw, 64px);
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .brand-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .brand-crest {
+      width: 44px;
+      height: 52px;
+      object-fit: contain;
+    }
+
+    .brand-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ccws-gold);
+    }
+
+    .hero-center {
+      position: relative;
+      z-index: 2;
+      max-width: 480px;
+      margin: 40px 0;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(212, 175, 55, 0.18);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--ccws-gold-pale);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ccws-gold);
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 4.5vw, 54px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      font-family: 'Caveat', cursive;
+      color: var(--ccws-gold-pale);
+      font-weight: 700;
+      font-size: 1.15em;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .hero-watermark {
+      position: absolute;
+      right: -30px;
+      bottom: -30px;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(140px, 20vw, 260px);
+      font-weight: 900;
+      line-height: 0.8;
+      color: rgba(255, 255, 255, 0.03);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: color 0.2s, transform 0.2s;
+      width: fit-content;
+      position: relative;
+      z-index: 2;
+    }
+
+    .back-home:hover {
+      color: #ffffff;
+      transform: translateX(-4px);
+    }
+
+    /* ─── RIGHT FORM PANEL ─── */
+    .right-panel {
+      flex: 1;
+      background: var(--ccws-bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(36px, 6vw, 64px);
+      overflow-y: auto;
+    }
+
+    .form-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: clamp(30px, 4vw, 44px);
+      box-shadow: 0 18px 48px rgba(15, 28, 41, 0.08);
+      border: 1px solid rgba(27, 42, 58, 0.08);
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 28px;
+      gap: 12px;
+    }
+
+    .tab-btn {
+      padding: 10px 4px 14px;
+      border: none;
+      background: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #64748b;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .tab-btn.active {
+      color: var(--ccws-crimson);
+    }
+
+    .tab-btn.active::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--ccws-crimson);
+      border-radius: 3px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ccws-navy);
+      margin-bottom: 8px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14.5px;
+      color: #0f172a;
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--ccws-crimson);
+      box-shadow: 0 0 0 4px rgba(139, 29, 44, 0.12);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 14px;
+      background: var(--ccws-crimson);
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 8px 20px rgba(139, 29, 44, 0.25);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--ccws-crimson-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(139, 29, 44, 0.35);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--ccws-navy-deep);
+      color: #ffffff;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.35);
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 900px) {
+      body { flex-direction: column; overflow-y: auto; }
+      .left-panel { min-height: 380px; flex: none; }
+      .right-panel { flex: none; padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left Hero Panel -->
+  <aside class="left-panel">
+    <a href="start.html" class="brand-top">
+      <img src="images/ccws_badge.png" alt="CCWS Crest" class="brand-crest" />
+      <div>
+        <div class="brand-title">Cambridge Court World School</div>
+        <div class="brand-sub">Scholar Space</div>
+      </div>
+    </a>
+
+    <div class="hero-center">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Active Scholars Hub
+      </div>
+      <h1 class="hero-title">BELONG to something <span>greater.</span></h1>
+      <p class="hero-desc">Access your club attendance, project repositories, showcase credentials, and connect directly with your faculty club mentors.</p>
+    </div>
+
+    <a href="start.html" class="back-home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Return to Selection Portal
+    </a>
+
+    <div class="hero-watermark">02</div>
+  </aside>
+
+  <!-- Right Form Panel -->
+  <main class="right-panel">
+    <div class="form-card">
+      <div class="tabs">
+        <button class="tab-btn active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
+        <button class="tab-btn" id="tabRequest" onclick="switchTab('request')">Request Account from Mentor</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="formLogin" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Student ID or School Email</label>
+          <input type="text" class="form-input" placeholder="e.g. CCWS-2026-884" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Passcode</label>
+          <input type="password" class="form-input" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn-submit">Enter Student Space →</button>
+      </form>
+
+      <!-- Request Account Form -->
+      <form id="formRequest" onsubmit="handleRequest(event)" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" id="reqName" placeholder="e.g. Aarav Sharma" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Grade & Section</label>
+          <input type="text" class="form-input" placeholder="e.g. Grade 9-B" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Select Club</label>
+          <select class="form-select" id="reqClub" required>
+            <option value="Robotics Club">Robotics Club</option>
+            <option value="TedEd Club">TedEd Club</option>
+            <option value="Science Club">Science Club</option>
+            <option value="Theatre Club">Theatre Club</option>
+            <option value="Eco Club">Eco Club</option>
+            <option value="Cookery Club">Cookery Club</option>
+            <option value="Literary Club">Literary Club</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Note for Club Mentor (Optional)</label>
+          <input type="text" class="form-input" placeholder="What inspires you to join?" />
+        </div>
+        <button type="submit" class="btn-submit">Send Request to Club Mentor →</button>
+      </form>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function switchTab(mode) {
+      const isLogin = mode === 'login';
+      document.getElementById('tabLogin').classList.toggle('active', isLogin);
+      document.getElementById('tabRequest').classList.toggle('active', !isLogin);
+      document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
+      document.getElementById('formRequest').style.display = isLogin ? 'none' : 'block';
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      showToast('Welcome back, Scholar! Connecting to Member Dashboard...');
+    }
+
+    function handleRequest(e) {
+      e.preventDefault();
+      const name = document.getElementById('reqName').value || 'Student';
+      const club = document.getElementById('reqClub').value || 'Club';
+      showToast(`Account request sent to ${club} Mentor for ${name}!`);
+      document.getElementById('formRequest').reset();
+    }
+  </script>
+</body>
+</html>

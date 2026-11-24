@@ -7,10 +7,10 @@
   },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.js" },
-    { "source": "/portal", "destination": "/backend/portal/login.html" },
-    { "source": "/portal/", "destination": "/backend/portal/login.html" },
+    { "source": "/portal", "destination": "/backend/portal/mentor.html" },
+    { "source": "/portal/", "destination": "/backend/portal/mentor.html" },
     { "source": "/portal/(.*)", "destination": "/backend/portal/$1" },
     { "source": "/admin", "destination": "/backend/portal/admin.html" },
-    { "source": "/login", "destination": "/backend/portal/login.html" }
+    { "source": "/login", "destination": "/backend/portal/mentor.html" }
   ]
 }

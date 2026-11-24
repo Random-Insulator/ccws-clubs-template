@@ -89,7 +89,7 @@
 
   // Detect if we are in a subdirectory (club page) vs root (index)
   const _pathDepth = window.location.pathname.split('/').filter(Boolean).length;
-  const _isSubPage = _pathDepth > 1 || (window.location.protocol === 'file:' && window.location.href.includes('/cambridge_clubs/') && !window.location.href.endsWith('/cambridge_clubs/index.html') && !window.location.href.endsWith('/cambridge_clubs/'));
+  const _isSubPage = _pathDepth > 1 || (window.location.protocol === 'file:' && window.location.href.includes('/cambridge_clubs/') && !window.location.href.endsWith('/cambridge_clubs/explore.html') && !window.location.href.endsWith('/cambridge_clubs/'));
   const _prefix = _isSubPage ? '../' : '';
 
   // ─── Scroll-triggered fade-in ──────────────────────────
@@ -154,7 +154,7 @@
     // ── Update Nav Links ──
     const navLinksContainer = document.querySelector('.nav-links');
     if (navLinksContainer) {
-      let navHtml = `<a class="${!_isSubPage ? 'active' : ''}" href="${_prefix}index.html">Home</a><div class="nav-divider"></div>`;
+      let navHtml = `<a class="${!_isSubPage ? 'active' : ''}" href="${_prefix}explore.html">Home</a><div class="nav-divider"></div>`;
       activeClubs.forEach(c => {
         const clubLink = c.link ? (_prefix + c.link) : '#';
         const isCurrent = _isSubPage && (

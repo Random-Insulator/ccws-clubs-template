@@ -1,0 +1,79 @@
+/* ═══════════════════════════════════════════════════════════════════
+   CAMBRIDGE COURT WORLD SCHOOL — UNIFIED PORTAL THEME OVERRIDES
+   Navy (#1b2a3a) & Crimson (#8b1d2c) with Warm Gold (#d4af37)
+   ═══════════════════════════════════════════════════════════════════ */
+
+body.login-mode, body {
+  background: #0f1c29 !important;
+}
+
+.left-panel {
+  background: linear-gradient(155deg, #0b1520 0%, #162433 45%, #7a1725 100%) !important;
+}
+
+.right-panel {
+  background: #f8fafc !important;
+}
+
+.brand-text h1, .brand-text-admin h1, .brand-title {
+  color: #ffffff !important;
+}
+
+.brand-text span, .brand-text-admin span, .brand-sub {
+  color: #d4af37 !important;
+}
+
+.badge, .role-badge {
+  background: rgba(212, 175, 55, 0.16) !important;
+  border-color: rgba(212, 175, 55, 0.4) !important;
+  color: #f7eed8 !important;
+}
+
+.badge-dot {
+  background: #d4af37 !important;
+}
+
+.form-input:focus, .form-select:focus, input:focus, select:focus {
+  border-color: #8b1d2c !important;
+  box-shadow: 0 0 0 4px rgba(139, 29, 44, 0.12) !important;
+}
+
+.btn-primary, .submit-btn, button[type="submit"] {
+  background: #8b1d2c !important;
+  box-shadow: 0 8px 24px rgba(139, 29, 44, 0.28) !important;
+}
+
+.btn-primary:hover, .submit-btn:hover, button[type="submit"]:hover {
+  background: #a82739 !important;
+}
+
+.club-card.selected {
+  border-color: #8b1d2c !important;
+  background: rgba(139, 29, 44, 0.05) !important;
+}
+
+.step-indicator.active {
+  background: #8b1d2c !important;
+  color: #ffffff !important;
+}
+
+.nav-link.active, .tab-btn.active {
+  color: #8b1d2c !important;
+}
+
+/* Admin Specific */
+.admin-badge {
+  background: rgba(139, 29, 44, 0.2) !important;
+  border-color: rgba(139, 29, 44, 0.45) !important;
+  color: #fca5a5 !important;
+}
+
+.stat-card {
+  border-top: 3px solid #1b2a3a !important;
+}
+.stat-card:nth-child(2) {
+  border-top-color: #8b1d2c !important;
+}
+.stat-card:nth-child(3) {
+  border-top-color: #d4af37 !important;
+}
