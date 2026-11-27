@@ -5,53 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mentor Dashboard — CambridgeClubs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Caveat:wght@700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="portal-theme.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
-      background: #f6bb69;
+      background: #F8FAFC;
     }
 
     body {
       min-height: 100vh;
-      background: #f6bb69;
-      font-family: 'DM Sans', sans-serif;
-      color: #1a1a1a;
+      background: #F8FAFC;
+      font-family: 'Inter', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #0F172A;
       position: relative;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* Watermark logo background aligned with main website */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 45vw;
-      height: 45vw;
-      max-width: 550px;
-      max-height: 550px;
-      background-image: url('../images/favicon.jpg');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.12;
-      pointer-events: none;
-      z-index: -1;
-      mix-blend-mode: multiply;
-    }
-
+    body::before,
     body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.45) 0%, transparent 100%);
-      pointer-events: none;
-      z-index: -2;
+      display: none;
     }
 
     /* ── Header ─────────────────────────── */
@@ -59,10 +35,8 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: #c17d1771;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+      border-bottom: 1px solid #E2E8F0;
       padding: 0 32px;
       height: 60px;
       display: flex;
@@ -70,158 +44,146 @@
       justify-content: space-between;
     }
     .logo {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #000;
+      font-family: 'Inter', 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0F172A;
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .logo span { color: #e02020; }
+    .logo span { color: #8b1d2c; }
     .logo .cool-clubs {
-      font-family: 'Caveat', cursive;
-      font-size: 1.35em;
-      background: linear-gradient(135deg, #e02020, #ff8a00);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      padding-left: 2px;
-    }
-    .header-right { display: flex; align-items: center; gap: 16px; }
-    .mentor-badge {
-      background: rgba(255, 255, 255, 0.7);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 20px;
-      padding: 6px 14px;
+      font-family: 'Inter', 'DM Sans', sans-serif;
       font-size: 0.82rem;
-      color: #5A390C;
+      font-weight: 500;
+      color: #64748B;
+      padding-left: 4px;
+    }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .mentor-badge {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 7px;
+      padding: 5px 11px;
+      font-size: 0.8rem;
+      color: #334155;
       font-weight: 500;
     }
-    .mentor-badge strong { color: #2D1D05; margin-right: 4px; font-weight: 700; }
+    .mentor-badge strong { color: #0F172A; margin-right: 4px; font-weight: 600; }
     .logout-btn {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(90, 57, 12, 0.2);
-      border-radius: 20px;
-      padding: 6px 16px;
-      color: #5A390C;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
+      background: #ffffff;
+      border: 1px solid #E2E8F0;
+      border-radius: 7px;
+      padding: 6px 12px;
+      color: #334155;
+      font-family: 'Inter', 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.14s ease;
     }
-    .logout-btn:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
+    .logout-btn:hover { background: #FEF2F2; color: #991B1B; border-color: #FECACA; }
 
     /* ── Main layout ─────────────────────── */
-    main { max-width: 1150px; margin: 0 auto; padding: 36px 24px; display: grid; grid-template-columns: 380px 1fr; gap: 28px; }
+    main { max-width: 1150px; margin: 0 auto; padding: 24px; display: block; }
     @media (max-width: 800px) {
-      main { grid-template-columns: 1fr; }
-      header { padding: 0 16px; height: 52px; }
+      header { padding: 0 16px; height: 54px; }
     }
 
     @media (max-width: 640px) {
-      header { height: 50px; padding: 0 14px; }
-      .header-logo { font-size: 0.95rem; }
-      .header-logo img { width: 24px; height: 24px; }
-      main { padding: 20px 14px; gap: 20px; }
-      .upload-card { padding: 20px; }
-      .upload-area { padding: 28px 16px; }
-      .activity-item { flex-direction: column; gap: 10px; }
-      .activity-thumb, .activity-thumb-ph { width: 100%; height: 140px; border-radius: 10px; }
-      .delete-btn { align-self: flex-start; }
+      header { height: 52px; padding: 0 14px; }
+      main { padding: 16px 14px; }
     }
 
     /* ── Cards ──────────────────────────── */
     .card {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      border-radius: 20px;
-      padding: 28px;
-      box-shadow: 0 12px 40px rgba(90, 57, 12, 0.12);
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 2px 10px rgba(15, 28, 41, 0.04);
     }
     .card-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: #2D1D05;
-      margin-bottom: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1b2a3a;
+      margin-bottom: 18px;
       display: flex;
       align-items: center;
       gap: 10px;
+      letter-spacing: -0.01em;
     }
-    .card-title svg { width: 20px; height: 20px; color: #5A390C; }
+    .card-title svg { width: 19px; height: 19px; color: #1b2a3a; }
 
     /* ── Form ────────────────────────────── */
-    label { display: block; font-size: 0.78rem; font-weight: 700; color: #5A390C; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; margin-top: 14px; }
+    label { display: block; font-size: 0.76rem; font-weight: 500; color: #334155; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; margin-top: 14px; }
     label:first-of-type { margin-top: 0; }
     input[type="text"], input[type="date"], select, textarea {
-      width: 100%; padding: 11px 13px;
-      background: rgba(248, 243, 237, 0.95); border: 1px solid rgba(90, 57, 12, 0.18);
-      border-radius: 12px; color: #2D1D05;
-      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%; padding: 10px 13px;
+      background: #ffffff; border: 1.5px solid #cbd5e1;
+      border-radius: 10px; color: #0f172a;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 400; outline: none;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease;
     }
-    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235A390C' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
-    select option { background: #FFFDFB; color: #2D1D05; }
-    input:focus, select:focus, textarea:focus { border-color: #5A390C; box-shadow: 0 0 0 3px rgba(193, 125, 23, 0.25); }
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231b2a3a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+    select option { background: #ffffff; color: #0f172a; }
+    input:focus, select:focus, textarea:focus { border-color: #8b1d2c; box-shadow: 0 0 0 3px rgba(139, 29, 44, 0.12); }
     textarea { resize: vertical; min-height: 80px; }
 
     /* File drop zone */
     .file-zone {
       margin-top: 14px;
-      border: 2px dashed rgba(90, 57, 12, 0.25);
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 14px;
-      padding: 24px;
+      border: 2px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 22px;
       text-align: center;
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 0.15s ease, background 0.15s ease;
       position: relative;
     }
-    .file-zone:hover, .file-zone.drag-over { border-color: #5A390C; background: rgba(193, 125, 23, 0.08); }
+    .file-zone:hover, .file-zone.drag-over { border-color: #1b2a3a; background: #edf1f6; }
     .file-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-    .file-zone-icon { font-size: 2.2rem; margin-bottom: 6px; }
-    .file-zone-text { font-size: 0.88rem; color: #6B4219; font-weight: 500; }
-    .file-zone-name { font-size: 0.85rem; color: #5A390C; margin-top: 6px; font-weight: 700; }
+    .file-zone-icon { font-size: 2rem; margin-bottom: 6px; }
+    .file-zone-text { font-size: 0.88rem; color: #475569; font-weight: 600; }
+    .file-zone-name { font-size: 0.85rem; color: #1b2a3a; margin-top: 6px; font-weight: 700; }
 
     /* Preview image */
-    #imgPreview { display: none; width: 100%; height: 160px; object-fit: cover; border-radius: 12px; margin-top: 12px; border: 1px solid rgba(90, 57, 12, 0.15); }
+    #imgPreview { display: none; width: 100%; height: 160px; object-fit: cover; border-radius: 10px; margin-top: 12px; border: 1px solid #cbd5e1; }
 
     /* ── Crop modal ──────────────────────────── */
     #cropModal {
       display: none;
       position: fixed; inset: 0; z-index: 9999;
-      background: rgba(45, 29, 5, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(15, 28, 41, 0.82);
       align-items: center; justify-content: center;
     }
     #cropModal.open { display: flex; }
 
     .crop-box {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      border-radius: 24px;
-      padding: 28px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 24px;
       width: min(760px, 96vw);
-      display: flex; flex-direction: column; gap: 18px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      display: flex; flex-direction: column; gap: 16px;
+      box-shadow: 0 20px 50px rgba(15, 28, 41, 0.25);
     }
     .crop-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.1rem; font-weight: 800; color: #2D1D05;
+      font-family: 'Inter', 'DM Sans', sans-serif;
+      font-size: 1.05rem; font-weight: 600; color: #0F172A;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .crop-title small { font-size: 0.78rem; color: #6B4219; font-weight: 400; font-family: 'DM Sans', sans-serif; }
+    .crop-title small { font-size: 0.78rem; color: #475569; font-weight: 500; font-family: 'DM Sans', sans-serif; }
 
     #cropStage {
       position: relative;
       width: 100%; aspect-ratio: 16/10;
-      background: #111;
-      border-radius: 14px;
+      background: #0f1c29;
+      border-radius: 12px;
       overflow: hidden;
       cursor: grab;
       touch-action: none;
@@ -234,8 +196,8 @@
     }
     #cropFrame {
       position: absolute; inset: 0;
-      border: 2px solid #5A390C;
-      border-radius: 14px;
+      border: 2px solid #ffffff;
+      border-radius: 12px;
       pointer-events: none;
       box-shadow: 0 0 0 9999px rgba(0,0,0,0.45);
     }
@@ -253,53 +215,46 @@
     .crop-controls {
       display: flex; align-items: center; gap: 14px;
     }
-    .crop-controls label { margin: 0; font-size: 0.78rem; color: #5A390C; white-space: nowrap; text-transform: none; letter-spacing: 0; }
+    .crop-controls label { margin: 0; font-size: 0.78rem; color: #1b2a3a; white-space: nowrap; text-transform: none; letter-spacing: 0; }
     #zoomSlider {
       flex: 1; appearance: none; height: 6px;
-      background: rgba(90, 57, 12, 0.15); border-radius: 3px; outline: none;
+      background: #e2e8f0; border-radius: 3px; outline: none;
       cursor: pointer;
     }
     #zoomSlider::-webkit-slider-thumb {
       appearance: none; width: 18px; height: 18px;
-      border-radius: 50%; background: #5A390C; cursor: pointer;
+      border-radius: 50%; background: #8b1d2c; cursor: pointer;
     }
-    #zoomVal { font-size: 0.82rem; color: #5A390C; font-weight: 700; width: 36px; text-align: right; }
+    #zoomVal { font-size: 0.82rem; color: #1b2a3a; font-weight: 700; width: 36px; text-align: right; }
     .crop-actions { display: flex; gap: 12px; }
     .crop-cancel {
       flex: 1; padding: 12px;
-      background: rgba(248, 243, 237, 0.9); border: 1px solid rgba(90, 57, 12, 0.2);
-      border-radius: 12px; color: #5A390C;
-      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer;
-      transition: background 0.2s;
+      background: #ffffff; border: 1.5px solid #cbd5e1;
+      border-radius: 10px; color: #1b2a3a;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+      transition: background 0.14s ease;
     }
-    .crop-cancel:hover { background: rgba(90, 57, 12, 0.08); }
+    .crop-cancel:hover { background: #f1f5f9; }
     .crop-confirm {
       flex: 2; padding: 12px;
-      background: linear-gradient(135deg, #5A390C, #2D1D05);
-      border: none; border-radius: 12px;
-      color: #F8F3ED; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
-      cursor: pointer; transition: opacity 0.2s;
+      background: #8b1d2c;
+      border: none; border-radius: 10px;
+      color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; transition: background 0.14s ease;
     }
-    .crop-confirm:hover { opacity: 0.9; }
+    .crop-confirm:hover { background: #a12334; }
 
     .submit-btn {
-      width: 100%; margin-top: 20px;
-      padding: 14px; background: linear-gradient(135deg, #5A390C, #2D1D05);
-      border: none; border-radius: 12px;
-      color: #F8F3ED; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700;
-      cursor: pointer; position: relative; overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      box-shadow: 0 4px 18px rgba(45, 29, 5, 0.28);
+      width: 100%; margin-top: 18px;
+      padding: 13px; background: #8b1d2c;
+      border: none; border-radius: 10px;
+      color: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer;
+      transition: background 0.14s ease, transform 0.14s cubic-bezier(0.2, 0.9, 0.25, 1);
     }
-    .submit-btn::before {
-      content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-      animation: shine 3s infinite;
-    }
-    @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
-    .submit-btn:hover { background: linear-gradient(135deg, #6B4219, #422A08); transform: translateY(-2px) scale(1.01); box-shadow: 0 8px 25px rgba(90, 57, 12, 0.4); }
-    .submit-btn:active { transform: scale(0.98); }
-    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+    .submit-btn:hover { background: #a12334; transform: translateY(-1px); }
+    .submit-btn:active { transform: scale(0.985); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
     /* Status message */
     .status-msg {
@@ -307,56 +262,1251 @@
       margin-top: 14px; padding: 11px 14px;
       border-radius: 10px; font-size: 0.88rem; font-weight: 600;
     }
-    .status-msg.success { display: block; color: #166534; background: rgba(220, 252, 231, 0.9); border: 1px solid #86efac; }
-    .status-msg.error   { display: block; color: #991b1b; background: rgba(254, 226, 226, 0.9); border: 1px solid #fca5a5; }
+    .status-msg.success { display: block; color: #065f46; background: #ecfdf5; border: 1px solid #6ee7b7; }
+    .status-msg.error   { display: block; color: #991b1b; background: #fef2f2; border: 1px solid #fca5a5; }
 
-    /* ── Activities list ─────────────────── */
-    .activities-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-    .activities-header h2 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: #2D1D05; }
-    .activities-count { font-size: 0.85rem; color: #6B4219; font-weight: 600; }
-
-    .activity-item {
-      display: flex; gap: 14px; align-items: flex-start;
-      padding: 16px; background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 16px rgba(90, 57, 12, 0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      animation: fadeIn 0.3s ease;
+    /* ── Activities & Gallery: SaaS Listing ─────────────────── */
+    .act-panel {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-top: 2.5px solid #8B1D2C;
+      border-radius: 10px;
+      overflow: hidden;
     }
-    .activity-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(90, 57, 12, 0.15); }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .act-panel-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: #FFFFFF;
+    }
+    .act-toolbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .act-search-wrap {
+      position: relative;
+      min-width: 210px;
+    }
+    .act-search-wrap svg {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      color: #94A3B8;
+      pointer-events: none;
+    }
+    #activitiesMain .act-search-input {
+      width: 100%;
+      padding: 7px 12px 7px 34px;
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: #0F172A;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 7px;
+      outline: none;
+    }
+    #activitiesMain .act-filter-select {
+      width: auto;
+      min-width: 145px;
+      padding: 7px 30px 7px 11px;
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: #334155;
+      background-color: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 7px;
+      outline: none;
+      cursor: pointer;
+    }
+    #activitiesMain input:focus,
+    #activitiesMain select:focus,
+    #uploadActivityDrawer input:focus,
+    #uploadActivityDrawer select:focus,
+    #uploadActivityDrawer textarea:focus {
+      border-color: #1E293B !important;
+      box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.08) !important;
+    }
+    .act-btn-create,
+    #uploadActivityDrawer button[type="submit"].act-btn-create {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #1E293B;
+      background: #1E293B !important;
+      color: #FFFFFF !important;
+      font-family: 'Inter', 'DM Sans', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: background 0.14s ease, border-color 0.14s ease, transform 0.12s ease;
+    }
+    .act-btn-create:hover {
+      background: #0F172A !important;
+      border-color: #0F172A !important;
+      transform: translateY(-1px);
+    }
+    #uploadActivityDrawer {
+      border-top: 2.5px solid #8B1D2C;
+    }
+    #uploadActivityDrawer button[type="submit"].act-btn-create {
+      background: #8B1D2C !important;
+      border-color: #8B1D2C !important;
+    }
+    #uploadActivityDrawer button[type="submit"].act-btn-create:hover {
+      background: #A12334 !important;
+      border-color: #A12334 !important;
+    }
+    #uploadActivityDrawer .file-zone {
+      padding: 18px 16px;
+      margin-top: 8px;
+      border: 1.5px dashed #CBD5E1;
+      background: #FAFAFA;
+    }
+    #uploadActivityDrawer .file-zone:hover,
+    #uploadActivityDrawer .file-zone.drag-over {
+      border-color: #8B1D2C;
+      background: #FEF9FA;
+    }
+    .upload-graphic-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: #FDF2F4;
+      border: 1px solid #F4D0D6;
+      color: #8B1D2C;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
+    .upload-graphic-circle svg {
+      width: 19px;
+      height: 19px;
+    }
+    .act-btn-create:disabled,
+    #uploadActivityDrawer button[type="submit"].act-btn-create:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
 
-    .activity-thumb {
-      width: 76px; height: 76px; border-radius: 12px; object-fit: cover;
-      background: #f8f3ed; border: 1px solid rgba(90, 57, 12, 0.15);
+    .activity-row {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      padding: 18px 24px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      transition: background 0.12s ease;
+    }
+    .activity-row:last-child { border-bottom: none; }
+    .activity-row:hover { background: #FEF9FA; }
+
+    .act-thumb-wrap {
+      position: relative;
+      width: 108px;
+      height: 76px;
       flex-shrink: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #E2E8F0;
+      background: #F1F5F9;
+      cursor: zoom-in;
+      transition: border-color 0.14s ease;
+    }
+    .act-thumb-wrap:hover { border-color: #E5B8BF; }
+    .act-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+    .act-thumb-wrap:hover .act-thumb-img { transform: scale(1.03); }
+    .act-thumb-count {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background: rgba(15, 23, 42, 0.72);
+      color: #FFFFFF;
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 5px;
+      line-height: 1.2;
+      pointer-events: none;
     }
     .activity-thumb-ph {
-      width: 76px; height: 76px; border-radius: 12px;
-      background: #f8f3ed; border: 1px solid rgba(90, 57, 12, 0.15);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; color: #6B4219;
+      width: 108px;
+      height: 76px;
+      border-radius: 8px;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #64748B;
     }
     .activity-body { flex: 1; min-width: 0; }
-    .activity-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: #2D1D05; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .activity-meta  { font-size: 0.8rem; color: #6B4219; margin-bottom: 6px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-    .activity-tag   { background: rgba(90, 57, 12, 0.12); color: #5A390C; border-radius: 6px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700; }
-    .activity-desc  { font-size: 0.85rem; color: #422A08; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-    .delete-btn {
-      background: rgba(254, 226, 226, 0.8); border: 1px solid #fca5a5; cursor: pointer;
-      color: #dc2626; padding: 6px 8px; border-radius: 8px;
-      transition: all 0.2s ease; flex-shrink: 0;
+    .act-title-line {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-    .delete-btn:hover { background: #dc2626; color: #fff; }
-    .delete-btn svg { width: 16px; height: 16px; }
+    .activity-title {
+      font-family: 'Inter', 'DM Sans', sans-serif;
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: #0F172A;
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+    }
+    .act-date {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: #64748B;
+      white-space: nowrap;
+    }
+    .act-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .act-pill-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: #F1F5F9;
+      color: #475569;
+      border: 1px solid #E2E8F0;
+    }
+    .act-pill-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 500;
+    }
+    .act-pill-status.approved {
+      background: #ECFDF5;
+      color: #166534;
+      border: 1px solid #BBF7D0;
+    }
+    .act-pill-status.pending {
+      background: #FFFBEB;
+      color: #92400E;
+      border: 1px solid #FDE68A;
+    }
+    .act-pill-status.removal {
+      background: #FEF2F2;
+      color: #991B1B;
+      border: 1px solid #FECACA;
+    }
+    .activity-desc {
+      font-size: 0.83rem;
+      font-weight: 400;
+      color: #64748B;
+      line-height: 1.48;
+      margin-top: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
 
-    .empty-state { text-align: center; padding: 48px 24px; color: #6B4219; font-size: 0.95rem; font-weight: 500; }
-    .empty-state svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.4; display: block; margin-inline: auto; color: #5A390C; }
+    .act-row-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      opacity: 0.45;
+      transition: opacity 0.14s ease;
+    }
+    .activity-row:hover .act-row-actions,
+    .act-row-actions:focus-within {
+      opacity: 1;
+    }
+    .delete-btn {
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      color: #64748B;
+      border-radius: 7px;
+      transition: all 0.14s ease;
+      flex-shrink: 0;
+    }
+    .delete-btn:hover:not(:disabled) {
+      background: #FEF2F2;
+      color: #DC2626;
+      border-color: #FECACA;
+    }
+    .delete-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .delete-btn svg { width: 15px; height: 15px; }
 
-    .loading { text-align: center; padding: 32px; color: #6B4219; font-size: 0.9rem; font-weight: 500; }
+    @media (max-width: 640px) {
+      .activity-row { align-items: flex-start; flex-wrap: wrap; padding: 16px; }
+      .act-thumb-wrap, .activity-thumb-ph { width: 88px; height: 64px; }
+      .act-row-actions { opacity: 1; margin-left: auto; }
+    }
+
+    .empty-state { text-align: center; padding: 48px 24px; color: #64748B; font-size: 0.88rem; font-weight: 400; }
+    .empty-state svg { width: 42px; height: 42px; margin-bottom: 10px; opacity: 0.38; display: block; margin-inline: auto; color: #475569; }
+
+    .loading { text-align: center; padding: 36px; color: #64748B; font-size: 0.86rem; font-weight: 400; }
+
+    /* ── Top-Left Underline Navigation Tabs ─────────────────── */
+    .dash-tabs-bar {
+      max-width: 1150px;
+      margin: 18px auto 0;
+      padding: 0 24px;
+      display: flex;
+      gap: 24px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .dash-tab-btn {
+      padding: 10px 2px 12px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      background: transparent;
+      color: #64748B;
+      font-family: 'Inter', 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.14s ease, border-color 0.14s ease;
+    }
+    .dash-tab-btn:hover {
+      color: #0F172A;
+    }
+    .dash-tab-btn.is-active {
+      color: #0F172A;
+      font-weight: 600;
+      border-bottom-color: #8B1D2C;
+    }
+    .dash-section-anim {
+      animation: dashSnap 0.24s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+    }
+    @keyframes dashSnap {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* ── Members Directory: Linear/Stripe SaaS UI ── */
+    #membersMain {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 24px;
+      display: none;
+    }
+    .saas-panel {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-top: 2.5px solid #8b1d2c;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .saas-panel-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: #ffffff;
+    }
+    .saas-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .saas-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .saas-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: -0.015em;
+      margin: 0;
+    }
+    .saas-subtitle {
+      font-size: 0.82rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+    .saas-count-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: #fdf2f4;
+      color: #8b1d2c;
+      border: 1px solid #f4d0d6;
+      font-variant-numeric: tabular-nums;
+    }
+    .saas-btn-primary,
+    #addMemberDrawer button[type="submit"].saas-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #18181b;
+      background: #18181b !important;
+      color: #ffffff !important;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: background 0.14s ease, border-color 0.14s ease, transform 0.12s ease;
+    }
+    .saas-btn-primary:hover,
+    #addMemberDrawer button[type="submit"].saas-btn-primary:hover {
+      background: #27272a !important;
+      border-color: #27272a !important;
+      transform: translateY(-1px);
+    }
+    .saas-btn-primary:active { transform: translateY(0); }
+    .saas-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #334155;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.14s ease, border-color 0.14s ease;
+    }
+    .saas-btn-secondary:hover { background: #f8fafc; border-color: #cbd5e1; }
+    .saas-btn-danger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #dc2626;
+      background: #dc2626;
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.84rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.14s ease, border-color 0.14s ease;
+    }
+    .saas-btn-danger:hover { background: #b91c1c; border-color: #b91c1c; }
+
+    /* Toolbar */
+    .saas-toolbar {
+      padding: 12px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .saas-search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 220px;
+      max-width: 360px;
+    }
+    .saas-search-wrap svg {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+    #membersMain .saas-search-input {
+      width: 100%;
+      padding: 7px 12px 7px 34px;
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: #0f172a;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      outline: none;
+    }
+    #membersMain .saas-filter-select {
+      width: auto;
+      min-width: 150px;
+      padding: 7px 30px 7px 11px;
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: #334155;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      outline: none;
+      cursor: pointer;
+    }
+    #membersMain input:focus,
+    #membersMain select:focus,
+    #addMemberDrawer input:focus,
+    #addMemberDrawer select:focus {
+      border-color: #0f172a !important;
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08) !important;
+    }
+
+    /* Data Table */
+    .saas-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+    .saas-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .saas-table thead th {
+      padding: 10px 16px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .saas-table thead th:first-child,
+    .saas-table tbody td:first-child { padding-left: 24px; }
+    .saas-table thead th:last-child,
+    .saas-table tbody td:last-child { padding-right: 24px; text-align: right; }
+    .saas-table tbody tr {
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.12s ease;
+    }
+    .saas-table tbody tr:last-child { border-bottom: none; }
+    .saas-table tbody tr:hover { background: #fef9fa; }
+    .saas-table tbody tr.is-revoked { opacity: 0.6; }
+    .saas-table tbody td {
+      padding: 12px 16px;
+      font-size: 0.86rem;
+      color: #334155;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .member-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .member-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: #fdf4f5;
+      border: 1px solid #f2d5da;
+      color: #8b1d2c;
+      font-size: 0.72rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+    .member-name {
+      font-weight: 500;
+      color: #0f172a;
+      font-size: 0.875rem;
+    }
+    .enroll-mono {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.8rem;
+      color: #334155;
+      letter-spacing: 0.01em;
+    }
+    .grade-text {
+      font-size: 0.84rem;
+      color: #475569;
+    }
+    .status-dot-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.82rem;
+      color: #475569;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+    .status-dot.is-active { background: #10b981; }
+    .status-dot.is-pending { background: #cbd5e1; }
+    .status-dot.is-revoked { background: #ef4444; }
+
+    /* Inline Role Pill Dropdown */
+    .role-pill-select {
+      width: auto !important;
+      padding: 4px 26px 4px 10px !important;
+      border-radius: 999px !important;
+      font-size: 0.76rem !important;
+      font-weight: 500 !important;
+      border: 1px solid #e2e8f0 !important;
+      cursor: pointer;
+      background-position: right 9px center !important;
+      background-size: 10px !important;
+      line-height: 1.3;
+    }
+    .role-pill-select.role-member {
+      background-color: #f8fafc;
+      color: #334155;
+      border-color: #e2e8f0 !important;
+    }
+    .role-pill-select.role-vice_president {
+      background-color: #fff1f2;
+      color: #9f1239;
+      border-color: #fecdd3 !important;
+    }
+    .role-pill-select.role-president {
+      background-color: #fefce8;
+      color: #854d0e;
+      border-color: #fde047 !important;
+    }
+
+    /* Three-dot action button & floating menu */
+    .row-menu-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #64748b;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+    }
+    .row-menu-btn:hover, .row-menu-btn.is-open {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #e2e8f0;
+    }
+    #rowActionMenu {
+      position: fixed;
+      z-index: 1100;
+      min-width: 176px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 9px;
+      padding: 5px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+      display: none;
+    }
+    #rowActionMenu.open { display: block; animation: menuPop 0.12s ease both; }
+    @keyframes menuPop {
+      from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .row-menu-item {
+      width: 100%;
+      padding: 8px 10px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: #334155;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.1s ease, color 0.1s ease;
+    }
+    .row-menu-item:hover { background: #f8fafc; color: #0f172a; }
+    .row-menu-item.danger { color: #dc2626; }
+    .row-menu-item.danger:hover { background: #fef2f2; color: #b91c1c; }
+    .row-menu-divider { height: 1px; background: #f1f5f9; margin: 4px 0; }
+
+    /* Slide-over Drawer */
+    .saas-drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1050;
+      background: rgba(15, 23, 42, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+    .saas-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+    .saas-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1060;
+      width: min(420px, 100vw);
+      background: #ffffff;
+      border-left: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.25, 1);
+    }
+    .saas-drawer.open { transform: translateX(0); }
+    .saas-drawer-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .saas-drawer-close {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #64748b;
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .saas-drawer-close:hover { background: #f1f5f9; color: #0f172a; }
+    .saas-drawer-body {
+      padding: 20px 24px 16px;
+      flex: 0 1 auto;
+      overflow-y: auto;
+    }
+    .saas-drawer-body label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #334155;
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+    .saas-drawer-body label:first-of-type { margin-top: 0; }
+    .saas-drawer-body input, .saas-drawer-body select, .saas-drawer-body textarea {
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      padding: 9px 12px;
+      font-size: 0.875rem;
+      font-family: inherit;
+    }
+    .saas-drawer-footer {
+      padding: 16px 24px 20px;
+      border-top: 1px solid #f1f5f9;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Confirmation Modal */
+    .saas-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1150;
+      background: rgba(15, 23, 42, 0.3);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .saas-modal-backdrop.open { display: flex; animation: menuPop 0.14s ease both; }
+    .saas-modal {
+      width: min(410px, 100%);
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 22px 24px;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.1);
+    }
+    .saas-modal-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .saas-modal-desc {
+      font-size: 0.86rem;
+      color: #475569;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .saas-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* ── Custom Oxford Navy Dropdowns (#1B2A3A) ──────────────── */
+    .cc-select-wrap {
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+    .cc-select-wrap.is-inline {
+      display: inline-block;
+      width: auto;
+    }
+    .cc-native-hidden {
+      position: absolute !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      overflow: hidden !important;
+    }
+    .cc-select-trigger {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 12px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      color: #0F172A;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 400;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+    }
+    .cc-select-trigger:hover { border-color: #CBD5E1; }
+    .cc-select-trigger.is-open,
+    .cc-select-trigger:focus-visible {
+      outline: none;
+      border-color: #1B2A3A !important;
+      box-shadow: 0 0 0 3px rgba(27, 42, 58, 0.14) !important;
+    }
+    .cc-select-trigger.is-filter {
+      padding: 7px 11px;
+      font-size: 0.84rem;
+      border-radius: 7px;
+      min-width: 145px;
+      color: #334155;
+    }
+    .cc-select-trigger.is-cal-pill {
+      padding: 7px 12px;
+      background: #F1F5F9;
+      border-color: transparent;
+      border-radius: 9px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #1B2A3A;
+      min-width: 96px;
+    }
+    .cc-select-trigger.is-cal-pill:hover {
+      background: #E2E8F0;
+      border-color: transparent;
+    }
+    .cc-select-trigger.is-pill {
+      width: auto;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      gap: 6px;
+      line-height: 1.3;
+    }
+    .cc-select-trigger.is-pill.role-member {
+      background: #F8FAFC;
+      color: #334155;
+      border-color: #E2E8F0;
+    }
+    .cc-select-trigger.is-pill.role-vice_president {
+      background: #FFF1F2;
+      color: #9F1239;
+      border-color: #FECDD3;
+    }
+    .cc-select-trigger.is-pill.role-president {
+      background: #FEFCE8;
+      color: #854D0E;
+      border-color: #FDE047;
+    }
+    .cc-select-trigger:disabled { opacity: 0.55; cursor: not-allowed; }
+    .cc-select-chevron {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: #1B2A3A;
+      transition: transform 0.14s ease;
+    }
+    .cc-select-trigger.is-open .cc-select-chevron { transform: rotate(180deg); }
+
+    #ccSelectMenu {
+      position: fixed;
+      z-index: 1500;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 5px;
+      box-shadow: 0 12px 30px rgba(27, 42, 58, 0.14);
+      display: none;
+      max-height: 270px;
+      overflow-y: auto;
+    }
+    #ccSelectMenu.open {
+      display: block;
+      animation: menuPop 0.12s ease both;
+    }
+    .cc-select-option {
+      width: 100%;
+      padding: 8px 11px;
+      border: none;
+      border-radius: 7px;
+      background: transparent;
+      color: #1E293B;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 400;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.1s ease, color 0.1s ease;
+    }
+    .cc-select-option.is-selected {
+      background: #EEF3F8;
+      color: #1B2A3A;
+      font-weight: 600;
+    }
+    .cc-select-option:hover,
+    .cc-select-option.is-focused {
+      background: #1B2A3A;
+      color: #FFFFFF;
+    }
+    .cc-select-check {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: 0;
+    }
+    .cc-select-option.is-selected .cc-select-check { opacity: 1; }
+
+    /* ── Custom Date Picker Trigger & Modal (Cambridge Colors) ── */
+    .cc-date-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      color: #0F172A;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 400;
+      cursor: pointer;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease;
+    }
+    .cc-date-trigger:hover { border-color: #CBD5E1; }
+    .cc-date-trigger:focus-visible {
+      outline: none;
+      border-color: #1B2A3A !important;
+      box-shadow: 0 0 0 3px rgba(27, 42, 58, 0.14) !important;
+    }
+    .cc-date-trigger svg { color: #1B2A3A; flex-shrink: 0; }
+
+    #ccDateModalBackdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 1350;
+      background: rgba(15, 23, 42, 0.35);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #ccDateModalBackdrop.open {
+      display: flex;
+      animation: menuPop 0.14s ease both;
+    }
+    .cc-cal-card {
+      width: min(370px, 100%);
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 20px;
+      padding: 24px 24px 22px;
+      box-shadow: 0 20px 50px rgba(27, 42, 58, 0.18);
+    }
+    .cc-cal-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .cc-cal-heading {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #1B2A3A;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+    }
+    .cc-cal-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .cc-cal-badge {
+      position: relative;
+      width: 56px;
+      height: 54px;
+      flex-shrink: 0;
+      margin-top: 4px;
+      border-radius: 11px;
+      background: #1B2A3A;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 6px 14px rgba(27, 42, 58, 0.18);
+    }
+    .cc-cal-badge::before,
+    .cc-cal-badge::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      width: 6px;
+      height: 10px;
+      border-radius: 4px;
+      background: #8B1D2C;
+    }
+    .cc-cal-badge::before { left: 12px; }
+    .cc-cal-badge::after { right: 12px; }
+    .cc-cal-badge-bar {
+      height: 14px;
+      background: #8B1D2C;
+      border-radius: 11px 11px 0 0;
+    }
+    .cc-cal-badge-num {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+    .cc-cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    .cc-cal-weekdays span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #1B2A3A;
+    }
+    .cc-cal-weekdays span:first-child { color: #8B1D2C; }
+    .cc-cal-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px 2px;
+      text-align: center;
+    }
+    .cc-cal-day {
+      position: relative;
+      height: 36px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #1B2A3A;
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+    .cc-cal-day:hover { background: #EEF3F8; }
+    .cc-cal-day.is-sun { color: #8B1D2C; }
+    .cc-cal-day.is-muted { color: #CBD5E1; }
+    .cc-cal-day.is-muted.is-sun { color: #E5B8BF; }
+    .cc-cal-day.is-selected {
+      background: #FDF2F4;
+      color: #8B1D2C;
+      font-weight: 700;
+    }
+    .cc-cal-day.is-selected::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 2.5px;
+      border-radius: 2px;
+      background: #8B1D2C;
+    }
+    .cc-cal-footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .cc-cal-confirm-btn {
+      min-width: 165px;
+      padding: 11px 28px;
+      border: none;
+      border-radius: 12px;
+      background: #1B2A3A;
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(27, 42, 58, 0.22);
+      transition: background 0.14s ease, transform 0.12s ease;
+    }
+    .cc-cal-confirm-btn:hover { background: #263B50; transform: translateY(-1px); }
+
+    /* Toast Notification */
+    #saasToastContainer {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1250;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: min(390px, calc(100vw - 32px));
+    }
+    .saas-toast {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 16px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      animation: dashSnap 0.18s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+    }
+    .saas-toast-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .saas-toast-sub {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .saas-toast.is-error { border-color: #fecaca; background: #fef2f2; }
+    .saas-toast.is-error .saas-toast-title { color: #991b1b; }
+    .saas-toast-code-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .saas-toast-code {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: #0f172a;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+    .saas-copy-btn {
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid #18181b;
+      background: #18181b;
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .saas-copy-btn:hover { background: #27272a; }
+    .saas-toast-close {
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 2px;
+    }
+    .saas-toast-close:hover { color: #0f172a; }
   </style>
 
   <link rel="icon" href="../images/favicon.jpg" type="image/jpeg">
@@ -368,77 +1518,247 @@
       CAMBRIDGE<span>CLUBS</span> <span class="cool-clubs">Mentor Dashboard</span>
     </div>
     <div class="header-right">
-      <button type="button" class="contrast-toggle-btn" id="contrastToggleBtn" aria-pressed="false" onclick="toggleHighContrast(this)">High Contrast</button>
       <div class="mentor-badge"><strong id="headerMentor"></strong><span id="headerClub"></span></div>
       <button class="logout-btn" id="logoutBtn">Sign out</button>
     </div>
   </header>
 
-  <main>
-    <!-- Upload Form -->
-    <div>
-      <div class="card">
-        <div class="card-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Upload New Activity
+  <div class="dash-tabs-bar">
+    <button type="button" class="dash-tab-btn is-active" id="dashTabActivities" onclick="switchDashSection('activities')">Activities &amp; Gallery</button>
+    <button type="button" class="dash-tab-btn" id="dashTabMembers" onclick="switchDashSection('members')">Members &amp; Leadership</button>
+  </div>
+
+  <main id="activitiesMain" class="dash-section-anim">
+    <div class="act-panel">
+      <div class="act-panel-header">
+        <div class="saas-title-group">
+          <h2 class="saas-title">Activities &amp; Gallery</h2>
+          <p class="saas-subtitle" id="actCount">Your Activities (…)</p>
         </div>
-        <form id="uploadForm">
-          <label for="titleInput">Activity Title *</label>
-          <input type="text" id="titleInput" placeholder="e.g. Japanese cuisine session" required />
 
-          <label for="dateInput">Date</label>
-          <input type="date" id="dateInput" />
-
-          <label for="tagInput">Tag</label>
-          <select id="tagInput">
+        <div class="act-toolbar-controls">
+          <div class="act-search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="actSearchInput" class="act-search-input" placeholder="Search activities..." autocomplete="off" />
+          </div>
+          <select id="actTagFilter" class="act-filter-select" aria-label="Filter activities by category">
+            <option value="all">All categories</option>
             <option value="Activity">Activity</option>
-            <option value="Cook">Cook</option>
-            <option value="Event">Event</option>
-            <option value="Competition">Competition</option>
-            <option value="Workshop">Workshop</option>
-            <option value="Performance">Performance</option>
             <option value="Project">Project</option>
+            <option value="Event">Event</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Competition">Competition</option>
+            <option value="Performance">Performance</option>
+            <option value="Cook">Cook</option>
             <option value="Talk">Talk</option>
             <option value="Field Trip">Field Trip</option>
           </select>
-
-          <label for="descInput">Description</label>
-          <textarea id="descInput" placeholder="Brief description of what happened…"></textarea>
-
-          <label>Photos (Select up to 3 photos) *</label>
-          <p style="font-size:0.78rem; color:#475569; margin:-4px 0 10px;">Photos are cropped and automatically compressed for fast web loading.</p>
-          <div id="maxPhotoWarning" style="display:none; padding:10px 12px; margin-bottom:10px; background:#fffbeb; border:1px solid #fde68a; color:#b45309; border-radius:8px; font-size:0.82rem; font-weight:600; line-height:1.4;"></div>
-          <div class="file-zone" id="fileZone">
-            <input type="file" id="imageInput" name="images" accept="image/*" multiple required />
-            <div class="file-zone-icon">📷</div>
-            <div class="file-zone-text">Click or drag & drop up to 3 photos</div>
-            <div class="file-zone-name" id="fileName"></div>
-          </div>
-          <div id="fileCountBadge" style="display:none;margin-top:10px;font-size:0.85rem;color:#5A390C;font-weight:700;"></div>
-          <div id="multiPreviewGrid" style="display:none; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap:10px; margin-top:12px;"></div>
-          <img id="imgPreview" alt="Preview" style="display:none;" />
-          <div id="cropBadge" style="display:none;margin-top:8px;font-size:0.78rem;color:var(--accent2);font-weight:600;">✓ Image cropped &amp; ready</div>
-
-          <button type="submit" class="submit-btn" id="uploadBtn">Upload Activity</button>
-          <div class="status-msg" id="statusMsg"></div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Activities list -->
-    <div class="activities-col">
-      <div class="card" style="padding-bottom:8px;">
-        <div class="activities-header">
-          <div class="card-title" style="margin-bottom:0;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            Your Activities
-          </div>
-          <span class="activities-count" id="actCount">…</span>
+          <button type="button" class="act-btn-create" id="openCreateActDrawerBtn">+ Create Activity</button>
         </div>
-        <div id="actList"><div class="loading">Loading…</div></div>
       </div>
+
+      <div id="actList"><div class="loading">Loading activities…</div></div>
     </div>
   </main>
+
+  <!-- ── Upload Activity Slide-over Drawer ─────────────────── -->
+  <div class="saas-drawer-backdrop" id="uploadActivityDrawerBackdrop"></div>
+  <aside class="saas-drawer" id="uploadActivityDrawer" style="width:min(460px, 100vw);" role="dialog" aria-modal="true" aria-labelledby="uploadDrawerTitle">
+    <div class="saas-drawer-header">
+      <div>
+        <h3 class="saas-title" id="uploadDrawerTitle">Upload New Activity</h3>
+        <p class="saas-subtitle" style="margin-top:4px;">Post a club update and up to 3 photos for approval.</p>
+      </div>
+      <button type="button" class="saas-drawer-close" id="closeUploadDrawerBtn" aria-label="Close drawer">✕</button>
+    </div>
+    <form id="uploadForm" autocomplete="off" style="display:flex; flex-direction:column; flex:1; min-height:0;">
+      <div class="saas-drawer-body">
+        <label for="titleInput">Activity Title *</label>
+        <input type="text" id="titleInput" placeholder="e.g., Automated Infrastructure Model" autocomplete="off" required />
+
+        <label for="datePickerTrigger">Date</label>
+        <input type="hidden" id="dateInput" />
+        <button type="button" id="datePickerTrigger" class="cc-date-trigger" aria-haspopup="dialog">
+          <span id="datePickerDisplay">Select date</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </button>
+
+        <label for="tagInput">Category Tag</label>
+        <select id="tagInput">
+          <option value="Activity">Activity</option>
+          <option value="Project">Project</option>
+          <option value="Event">Event</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Competition">Competition</option>
+          <option value="Performance">Performance</option>
+          <option value="Cook">Cook</option>
+          <option value="Talk">Talk</option>
+          <option value="Field Trip">Field Trip</option>
+        </select>
+
+        <label for="descInput">Description</label>
+        <textarea id="descInput" placeholder="Brief description of what happened…" autocomplete="off"></textarea>
+
+        <label>Photos (Select up to 3 photos) *</label>
+        <p style="font-size:0.78rem; color:#64748B; margin:-2px 0 10px;">Photos are cropped and automatically compressed for fast web loading.</p>
+        <div id="maxPhotoWarning" style="display:none; padding:10px 12px; margin-bottom:10px; background:#fffbeb; border:1px solid #fde68a; color:#b45309; border-radius:8px; font-size:0.82rem; font-weight:500; line-height:1.4;"></div>
+        <div class="file-zone" id="fileZone">
+          <input type="file" id="imageInput" name="images" accept="image/*" multiple required />
+          <div class="upload-graphic-circle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </div>
+          <div class="file-zone-text" style="font-size:0.84rem; font-weight:500;">Click or drag &amp; drop up to 3 photos</div>
+          <div class="file-zone-name" id="fileName"></div>
+        </div>
+        <div id="fileCountBadge" style="display:none;margin-top:10px;font-size:0.82rem;color:#334155;font-weight:600;"></div>
+        <div id="multiPreviewGrid" style="display:none; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap:10px; margin-top:12px;"></div>
+        <img id="imgPreview" alt="Preview" style="display:none;" />
+        <div id="cropBadge" style="display:none;margin-top:8px;font-size:0.78rem;color:#166534;font-weight:500;">✓ Image cropped &amp; ready</div>
+
+        <div class="status-msg" id="statusMsg"></div>
+      </div>
+      <div class="saas-drawer-footer">
+        <button type="button" class="saas-btn-secondary" id="cancelUploadDrawerBtn">Cancel</button>
+        <button type="submit" class="act-btn-create" id="uploadBtn">Upload Activity</button>
+      </div>
+    </form>
+  </aside>
+
+  <!-- ── Members & Leadership Workspace ─────────────────── -->
+  <section id="membersMain" class="dash-section-anim">
+    <div class="saas-panel">
+      <div class="saas-panel-header">
+        <div class="saas-title-group">
+          <div class="saas-title-row">
+            <h2 class="saas-title">Member Directory</h2>
+            <span class="saas-count-badge" id="memberCountBadge">0 active</span>
+          </div>
+          <p class="saas-subtitle">Manage club roster, leadership roles, and student sign-in credentials.</p>
+        </div>
+        <button type="button" class="saas-btn-primary" id="openAddDrawerBtn">+ Add Member</button>
+      </div>
+
+      <div class="saas-toolbar">
+        <div class="saas-search-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="memberSearchInput" class="saas-search-input" placeholder="Search by name or enrollment no..." autocomplete="off" />
+        </div>
+        <select id="memberRoleFilter" class="saas-filter-select" aria-label="Filter by role">
+          <option value="all">All roles</option>
+          <option value="president">President</option>
+          <option value="vice_president">Vice President</option>
+          <option value="member">Member</option>
+        </select>
+      </div>
+
+      <div class="saas-table-wrap">
+        <table class="saas-table">
+          <thead>
+            <tr>
+              <th>Member</th>
+              <th>Enrollment No.</th>
+              <th>Grade &amp; Section</th>
+              <th>Status</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="memberRosterBody">
+            <tr><td colspan="6"><div class="loading">Loading club roster…</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Row Action Dropdown (floating) ──────────────────── -->
+  <div id="rowActionMenu" role="menu" aria-hidden="true"></div>
+
+  <!-- ── Add Member Slide-over Drawer ────────────────────── -->
+  <div class="saas-drawer-backdrop" id="addMemberDrawerBackdrop"></div>
+  <aside class="saas-drawer" id="addMemberDrawer" role="dialog" aria-modal="true" aria-labelledby="addDrawerTitle">
+    <div class="saas-drawer-header">
+      <div>
+        <h3 class="saas-title" id="addDrawerTitle">Add More Members</h3>
+        <p class="saas-subtitle" style="margin-top:4px;">Assign an enrollment ID and generate a sign-in code.</p>
+      </div>
+      <button type="button" class="saas-drawer-close" id="closeAddDrawerBtn" aria-label="Close drawer">✕</button>
+    </div>
+    <form id="addMemberForm" autocomplete="off" style="display:flex; flex-direction:column; flex:1; min-height:0;">
+      <div class="saas-drawer-body">
+        <label for="addEnrollInput">Enrollment Number *</label>
+        <input type="text" id="addEnrollInput" placeholder="e.g., 202520260486" autocomplete="off" style="text-transform:uppercase;" required />
+
+        <label for="addNameInput">Name *</label>
+        <input type="text" id="addNameInput" placeholder="e.g., Aarav Sharma" autocomplete="off" required />
+
+        <label for="addGradeInput">Grade *</label>
+        <input type="text" id="addGradeInput" placeholder="e.g., IX" autocomplete="off" required />
+
+        <label for="addSectionInput">Section *</label>
+        <input type="text" id="addSectionInput" placeholder="e.g., B" autocomplete="off" style="text-transform:uppercase;" required />
+
+        <label for="addRoleSelect">Role</label>
+        <select id="addRoleSelect">
+          <option value="member">Member</option>
+          <option value="vice_president">Vice President</option>
+          <option value="president">President</option>
+        </select>
+
+        <div class="status-msg" id="addDrawerError" style="margin-top:14px;"></div>
+      </div>
+      <div class="saas-drawer-footer">
+        <button type="button" class="saas-btn-secondary" id="cancelAddDrawerBtn">Cancel</button>
+        <button type="submit" class="saas-btn-primary" id="submitAddMemberBtn">Add Member</button>
+      </div>
+    </form>
+  </aside>
+
+  <!-- ── Confirmation Modal ──────────────────────────────── -->
+  <div class="saas-modal-backdrop" id="saasConfirmBackdrop" role="dialog" aria-modal="true" aria-labelledby="saasConfirmTitle">
+    <div class="saas-modal">
+      <div class="saas-modal-title" id="saasConfirmTitle">Confirm action</div>
+      <div class="saas-modal-desc" id="saasConfirmDesc"></div>
+      <div class="saas-modal-actions">
+        <button type="button" class="saas-btn-secondary" id="saasConfirmCancel">Cancel</button>
+        <button type="button" class="saas-btn-danger" id="saasConfirmOk">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Custom Floating Dropdown Menu ───────────────────── -->
+  <div id="ccSelectMenu" role="listbox" aria-hidden="true"></div>
+
+  <!-- ── Custom Date Picker Modal ────────────────────────── -->
+  <div id="ccDateModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="ccCalHeading">
+    <div class="cc-cal-card">
+      <div class="cc-cal-top">
+        <div>
+          <h3 class="cc-cal-heading" id="ccCalHeading">Select Date</h3>
+          <div class="cc-cal-controls">
+            <select id="calMonthSelect" aria-label="Month"></select>
+            <select id="calYearSelect" aria-label="Year"></select>
+          </div>
+        </div>
+        <div class="cc-cal-badge" aria-hidden="true">
+          <div class="cc-cal-badge-bar"></div>
+          <div class="cc-cal-badge-num" id="ccCalBadgeNum">27</div>
+        </div>
+      </div>
+
+      <div class="cc-cal-weekdays">
+        <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+      </div>
+      <div class="cc-cal-days" id="ccCalDaysGrid"></div>
+
+      <div class="cc-cal-footer">
+        <button type="button" class="cc-cal-confirm-btn" id="ccCalConfirmBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Toast Notifications ─────────────────────────────── -->
+  <div id="saasToastContainer" aria-live="polite"></div>
 
   <!-- ── Crop Modal ───────────────────────────────────────── -->
   <div id="cropModal" role="dialog" aria-modal="true" aria-label="Crop image">
@@ -542,8 +1862,11 @@
     document.getElementById('headerClub').textContent   = clubName + ' Club';
     document.title = `${clubName} Dashboard — CambridgeClubs`;
 
-    // Today's date default
-    document.getElementById('dateInput').value = new Date().toISOString().split('T')[0];
+    // Today's date default (set cleanly via custom picker after DOM helpers load)
+    const getTodayIso = () => {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    };
 
     // ── Logout ──────────────────────────────────────────────────────
     document.getElementById('logoutBtn').addEventListener('click', () => {
@@ -800,78 +2123,132 @@
       }
     });
 
+    // ── Create Activity Drawer ────────────────────────────────────────
+    function openUploadDrawer() {
+      const msg = document.getElementById('statusMsg');
+      msg.className = 'status-msg';
+      msg.textContent = '';
+      document.getElementById('uploadActivityDrawerBackdrop').classList.add('open');
+      document.getElementById('uploadActivityDrawer').classList.add('open');
+      setTimeout(() => document.getElementById('titleInput').focus(), 120);
+    }
+    function closeUploadDrawer() {
+      document.getElementById('uploadActivityDrawerBackdrop').classList.remove('open');
+      document.getElementById('uploadActivityDrawer').classList.remove('open');
+    }
+    document.getElementById('openCreateActDrawerBtn').addEventListener('click', openUploadDrawer);
+    document.getElementById('closeUploadDrawerBtn').addEventListener('click', closeUploadDrawer);
+    document.getElementById('cancelUploadDrawerBtn').addEventListener('click', closeUploadDrawer);
+    document.getElementById('uploadActivityDrawerBackdrop').addEventListener('click', closeUploadDrawer);
+
     // ── Load activities ──────────────────────────────────────────────
+    let allActivities = [];
+
+    function fmtActivityDate(raw) {
+      if (!raw) return '';
+      const iso = String(raw).trim();
+      const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (!m) return iso;
+      const dt = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+      return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
     async function loadActivities() {
       const list = document.getElementById('actList');
       try {
-        const res  = await fetch(`${API}/api/activities/${clubId}?all=true`);
+        const res = await fetch(`${API}/api/activities/${clubId}?all=true`);
         const data = await res.json();
-        renderActivities(data);
+        allActivities = Array.isArray(data) ? data : [];
+        renderActivities();
       } catch {
         list.innerHTML = '<div class="empty-state">Could not load activities. Is the server running?</div>';
       }
     }
 
-    function renderActivities(items) {
+    function renderActivities() {
       const list = document.getElementById('actList');
-      document.getElementById('actCount').textContent = items.length + ' post' + (items.length !== 1 ? 's' : '');
+      const query = (document.getElementById('actSearchInput')?.value || '').trim().toLowerCase();
+      const tagFilter = document.getElementById('actTagFilter')?.value || 'all';
 
-      if (!items.length) {
+      const totalCount = allActivities.length;
+      const countText = `${totalCount} post${totalCount !== 1 ? 's' : ''}`;
+      document.getElementById('actCount').textContent = `Your Activities (${countText})`;
+
+      const filtered = allActivities.filter(a => {
+        if (tagFilter !== 'all' && String(a.tag || '').toLowerCase() !== tagFilter.toLowerCase()) return false;
+        if (query) {
+          const hay = `${a.title || ''} ${a.desc || ''} ${a.tag || ''}`.toLowerCase();
+          if (!hay.includes(query)) return false;
+        }
+        return true;
+      });
+
+      if (!totalCount) {
         list.innerHTML = `
           <div class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            No activities yet. Upload your first photo!
+            No activities yet. Click "+ Create Activity" to upload your first post.
           </div>`;
         return;
       }
 
-      list.innerHTML = items.map((a, aIdx) => {
+      if (!filtered.length) {
+        list.innerHTML = `<div class="empty-state">No activities match your current search or filter.</div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map((a, aIdx) => {
         const isApproved = a.approved || a._status === 'approved';
         let statusBadge = isApproved
-          ? '<span style="background:rgba(74,222,128,0.15);color:var(--success);border-radius:6px;padding:2px 8px;font-size:0.72rem;font-weight:600;">✓ Approved</span>'
-          : '<span style="background:rgba(251,191,36,0.15);color:var(--warning,#fbbf24);border-radius:6px;padding:2px 8px;font-size:0.72rem;font-weight:600;">⏳ Pending Approval</span>';
+          ? '<span class="act-pill-status approved">Approved</span>'
+          : '<span class="act-pill-status pending">Pending Approval</span>';
 
         if (a.deleteRequested) {
-          statusBadge = '<span style="background:rgba(239,68,68,0.15);color:#ef4444;border-radius:6px;padding:2px 8px;font-size:0.72rem;font-weight:600;">⏳ Removal Requested (Pending Admin)</span>';
+          statusBadge = '<span class="act-pill-status removal">Removal Requested</span>';
         }
 
         const imagesArr = (a.images && a.images.length) ? a.images : [a.img];
-        const photoCount = imagesArr.length > 1 ? `<span class="activity-tag" style="background:rgba(90,57,12,0.18);">🖼️ ${imagesArr.length} Photos</span>` : '';
-
-        const thumbHtml = imagesArr.length > 1
-          ? `<div style="display:flex; gap:4px; flex-shrink:0;">${imagesArr.map((url, i) => `<img class="activity-thumb act-img-${aIdx}" data-act-idx="${aIdx}" data-img-idx="${i}" src="${API}${url}" style="width:32px; height:60px; object-fit:cover; border-radius:6px; cursor:zoom-in;" title="Click to enlarge">`).join('')}</div>`
-          : `<img class="activity-thumb act-img-${aIdx}" data-act-idx="${aIdx}" data-img-idx="0" src="${API}${a.img}" alt="${a.title}" style="cursor:zoom-in;" title="Click to enlarge" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`;
+        const primaryImg = imagesArr[0] || a.img;
+        const photoCountOverlay = imagesArr.length > 1
+          ? `<span class="act-thumb-count">${imagesArr.length} photos</span>`
+          : '';
+        const formattedDate = fmtActivityDate(a.date);
 
         return `
-          <div class="activity-item" id="item-${a.id}">
-            ${thumbHtml}
+          <div class="activity-row" id="item-${escHtml(a.id)}">
+            <div class="act-thumb-wrap act-img-${aIdx}" data-act-idx="${aIdx}" data-img-idx="0" title="Click to preview photo${imagesArr.length > 1 ? 's' : ''}">
+              <img class="act-thumb-img" src="${API}${primaryImg}" alt="${escHtml(a.title)}" onerror="this.parentElement.style.display='none';this.parentElement.nextElementSibling.style.display='flex'" />
+              ${photoCountOverlay}
+            </div>
             <div class="activity-thumb-ph" style="display:none">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             </div>
             <div class="activity-body">
-              <div class="activity-title">${a.title}</div>
-              <div class="activity-meta">
-                <span>${a.date || ''}</span>
-                <span class="activity-tag">${a.tag}</span>
-                ${photoCount}
+              <div class="act-title-line">
+                <div class="activity-title">${escHtml(a.title)}</div>
+                ${formattedDate ? `<span class="act-date">${escHtml(formattedDate)}</span>` : ''}
+              </div>
+              <div class="act-pills-row">
+                <span class="act-pill-tag">${escHtml(a.tag || 'Activity')}</span>
                 ${statusBadge}
               </div>
-              <div class="activity-desc">${a.desc || ''}</div>
+              ${a.desc ? `<div class="activity-desc">${escHtml(a.desc)}</div>` : ''}
             </div>
-            <button class="delete-btn" onclick="deleteActivity('${a.id}')" title="${a.deleteRequested ? 'Removal Request Pending Admin Approval' : 'Request Activity Removal'}" ${a.deleteRequested ? 'disabled style="opacity:0.4;cursor:not-allowed;"' : ''}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-            </button>
+            <div class="act-row-actions">
+              <button type="button" class="delete-btn" onclick="deleteActivity('${escHtml(a.id)}')" title="${a.deleteRequested ? 'Removal request pending admin approval' : 'Request activity removal'}" ${a.deleteRequested ? 'disabled' : ''}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              </button>
+            </div>
           </div>
         `;
       }).join('');
 
-      // Wire up thumbnail click listeners for enlarge
-      items.forEach((a, aIdx) => {
+      filtered.forEach((a, aIdx) => {
         const imagesArr = (a.images && a.images.length) ? a.images : [a.img];
-        const imgs = list.querySelectorAll(`.act-img-${aIdx}`);
-        imgs.forEach(imgEl => {
-          imgEl.onclick = () => {
-            const startIdx = parseInt(imgEl.getAttribute('data-img-idx') || '0', 10);
+        const thumbs = list.querySelectorAll(`.act-img-${aIdx}`);
+        thumbs.forEach(el => {
+          el.onclick = () => {
+            const startIdx = parseInt(el.getAttribute('data-img-idx') || '0', 10);
             const fullList = imagesArr.map((url) => ({
               img: `${API}${url}`,
               title: `${a.title}`
@@ -882,6 +2259,9 @@
       });
     }
 
+    document.getElementById('actSearchInput').addEventListener('input', renderActivities);
+    document.getElementById('actTagFilter').addEventListener('change', renderActivities);
+
     // ── Upload ────────────────────────────────────────────────────────
     document.getElementById('uploadForm').addEventListener('submit', async e => {
       e.preventDefault();
@@ -890,7 +2270,8 @@
       msg.className = 'status-msg';
 
       const formData = new FormData();
-      formData.append('title', document.getElementById('titleInput').value);
+      const submittedTitle = document.getElementById('titleInput').value.trim();
+      formData.append('title', submittedTitle);
       formData.append('date',  document.getElementById('dateInput').value);
       formData.append('tag',   document.getElementById('tagInput').value);
       formData.append('desc',  document.getElementById('descInput').value);
@@ -915,7 +2296,6 @@
       btn.disabled = true; btn.textContent = 'Compressing & Uploading…';
 
       try {
-        // Compress images client-side in parallel before upload!
         const compressedFiles = await Promise.all(
           filesToUpload.map(f => compressImage(f))
         );
@@ -941,8 +2321,6 @@
 
         if (!res.ok) throw new Error(data.error || 'Upload failed');
 
-        msg.textContent = '✓ Activity uploaded successfully!';
-        msg.className = 'status-msg success';
         croppedBlob = null;
         selectedFiles = [];
         e.target.reset();
@@ -953,8 +2331,14 @@
         multiGrid.innerHTML = '';
         imgPreview.style.display = 'none';
         cropBadge.style.display = 'none';
-        document.getElementById('dateInput').value = new Date().toISOString().split('T')[0];
+        if (typeof syncCustomSelect === 'function') syncCustomSelect(document.getElementById('tagInput'));
+        if (typeof setActivityDateValue === 'function') setActivityDateValue(getTodayIso());
+        closeUploadDrawer();
         loadActivities();
+        showSaasToast({
+          title: 'Activity submitted',
+          subtitle: submittedTitle ? `"${submittedTitle}" uploaded successfully.` : 'Uploaded successfully.'
+        });
       } catch (ex) {
         msg.textContent = ex.message;
         msg.className = 'status-msg error';
@@ -965,34 +2349,802 @@
 
     // ── Delete (Submit Deletion Request for Admin Approval) ──────────────
     async function deleteActivity(id) {
-      if (!confirm('Submit a removal request for this activity? The admin must approve before it is removed from the website.')) return;
+      const target = allActivities.find(a => String(a.id) === String(id));
+      const label = target?.title ? `"${target.title}"` : 'this activity';
+      const confirmed = await openConfirmModal({
+        title: 'Request activity removal?',
+        description: `Submit a removal request for ${label}? The site admin must approve before it is removed from the live club page.`,
+        confirmLabel: 'Request Removal',
+        danger: true
+      });
+      if (!confirmed) return;
+
       try {
-        const res = await fetch(`${API}/api/activities/${clubId}/${id}`, {
+        const res = await fetch(`${API}/api/activities/${clubId}/${encodeURIComponent(id)}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!res.ok) { const d = await res.json(); throw new Error(d.error); }
-        alert('Removal request submitted! The admin will review and approve your request.');
+        showSaasToast({
+          title: 'Removal request submitted',
+          subtitle: 'The admin will review and approve your request.'
+        });
         loadActivities();
       } catch (ex) {
-        alert('Request failed: ' + ex.message);
+        showSaasToast({
+          title: 'Removal request failed',
+          subtitle: ex.message,
+          isError: true
+        });
       }
     }
 
     loadActivities();
+    loadMembers();
 
-    function toggleHighContrast(btn) {
-      const enabled = document.documentElement.getAttribute('data-high-contrast') === 'true';
-      const next = !enabled;
-      document.documentElement.setAttribute('data-high-contrast', String(next));
-      if (btn) btn.setAttribute('aria-pressed', String(next));
-      localStorage.setItem('ccws_high_contrast', String(next));
+    // ── Dash Section Switcher & Members / Leadership API ─────────────
+    let allMembers = [];
+    let openMenuEncId = null;
+    let confirmResolver = null;
+
+    function switchDashSection(tab) {
+      const isAct = tab === 'activities';
+      document.getElementById('dashTabActivities').classList.toggle('is-active', isAct);
+      document.getElementById('dashTabMembers').classList.toggle('is-active', !isAct);
+      document.getElementById('activitiesMain').style.display = isAct ? 'block' : 'none';
+      document.getElementById('membersMain').style.display = isAct ? 'none' : 'block';
+      closeRowMenu();
+      closeAddDrawer();
+      closeUploadDrawer();
+      if (!isAct) loadMembers();
     }
-    if (localStorage.getItem('ccws_high_contrast') === 'true') {
-      document.documentElement.setAttribute('data-high-contrast', 'true');
-      const b = document.getElementById('contrastToggleBtn');
-      if (b) b.setAttribute('aria-pressed', 'true');
+
+    function escHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, s => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[s]));
     }
+
+    function getInitials(name, fallback) {
+      const clean = String(name || '').trim();
+      if (!clean) return String(fallback || '?').slice(-2).toUpperCase();
+      const parts = clean.split(/\s+/).filter(Boolean);
+      if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    function fmtRoleLabel(role) {
+      if (role === 'president') return 'President';
+      if (role === 'vice_president') return 'Vice President';
+      return 'Member';
+    }
+
+    // ── Toast notifications (with Copy button for passwords) ──────────
+    function showSaasToast({ title, subtitle = '', copyText = '', isError = false, duration = 4000 }) {
+      const container = document.getElementById('saasToastContainer');
+      const toast = document.createElement('div');
+      toast.className = `saas-toast ${isError ? 'is-error' : ''}`;
+
+      const copyRow = copyText ? `
+        <div class="saas-toast-code-row">
+          <span class="saas-toast-code">${escHtml(copyText)}</span>
+          <button type="button" class="saas-copy-btn">Copy</button>
+        </div>
+      ` : '';
+
+      toast.innerHTML = `
+        <div style="min-width:0; flex:1;">
+          <div class="saas-toast-title">${escHtml(title)}</div>
+          ${subtitle ? `<div class="saas-toast-sub">${escHtml(subtitle)}</div>` : ''}
+          ${copyRow}
+        </div>
+        <button type="button" class="saas-toast-close" aria-label="Dismiss">✕</button>
+      `;
+
+      const removeToast = () => {
+        if (toast.parentNode) toast.remove();
+      };
+      toast.querySelector('.saas-toast-close').addEventListener('click', removeToast);
+
+      const copyBtn = toast.querySelector('.saas-copy-btn');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(copyText);
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+          } catch {
+            copyBtn.textContent = 'Select & Copy';
+          }
+        });
+      }
+
+      container.appendChild(toast);
+      if (!copyText && duration > 0) {
+        setTimeout(removeToast, duration);
+      }
+    }
+
+    // ── Confirmation Modal ────────────────────────────────────────────
+    function openConfirmModal({ title, description, confirmLabel = 'Confirm', danger = true }) {
+      return new Promise((resolve) => {
+        confirmResolver = resolve;
+        const backdrop = document.getElementById('saasConfirmBackdrop');
+        const okBtn = document.getElementById('saasConfirmOk');
+        document.getElementById('saasConfirmTitle').textContent = title;
+        document.getElementById('saasConfirmDesc').textContent = description;
+        okBtn.textContent = confirmLabel;
+        okBtn.className = danger ? 'saas-btn-danger' : 'saas-btn-primary';
+        backdrop.classList.add('open');
+      });
+    }
+
+    function closeConfirmModal(result) {
+      document.getElementById('saasConfirmBackdrop').classList.remove('open');
+      if (confirmResolver) {
+        const res = confirmResolver;
+        confirmResolver = null;
+        res(result);
+      }
+    }
+
+    document.getElementById('saasConfirmCancel').addEventListener('click', () => closeConfirmModal(false));
+    document.getElementById('saasConfirmOk').addEventListener('click', () => closeConfirmModal(true));
+    document.getElementById('saasConfirmBackdrop').addEventListener('click', (e) => {
+      if (e.target.id === 'saasConfirmBackdrop') closeConfirmModal(false);
+    });
+
+    // ── Slide-over Drawer ─────────────────────────────────────────────
+    function openAddDrawer() {
+      document.getElementById('addDrawerError').textContent = '';
+      document.getElementById('addDrawerError').className = 'status-msg';
+      document.getElementById('addMemberDrawerBackdrop').classList.add('open');
+      document.getElementById('addMemberDrawer').classList.add('open');
+      setTimeout(() => document.getElementById('addEnrollInput').focus(), 120);
+    }
+
+    function closeAddDrawer() {
+      document.getElementById('addMemberDrawerBackdrop').classList.remove('open');
+      document.getElementById('addMemberDrawer').classList.remove('open');
+    }
+
+    document.getElementById('openAddDrawerBtn').addEventListener('click', openAddDrawer);
+    document.getElementById('closeAddDrawerBtn').addEventListener('click', closeAddDrawer);
+    document.getElementById('cancelAddDrawerBtn').addEventListener('click', closeAddDrawer);
+    document.getElementById('addMemberDrawerBackdrop').addEventListener('click', closeAddDrawer);
+
+    // ── Floating 3-Dot Row Menu ───────────────────────────────────────
+    function closeRowMenu() {
+      const menu = document.getElementById('rowActionMenu');
+      menu.classList.remove('open');
+      menu.setAttribute('aria-hidden', 'true');
+      openMenuEncId = null;
+      document.querySelectorAll('.row-menu-btn.is-open').forEach(b => b.classList.remove('is-open'));
+    }
+
+    function toggleRowMenu(btn, encId) {
+      const menu = document.getElementById('rowActionMenu');
+      if (openMenuEncId === encId && menu.classList.contains('open')) {
+        closeRowMenu();
+        return;
+      }
+      closeRowMenu();
+      const member = allMembers.find(m => encodeURIComponent(m.enrollmentNo) === encId);
+      if (!member) return;
+
+      openMenuEncId = encId;
+      btn.classList.add('is-open');
+
+      menu.innerHTML = `
+        <button type="button" class="row-menu-item" id="menuResetPwBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Reset Password
+        </button>
+        ${member.status === 'revoked' ? `
+          <button type="button" class="row-menu-item" id="menuRestoreBtn">Restore Member</button>
+        ` : ''}
+        <div class="row-menu-divider"></div>
+        <button type="button" class="row-menu-item danger" id="menuRemoveBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+          Remove Member
+        </button>
+      `;
+
+      menu.querySelector('#menuResetPwBtn').addEventListener('click', () => {
+        closeRowMenu();
+        resetMemberPassword(encId, member);
+      });
+      const restoreBtn = menu.querySelector('#menuRestoreBtn');
+      if (restoreBtn) {
+        restoreBtn.addEventListener('click', () => {
+          closeRowMenu();
+          setMemberRole(encId, 'member');
+        });
+      }
+      menu.querySelector('#menuRemoveBtn').addEventListener('click', () => {
+        closeRowMenu();
+        revokeMember(encId, member);
+      });
+
+      menu.classList.add('open');
+      menu.setAttribute('aria-hidden', 'false');
+
+      const rect = btn.getBoundingClientRect();
+      const menuW = menu.offsetWidth || 176;
+      const menuH = menu.offsetHeight || 96;
+      const left = Math.max(12, Math.min(window.innerWidth - menuW - 12, rect.right - menuW));
+      const openUp = rect.bottom + menuH + 8 > window.innerHeight;
+      const top = openUp ? Math.max(12, rect.top - menuH - 6) : rect.bottom + 6;
+      menu.style.left = `${left}px`;
+      menu.style.top = `${top}px`;
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#rowActionMenu') && !e.target.closest('.row-menu-btn')) {
+        closeRowMenu();
+      }
+      if (!e.target.closest('#ccSelectMenu') && !e.target.closest('.cc-select-trigger')) {
+        closeCustomSelectMenu();
+      }
+    });
+    window.addEventListener('scroll', (e) => {
+      closeRowMenu();
+      if (e.target && e.target.id === 'ccSelectMenu') return;
+      closeCustomSelectMenu();
+    }, true);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeRowMenu();
+        closeCustomSelectMenu();
+        closeDateModal();
+        closeAddDrawer();
+        closeUploadDrawer();
+        closeConfirmModal(false);
+      }
+    });
+
+    // ── Load & Render Member Directory Table ──────────────────────────
+    async function loadMembers() {
+      const tbody = document.getElementById('memberRosterBody');
+      try {
+        const res = await fetch(`${API}/api/mentor/members`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to load members');
+        const data = await res.json();
+        allMembers = data.members || [];
+        const activeCount = allMembers.filter(m => m.status !== 'revoked').length;
+        document.getElementById('memberCountBadge').textContent = `${activeCount} active`;
+        renderMembersTable();
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state">${escHtml(err.message)}</div></td></tr>`;
+      }
+    }
+
+    function renderMembersTable() {
+      const tbody = document.getElementById('memberRosterBody');
+      const query = (document.getElementById('memberSearchInput')?.value || '').trim().toLowerCase();
+      const roleFilter = document.getElementById('memberRoleFilter')?.value || 'all';
+
+      const filtered = allMembers.filter(m => {
+        const role = m.role || 'member';
+        if (roleFilter !== 'all' && role !== roleFilter) return false;
+        if (query) {
+          const hay = `${m.name || ''} ${m.enrollmentNo || ''}`.toLowerCase();
+          if (!hay.includes(query)) return false;
+        }
+        return true;
+      });
+
+      if (!allMembers.length) {
+        tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state">No club members added yet. Click "+ Add Member" to add students.</div></td></tr>`;
+        return;
+      }
+
+      if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state">No members match your current search or filter.</div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(m => {
+        const isRevoked = m.status === 'revoked';
+        const role = m.role || 'member';
+        const displayName = m.name ? m.name : 'Unnamed Student';
+        const initials = getInitials(m.name, m.enrollmentNo);
+        const gradeSec = (m.grade || m.section)
+          ? `${m.grade ? 'Grade ' + m.grade : ''}${m.grade && m.section ? ' · ' : ''}${m.section ? m.section : ''}`
+          : '—';
+
+        let dotClass = 'is-pending';
+        let statusLabel = 'Not signed in yet';
+        if (isRevoked) {
+          dotClass = 'is-revoked';
+          statusLabel = 'Revoked';
+        } else if (m.lastLoginAt) {
+          dotClass = 'is-active';
+          const dt = new Date(m.lastLoginAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+          statusLabel = `Active (${dt})`;
+        }
+
+        const encId = encodeURIComponent(m.enrollmentNo);
+        return `
+          <tr class="${isRevoked ? 'is-revoked' : ''}">
+            <td>
+              <div class="member-cell">
+                <span class="member-avatar">${escHtml(initials)}</span>
+                <span class="member-name">${escHtml(displayName)}</span>
+              </div>
+            </td>
+            <td><span class="enroll-mono">${escHtml(m.enrollmentNo)}</span></td>
+            <td><span class="grade-text">${escHtml(gradeSec)}</span></td>
+            <td>
+              <span class="status-dot-wrap">
+                <span class="status-dot ${dotClass}"></span>
+                <span>${escHtml(statusLabel)}</span>
+              </span>
+            </td>
+            <td>
+              <select
+                class="role-pill-select role-${escHtml(role)}"
+                aria-label="Role for ${escHtml(displayName)}"
+                onchange="onRoleSelectChange(this, '${encId}', '${escHtml(role)}')"
+                ${isRevoked ? 'disabled' : ''}
+              >
+                <option value="member" ${role === 'member' ? 'selected' : ''}>Member</option>
+                <option value="vice_president" ${role === 'vice_president' ? 'selected' : ''}>Vice President</option>
+                <option value="president" ${role === 'president' ? 'selected' : ''}>President</option>
+              </select>
+            </td>
+            <td>
+              <button
+                type="button"
+                class="row-menu-btn"
+                aria-label="More actions for ${escHtml(displayName)}"
+                onclick="toggleRowMenu(this, '${encId}')"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.75"/><circle cx="12" cy="12" r="1.75"/><circle cx="12" cy="19" r="1.75"/></svg>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      tbody.querySelectorAll('select.role-pill-select').forEach(sel => {
+        enhanceCustomSelect(sel, { variant: 'pill' });
+      });
+    }
+
+    document.getElementById('memberSearchInput').addEventListener('input', renderMembersTable);
+    document.getElementById('memberRoleFilter').addEventListener('change', renderMembersTable);
+
+    async function onRoleSelectChange(selectEl, encId, previousRole) {
+      const nextRole = selectEl.value;
+      if (nextRole === previousRole) return;
+      selectEl.className = `role-pill-select role-${nextRole}`;
+      syncCustomSelect(selectEl);
+      const ok = await setMemberRole(encId, nextRole);
+      if (!ok) {
+        selectEl.value = previousRole;
+        selectEl.className = `role-pill-select role-${previousRole}`;
+        syncCustomSelect(selectEl);
+      }
+    }
+
+    async function resetMemberPassword(encEnrollmentNo, member) {
+      const label = member?.name ? `${member.name} (${member.enrollmentNo})` : decodeURIComponent(encEnrollmentNo);
+      const confirmed = await openConfirmModal({
+        title: 'Reset student password?',
+        description: `Generate a new password for ${label}? Their previous sign-in password will stop working immediately.`,
+        confirmLabel: 'Reset Password',
+        danger: false
+      });
+      if (!confirmed) return;
+
+      try {
+        const res = await fetch(`${API}/api/mentor/members/${encEnrollmentNo}/reset-password`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const d = await res.json();
+        if (!res.ok) throw new Error(d.error || 'Failed to reset password');
+        showSaasToast({
+          title: `New password for ${d.enrollmentNo || decodeURIComponent(encEnrollmentNo)}`,
+          subtitle: 'Share this sign-in code with the student.',
+          copyText: d.generatedPassword || ''
+        });
+      } catch (err) {
+        showSaasToast({ title: 'Could not reset password', subtitle: err.message, isError: true });
+      }
+    }
+
+    document.getElementById('addMemberForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errBox = document.getElementById('addDrawerError');
+      const enrollEl = document.getElementById('addEnrollInput');
+      const nameEl = document.getElementById('addNameInput');
+      const gradeEl = document.getElementById('addGradeInput');
+      const sectionEl = document.getElementById('addSectionInput');
+      const roleEl = document.getElementById('addRoleSelect');
+      const submitBtn = document.getElementById('submitAddMemberBtn');
+
+      errBox.textContent = '';
+      errBox.className = 'status-msg';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Adding…';
+
+      try {
+        const res = await fetch(`${API}/api/mentor/members`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({
+            enrollmentNo: enrollEl.value,
+            name: nameEl.value,
+            grade: gradeEl.value,
+            section: sectionEl.value,
+            role: roleEl.value
+          })
+        });
+        const d = await res.json();
+        if (!res.ok) throw new Error(d.error || 'Failed to add member');
+
+        const addedEnroll = d.member?.enrollmentNo || enrollEl.value.trim().toUpperCase();
+        const addedName = d.member?.name || nameEl.value.trim();
+
+        enrollEl.value = '';
+        nameEl.value = '';
+        gradeEl.value = '';
+        sectionEl.value = '';
+        roleEl.value = 'member';
+        syncCustomSelect(roleEl);
+        closeAddDrawer();
+        loadMembers();
+
+        showSaasToast({
+          title: `New password for ${addedEnroll}`,
+          subtitle: addedName ? `${addedName} added to the club roster.` : 'Member added to the club roster.',
+          copyText: d.generatedPassword || ''
+        });
+      } catch (err) {
+        errBox.textContent = err.message;
+        errBox.className = 'status-msg error';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Add Member';
+      }
+    });
+
+    async function setMemberRole(encEnrollmentNo, role) {
+      try {
+        const res = await fetch(`${API}/api/mentor/members/${encEnrollmentNo}/role`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ role })
+        });
+        const d = await res.json();
+        if (!res.ok) throw new Error(d.error || 'Role update failed');
+        showSaasToast({
+          title: `Role updated to ${fmtRoleLabel(role)}`,
+          subtitle: d.message || ''
+        });
+        await loadMembers();
+        return true;
+      } catch (err) {
+        showSaasToast({ title: 'Role update failed', subtitle: err.message, isError: true });
+        return false;
+      }
+    }
+
+    async function revokeMember(encEnrollmentNo, member) {
+      const label = member?.name ? `${member.name} (${member.enrollmentNo})` : decodeURIComponent(encEnrollmentNo);
+      const confirmed = await openConfirmModal({
+        title: 'Remove member?',
+        description: `Are you sure you want to remove ${label} from this club? Their access will be revoked immediately.`,
+        confirmLabel: 'Remove Member',
+        danger: true
+      });
+      if (!confirmed) return;
+
+      try {
+        const res = await fetch(`${API}/api/mentor/members/${encEnrollmentNo}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const d = await res.json();
+        if (!res.ok) throw new Error(d.error || 'Failed to remove member');
+        showSaasToast({ title: 'Member removed', subtitle: `${label} was removed from the roster.` });
+        loadMembers();
+      } catch (err) {
+        showSaasToast({ title: 'Could not remove member', subtitle: err.message, isError: true });
+      }
+    }
+
+    // ── Custom Oxford Navy Dropdown System (#1B2A3A) ───────────────────
+    let activeSelectTrigger = null;
+    let activeNativeSelect = null;
+
+    function closeCustomSelectMenu() {
+      const menu = document.getElementById('ccSelectMenu');
+      if (!menu) return;
+      menu.classList.remove('open');
+      menu.setAttribute('aria-hidden', 'true');
+      if (activeSelectTrigger) {
+        activeSelectTrigger.classList.remove('is-open');
+        activeSelectTrigger.setAttribute('aria-expanded', 'false');
+      }
+      activeSelectTrigger = null;
+      activeNativeSelect = null;
+    }
+
+    function syncCustomSelect(selectEl) {
+      if (!selectEl || !selectEl._ccTrigger) return;
+      const trigger = selectEl._ccTrigger;
+      const labelSpan = trigger.querySelector('.cc-select-label');
+      const selectedOpt = selectEl.options[selectEl.selectedIndex];
+      if (labelSpan) labelSpan.textContent = selectedOpt ? selectedOpt.textContent : '';
+
+      if (selectEl._ccVariant === 'pill') {
+        trigger.className = `cc-select-trigger is-pill role-${selectEl.value || 'member'}`;
+      }
+      trigger.disabled = !!selectEl.disabled;
+    }
+
+    function openCustomSelectMenu(selectEl, trigger) {
+      const menu = document.getElementById('ccSelectMenu');
+      if (activeNativeSelect === selectEl && menu.classList.contains('open')) {
+        closeCustomSelectMenu();
+        return;
+      }
+      closeRowMenu();
+      closeCustomSelectMenu();
+
+      activeNativeSelect = selectEl;
+      activeSelectTrigger = trigger;
+      trigger.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+
+      const opts = Array.from(selectEl.options);
+      menu.innerHTML = opts.map((opt, idx) => {
+        const isSel = idx === selectEl.selectedIndex;
+        return `
+          <button type="button" role="option" aria-selected="${isSel}" class="cc-select-option ${isSel ? 'is-selected' : ''}" data-opt-val="${escHtml(opt.value)}">
+            <span>${escHtml(opt.textContent)}</span>
+            <svg class="cc-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+        `;
+      }).join('');
+
+      menu.querySelectorAll('.cc-select-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = btn.getAttribute('data-opt-val');
+          const changed = selectEl.value !== val;
+          selectEl.value = val;
+          syncCustomSelect(selectEl);
+          closeCustomSelectMenu();
+          if (changed) {
+            selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+          }
+        });
+      });
+
+      menu.classList.add('open');
+      menu.setAttribute('aria-hidden', 'false');
+
+      const rect = trigger.getBoundingClientRect();
+      const minW = Math.max(rect.width, selectEl._ccVariant === 'pill' ? 160 : rect.width);
+      menu.style.minWidth = `${minW}px`;
+      const menuW = Math.max(menu.offsetWidth, minW);
+      const menuH = Math.min(270, menu.scrollHeight + 12);
+      const left = Math.max(10, Math.min(window.innerWidth - menuW - 10, rect.left));
+      const openUp = rect.bottom + menuH + 10 > window.innerHeight && rect.top > menuH + 12;
+      const top = openUp ? Math.max(10, rect.top - menuH - 6) : rect.bottom + 6;
+      menu.style.left = `${left}px`;
+      menu.style.top = `${top}px`;
+    }
+
+    function enhanceCustomSelect(selectEl, opts = {}) {
+      if (!selectEl) return;
+      if (selectEl._ccEnhanced) {
+        syncCustomSelect(selectEl);
+        return;
+      }
+      const variant = opts.variant || 'default';
+      selectEl._ccEnhanced = true;
+      selectEl._ccVariant = variant;
+
+      const wrap = document.createElement('div');
+      wrap.className = `cc-select-wrap ${variant === 'filter' || variant === 'pill' || variant === 'cal-pill' ? 'is-inline' : ''}`;
+      selectEl.parentNode.insertBefore(wrap, selectEl);
+      wrap.appendChild(selectEl);
+      selectEl.classList.add('cc-native-hidden');
+      selectEl.tabIndex = -1;
+
+      const trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      if (selectEl.getAttribute('aria-label')) {
+        trigger.setAttribute('aria-label', selectEl.getAttribute('aria-label'));
+      }
+      const variantCls = variant === 'filter'
+        ? 'is-filter'
+        : variant === 'cal-pill'
+          ? 'is-cal-pill'
+          : variant === 'pill'
+            ? `is-pill role-${selectEl.value || 'member'}`
+            : '';
+      trigger.className = `cc-select-trigger ${variantCls}`;
+      trigger.innerHTML = `<span class="cc-select-label"></span><svg class="cc-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (trigger.disabled) return;
+        openCustomSelectMenu(selectEl, trigger);
+      });
+
+      selectEl._ccTrigger = trigger;
+      wrap.appendChild(trigger);
+      syncCustomSelect(selectEl);
+    }
+
+    // ── Disable Browser Form History Suggestions ───────────────────────
+    ['actSearchInput', 'titleInput', 'descInput', 'memberSearchInput', 'addEnrollInput', 'addNameInput', 'addGradeInput', 'addSectionInput'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.setAttribute('autocomplete', 'off');
+      el.setAttribute('aria-autocomplete', 'none');
+      el.setAttribute('name', `cc_${id}_${Math.random().toString(36).slice(2, 8)}`);
+    });
+
+    // ── Custom "Select Date" Calendar Picker (Cambridge Colors) ────────
+    const CAL_MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let calViewYear = 2026;
+    let calViewMonth = 10;
+    let calDraftIso = getTodayIso();
+
+    function parseIsoDateParts(iso) {
+      const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!m) {
+        const now = new Date();
+        return { y: now.getFullYear(), m: now.getMonth(), d: now.getDate() };
+      }
+      return { y: Number(m[1]), m: Number(m[2]) - 1, d: Number(m[3]) };
+    }
+
+    function toIsoDate(y, m, d) {
+      return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    }
+
+    function setActivityDateValue(iso) {
+      const input = document.getElementById('dateInput');
+      const disp = document.getElementById('datePickerDisplay');
+      const parts = parseIsoDateParts(iso);
+      const normIso = toIsoDate(parts.y, parts.m, parts.d);
+      input.value = normIso;
+      const dt = new Date(parts.y, parts.m, parts.d);
+      disp.textContent = dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function renderCalendarGrid() {
+      const grid = document.getElementById('ccCalDaysGrid');
+      const badgeNum = document.getElementById('ccCalBadgeNum');
+      const monthSel = document.getElementById('calMonthSelect');
+      const yearSel = document.getElementById('calYearSelect');
+
+      monthSel.value = String(calViewMonth);
+      yearSel.value = String(calViewYear);
+      syncCustomSelect(monthSel);
+      syncCustomSelect(yearSel);
+
+      const draftParts = parseIsoDateParts(calDraftIso);
+      badgeNum.textContent = String(draftParts.d).padStart(2, '0');
+
+      const firstDow = new Date(calViewYear, calViewMonth, 1).getDay();
+      const daysInMonth = new Date(calViewYear, calViewMonth + 1, 0).getDate();
+      const prevMonthDays = new Date(calViewYear, calViewMonth, 0).getDate();
+      const totalCells = firstDow + daysInMonth > 35 ? 42 : 35;
+
+      const cells = [];
+      for (let i = 0; i < totalCells; i++) {
+        let cellYear = calViewYear;
+        let cellMonth = calViewMonth;
+        let cellDay;
+        let isMuted = false;
+
+        if (i < firstDow) {
+          cellDay = prevMonthDays - firstDow + 1 + i;
+          cellMonth -= 1;
+          if (cellMonth < 0) { cellMonth = 11; cellYear -= 1; }
+          isMuted = true;
+        } else if (i >= firstDow + daysInMonth) {
+          cellDay = i - (firstDow + daysInMonth) + 1;
+          cellMonth += 1;
+          if (cellMonth > 11) { cellMonth = 0; cellYear += 1; }
+          isMuted = true;
+        } else {
+          cellDay = i - firstDow + 1;
+        }
+
+        const iso = toIsoDate(cellYear, cellMonth, cellDay);
+        const isSun = (i % 7) === 0;
+        const isSelected = iso === calDraftIso;
+        cells.push(`
+          <button
+            type="button"
+            class="cc-cal-day ${isSun ? 'is-sun' : ''} ${isMuted ? 'is-muted' : ''} ${isSelected ? 'is-selected' : ''}"
+            data-iso="${iso}"
+          >${String(cellDay).padStart(2, '0')}</button>
+        `);
+      }
+
+      grid.innerHTML = cells.join('');
+      grid.querySelectorAll('.cc-cal-day').forEach(btn => {
+        btn.addEventListener('click', () => {
+          calDraftIso = btn.getAttribute('data-iso');
+          const p = parseIsoDateParts(calDraftIso);
+          calViewYear = p.y;
+          calViewMonth = p.m;
+          renderCalendarGrid();
+        });
+      });
+    }
+
+    function openDateModal() {
+      const current = document.getElementById('dateInput').value || getTodayIso();
+      calDraftIso = current;
+      const p = parseIsoDateParts(calDraftIso);
+      calViewYear = p.y;
+      calViewMonth = p.m;
+      renderCalendarGrid();
+      document.getElementById('ccDateModalBackdrop').classList.add('open');
+    }
+
+    function closeDateModal() {
+      closeCustomSelectMenu();
+      document.getElementById('ccDateModalBackdrop').classList.remove('open');
+    }
+
+    (function initCustomControls() {
+      const monthSel = document.getElementById('calMonthSelect');
+      const yearSel = document.getElementById('calYearSelect');
+      monthSel.innerHTML = CAL_MONTHS.map((name, idx) => `<option value="${idx}">${name}</option>`).join('');
+      const thisYear = new Date().getFullYear();
+      const years = [];
+      for (let y = thisYear - 5; y <= thisYear + 5; y++) years.push(y);
+      yearSel.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
+
+      monthSel.addEventListener('change', () => {
+        calViewMonth = Number(monthSel.value);
+        const p = parseIsoDateParts(calDraftIso);
+        const maxD = new Date(calViewYear, calViewMonth + 1, 0).getDate();
+        calDraftIso = toIsoDate(calViewYear, calViewMonth, Math.min(p.d, maxD));
+        renderCalendarGrid();
+      });
+      yearSel.addEventListener('change', () => {
+        calViewYear = Number(yearSel.value);
+        const p = parseIsoDateParts(calDraftIso);
+        const maxD = new Date(calViewYear, calViewMonth + 1, 0).getDate();
+        calDraftIso = toIsoDate(calViewYear, calViewMonth, Math.min(p.d, maxD));
+        renderCalendarGrid();
+      });
+
+      document.getElementById('datePickerTrigger').addEventListener('click', openDateModal);
+      document.getElementById('ccCalConfirmBtn').addEventListener('click', () => {
+        setActivityDateValue(calDraftIso);
+        closeDateModal();
+      });
+      document.getElementById('ccDateModalBackdrop').addEventListener('click', (e) => {
+        if (e.target.id === 'ccDateModalBackdrop') closeDateModal();
+      });
+
+      setActivityDateValue(getTodayIso());
+
+      enhanceCustomSelect(document.getElementById('actTagFilter'), { variant: 'filter' });
+      enhanceCustomSelect(document.getElementById('tagInput'), { variant: 'default' });
+      enhanceCustomSelect(document.getElementById('memberRoleFilter'), { variant: 'filter' });
+      enhanceCustomSelect(document.getElementById('addRoleSelect'), { variant: 'default' });
+      enhanceCustomSelect(monthSel, { variant: 'cal-pill' });
+      enhanceCustomSelect(yearSel, { variant: 'cal-pill' });
+    })();
+
   </script>
   <script src="../nav-previews.js"></script>
 </body>

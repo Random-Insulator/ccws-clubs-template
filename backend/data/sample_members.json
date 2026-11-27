@@ -1,0 +1,445 @@
+{
+  "members": [
+    {
+      "clubId": "robotics",
+      "enrollmentNo": "202220231924",
+      "role": "president",
+      "password": "ROB-BTRQ",
+      "name": "Aarav Joshi",
+      "grade": "IX",
+      "section": "A"
+    },
+    {
+      "clubId": "robotics",
+      "enrollmentNo": "202320242386",
+      "role": "vice_president",
+      "password": "ROB-GF5C",
+      "name": "Ananya Mehta",
+      "grade": "X",
+      "section": "C"
+    },
+    {
+      "clubId": "robotics",
+      "enrollmentNo": "202420250588",
+      "role": "member",
+      "password": "ROB-FPQB",
+      "name": "Vivaan Tandon",
+      "grade": "VIII",
+      "section": "A"
+    },
+    {
+      "clubId": "robotics",
+      "enrollmentNo": "202520269295",
+      "role": "member",
+      "password": "ROB-N4Q6",
+      "name": "Diya Saxena",
+      "grade": "IX",
+      "section": "C"
+    },
+    {
+      "clubId": "robotics",
+      "enrollmentNo": "202620279754",
+      "role": "member",
+      "password": "ROB-TAL5",
+      "name": "Kabir Nanda",
+      "grade": "X",
+      "section": "A"
+    },
+    {
+      "clubId": "robotics",
+      "enrollmentNo": "202220235674",
+      "role": "member",
+      "password": "ROB-TKPX",
+      "name": "Ishita Tiwari",
+      "grade": "VIII",
+      "section": "C"
+    },
+    {
+      "clubId": "robotics",
+      "enrollmentNo": "202320241774",
+      "role": "member",
+      "password": "ROB-F2GY",
+      "name": "Reyansh Rastogi",
+      "grade": "IX",
+      "section": "A"
+    },
+    {
+      "clubId": "teded",
+      "enrollmentNo": "202320245735",
+      "role": "president",
+      "password": "TED-SC7H",
+      "name": "Sanya Verma",
+      "grade": "X",
+      "section": "C"
+    },
+    {
+      "clubId": "teded",
+      "enrollmentNo": "202420256301",
+      "role": "vice_president",
+      "password": "TED-FUZN",
+      "name": "Aditya Kapoor",
+      "grade": "VIII",
+      "section": "A"
+    },
+    {
+      "clubId": "teded",
+      "enrollmentNo": "202520261239",
+      "role": "member",
+      "password": "TED-CQUF",
+      "name": "Kiara Arora",
+      "grade": "IX",
+      "section": "C"
+    },
+    {
+      "clubId": "teded",
+      "enrollmentNo": "202620273914",
+      "role": "member",
+      "password": "TED-G2T7",
+      "name": "Arjun Bansal",
+      "grade": "X",
+      "section": "A"
+    },
+    {
+      "clubId": "teded",
+      "enrollmentNo": "202220236077",
+      "role": "member",
+      "password": "TED-LZYP",
+      "name": "Myra Bhatia",
+      "grade": "VIII",
+      "section": "C"
+    },
+    {
+      "clubId": "teded",
+      "enrollmentNo": "202320244474",
+      "role": "member",
+      "password": "TED-ELRL",
+      "name": "Rohan Chopra",
+      "grade": "IX",
+      "section": "A"
+    },
+    {
+      "clubId": "teded",
+      "enrollmentNo": "202420257673",
+      "role": "member",
+      "password": "TED-2TQW",
+      "name": "Riddhi Sood",
+      "grade": "X",
+      "section": "C"
+    },
+    {
+      "clubId": "cookery",
+      "enrollmentNo": "202420251016",
+      "role": "president",
+      "password": "COO-QCW3",
+      "name": "Atharv Dubey",
+      "grade": "VIII",
+      "section": "A"
+    },
+    {
+      "clubId": "cookery",
+      "enrollmentNo": "202520264486",
+      "role": "vice_president",
+      "password": "COO-EPWP",
+      "name": "Tanvi Sharma",
+      "grade": "IX",
+      "section": "C"
+    },
+    {
+      "clubId": "cookery",
+      "enrollmentNo": "202620278279",
+      "role": "member",
+      "password": "COO-37KS",
+      "name": "Yash Gupta",
+      "grade": "X",
+      "section": "A"
+    },
+    {
+      "clubId": "cookery",
+      "enrollmentNo": "202220232387",
+      "role": "member",
+      "password": "COO-RS53",
+      "name": "Navya Khanna",
+      "grade": "VIII",
+      "section": "C"
+    },
+    {
+      "clubId": "cookery",
+      "enrollmentNo": "202320246030",
+      "role": "member",
+      "password": "COO-QJ9F",
+      "name": "Dev Sethi",
+      "grade": "IX",
+      "section": "A"
+    },
+    {
+      "clubId": "cookery",
+      "enrollmentNo": "202420250871",
+      "role": "member",
+      "password": "COO-HKL5",
+      "name": "Meher Chauhan",
+      "grade": "X",
+      "section": "C"
+    },
+    {
+      "clubId": "cookery",
+      "enrollmentNo": "202520269871",
+      "role": "member",
+      "password": "COO-E227",
+      "name": "Pranav Agarwal",
+      "grade": "VIII",
+      "section": "A"
+    },
+    {
+      "clubId": "theatre",
+      "enrollmentNo": "202520268769",
+      "role": "president",
+      "password": "THE-SAHT",
+      "name": "Niharika Kohli",
+      "grade": "IX",
+      "section": "C"
+    },
+    {
+      "clubId": "theatre",
+      "enrollmentNo": "202620275673",
+      "role": "vice_president",
+      "password": "THE-HU5L",
+      "name": "Karan Mishra",
+      "grade": "X",
+      "section": "A"
+    },
+    {
+      "clubId": "theatre",
+      "enrollmentNo": "202220237533",
+      "role": "member",
+      "password": "THE-ASMG",
+      "name": "Pari Mittal",
+      "grade": "VIII",
+      "section": "C"
+    },
+    {
+      "clubId": "theatre",
+      "enrollmentNo": "202320244989",
+      "role": "member",
+      "password": "THE-NKZL",
+      "name": "Shaurya Malhotra",
+      "grade": "IX",
+      "section": "A"
+    },
+    {
+      "clubId": "theatre",
+      "enrollmentNo": "202420258937",
+      "role": "member",
+      "password": "THE-AW9B",
+      "name": "Avni Joshi",
+      "grade": "X",
+      "section": "C"
+    },
+    {
+      "clubId": "theatre",
+      "enrollmentNo": "202520261932",
+      "role": "member",
+      "password": "THE-ZVRD",
+      "name": "Siddharth Mehta",
+      "grade": "VIII",
+      "section": "A"
+    },
+    {
+      "clubId": "theatre",
+      "enrollmentNo": "202620274046",
+      "role": "member",
+      "password": "THE-FF9E",
+      "name": "Kritika Tandon",
+      "grade": "IX",
+      "section": "C"
+    },
+    {
+      "clubId": "eco",
+      "enrollmentNo": "202620278827",
+      "role": "president",
+      "password": "ECO-JJ8L",
+      "name": "Harsh Saxena",
+      "grade": "X",
+      "section": "A"
+    },
+    {
+      "clubId": "eco",
+      "enrollmentNo": "202220234442",
+      "role": "vice_president",
+      "password": "ECO-5PNV",
+      "name": "Gauri Nanda",
+      "grade": "VIII",
+      "section": "C"
+    },
+    {
+      "clubId": "eco",
+      "enrollmentNo": "202320246637",
+      "role": "member",
+      "password": "ECO-Z66H",
+      "name": "Manav Tiwari",
+      "grade": "IX",
+      "section": "A"
+    },
+    {
+      "clubId": "eco",
+      "enrollmentNo": "202420254161",
+      "role": "member",
+      "password": "ECO-QEXB",
+      "name": "Aanya Rastogi",
+      "grade": "X",
+      "section": "C"
+    },
+    {
+      "clubId": "eco",
+      "enrollmentNo": "202520269738",
+      "role": "member",
+      "password": "ECO-QQAE",
+      "name": "Nikhil Verma",
+      "grade": "VIII",
+      "section": "A"
+    },
+    {
+      "clubId": "eco",
+      "enrollmentNo": "202620271064",
+      "role": "member",
+      "password": "ECO-QECX",
+      "name": "Aditi Kapoor",
+      "grade": "IX",
+      "section": "C"
+    },
+    {
+      "clubId": "eco",
+      "enrollmentNo": "202220231260",
+      "role": "member",
+      "password": "ECO-RT9P",
+      "name": "Lakshay Arora",
+      "grade": "X",
+      "section": "A"
+    },
+    {
+      "clubId": "technocrates",
+      "enrollmentNo": "202220238934",
+      "role": "president",
+      "password": "TEC-J8R8",
+      "name": "Shreya Bansal",
+      "grade": "VIII",
+      "section": "C"
+    },
+    {
+      "clubId": "technocrates",
+      "enrollmentNo": "202320246769",
+      "role": "vice_president",
+      "password": "TEC-NGG5",
+      "name": "Utkarsh Bhatia",
+      "grade": "IX",
+      "section": "A"
+    },
+    {
+      "clubId": "technocrates",
+      "enrollmentNo": "202420255904",
+      "role": "member",
+      "password": "TEC-547D",
+      "name": "Bhavya Chopra",
+      "grade": "X",
+      "section": "C"
+    },
+    {
+      "clubId": "technocrates",
+      "enrollmentNo": "202520261712",
+      "role": "member",
+      "password": "TEC-D3XG",
+      "name": "Dhruv Sood",
+      "grade": "VIII",
+      "section": "A"
+    },
+    {
+      "clubId": "technocrates",
+      "enrollmentNo": "202620274173",
+      "role": "member",
+      "password": "TEC-NN6J",
+      "name": "Khushi Dubey",
+      "grade": "IX",
+      "section": "C"
+    },
+    {
+      "clubId": "technocrates",
+      "enrollmentNo": "202220237012",
+      "role": "member",
+      "password": "TEC-MT7R",
+      "name": "Parth Sharma",
+      "grade": "X",
+      "section": "A"
+    },
+    {
+      "clubId": "technocrates",
+      "enrollmentNo": "202320241335",
+      "role": "member",
+      "password": "TEC-6GDA",
+      "name": "Ira Gupta",
+      "grade": "VIII",
+      "section": "C"
+    },
+    {
+      "clubId": "literary",
+      "enrollmentNo": "202320241628",
+      "role": "president",
+      "password": "LIT-RL49",
+      "name": "Tushar Khanna",
+      "grade": "IX",
+      "section": "A"
+    },
+    {
+      "clubId": "literary",
+      "enrollmentNo": "202420257986",
+      "role": "vice_president",
+      "password": "LIT-P3DL",
+      "name": "Vanshika Sethi",
+      "grade": "X",
+      "section": "C"
+    },
+    {
+      "clubId": "literary",
+      "enrollmentNo": "202520266309",
+      "role": "member",
+      "password": "LIT-A2S7",
+      "name": "Ritvik Chauhan",
+      "grade": "VIII",
+      "section": "A"
+    },
+    {
+      "clubId": "literary",
+      "enrollmentNo": "202620274773",
+      "role": "member",
+      "password": "LIT-59KN",
+      "name": "Sakshi Agarwal",
+      "grade": "IX",
+      "section": "C"
+    },
+    {
+      "clubId": "literary",
+      "enrollmentNo": "202220234961",
+      "role": "member",
+      "password": "LIT-PDDW",
+      "name": "Ansh Kohli",
+      "grade": "X",
+      "section": "A"
+    },
+    {
+      "clubId": "literary",
+      "enrollmentNo": "202320241036",
+      "role": "member",
+      "password": "LIT-D8LD",
+      "name": "Muskan Mishra",
+      "grade": "VIII",
+      "section": "C"
+    },
+    {
+      "clubId": "literary",
+      "enrollmentNo": "202420258420",
+      "role": "member",
+      "password": "LIT-FMEE",
+      "name": "Kartik Mittal",
+      "grade": "IX",
+      "section": "A"
+    }
+  ]
+}

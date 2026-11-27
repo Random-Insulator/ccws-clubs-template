@@ -105,6 +105,9 @@ try {
 
 // Static assets (local dev only — Vercel serves static files via routes config)
 if (!process.env.VERCEL) {
+  app.get("/", (_req, res) => {
+    res.sendFile(path.join(__dirname, "..", "start.html"));
+  });
   app.use("/uploads", express.static(UPLOAD_DIR));
   app.use("/portal", express.static(path.join(__dirname, "portal")));
   app.use("/", express.static(path.join(__dirname, "..")));
@@ -145,6 +148,7 @@ async function connectDB() {
 
   try {
     await dbConnectionPromise;
+    await seedSampleMembersIfEmpty();
   } finally {
     dbConnectionPromise = null;
   }
@@ -164,6 +168,72 @@ const Activity = mongoose.models.Activity || mongoose.model("Activity", new mong
   uploadedAt: String,
   approvedAt: String
 }, { strict: false }));
+
+const ClubSettings = mongoose.models.ClubSettings || mongoose.model("ClubSettings", new mongoose.Schema({
+  clubId: { type: String, required: true, unique: true },
+  memberPasswordHash: String,
+  updatedAt: String
+}));
+
+const ClubMember = mongoose.models.ClubMember || mongoose.model("ClubMember", new mongoose.Schema({
+  clubId: { type: String, required: true, index: true },
+  enrollmentNo: { type: String, required: true },
+  name: { type: String, default: "" },
+  grade: { type: String, default: "" },
+  section: { type: String, default: "" },
+  passwordHash: String,
+  role: { type: String, enum: ["member", "vice_president", "president"], default: "member" },
+  status: { type: String, enum: ["active", "revoked"], default: "active" },
+  addedBy: { type: String, default: "seed" },
+  addedAt: String,
+  lastLoginAt: String
+}));
+
+function generateReadableStudentPassword(clubId) {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let suffix = "";
+  for (let i = 0; i < 4; i++) suffix += chars[Math.floor(Math.random() * chars.length)];
+  return (clubId || "CCW").slice(0, 3).toUpperCase() + "-" + suffix;
+}
+
+let _sampleSeeded = false;
+async function seedSampleMembersIfEmpty() {
+  if (_sampleSeeded || mongoose.connection.readyState !== 1) return;
+  _sampleSeeded = true;
+  try {
+    const samplePath = path.join(DATA_DIR, "sample_members.json");
+    if (!fs.existsSync(samplePath)) return;
+    const sample = JSON.parse(fs.readFileSync(samplePath, "utf8"));
+    const now = new Date().toISOString();
+
+    const allClubIds = Array.from(new Set((sample.members || []).map(m => m.clubId.toLowerCase())));
+
+    for (const cid of allClubIds) {
+      const existingCount = await ClubMember.countDocuments({ clubId: cid });
+      if (existingCount === 0) {
+        const clubMembers = (sample.members || []).filter(m => m.clubId.toLowerCase() === cid);
+        for (const m of clubMembers) {
+          const pwd = m.password || generateReadableStudentPassword(cid);
+          await ClubMember.create({
+            clubId: cid,
+            enrollmentNo: m.enrollmentNo.toUpperCase(),
+            name: m.name || "",
+            grade: m.grade || "",
+            section: m.section || "",
+            passwordHash: bcrypt.hashSync(pwd, 10),
+            role: m.role || "member",
+            status: "active",
+            addedBy: "seed",
+            addedAt: now
+          });
+        }
+      }
+    }
+    console.log("✅ Sample student IDs & individual passwords seeded (where empty)");
+  } catch (err) {
+    console.warn("Sample member seed warning:", err.message);
+  }
+}
 
 // ─── Auth Middleware ──────────────────────────────────────────────────────────
 function requireAuth(req, res, next) {
@@ -188,6 +258,21 @@ function requireAdmin(req, res, next) {
     const payload = jwt.verify(header.slice(7), JWT_SECRET);
     if (payload.role !== "admin") return res.status(403).json({ error: "Admin access required" });
     req.admin = payload;
+    next();
+  } catch {
+    return res.status(401).json({ error: "Invalid or expired token" });
+  }
+}
+
+function requireStudentAuth(req, res, next) {
+  const header = req.headers.authorization;
+  if (!header || !header.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Missing or invalid Authorization header" });
+  }
+  try {
+    const payload = jwt.verify(header.slice(7), JWT_SECRET);
+    if (payload.role !== "student") return res.status(403).json({ error: "Student access required" });
+    req.student = payload;
     next();
   } catch {
     return res.status(401).json({ error: "Invalid or expired token" });
@@ -1170,6 +1255,310 @@ app.delete("/api/admin/clubs/:clubId", requireAdmin, (req, res) => {
     }
 
     res.json({ message: "Club removed from website successfully", clubId: cleanId });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── Student Auth & Mentor Member Roster Endpoints ────────────────────────────
+
+function normalizeEnrollmentNo(raw) {
+  if (!raw || typeof raw !== "string") return "";
+  return raw.trim().toUpperCase().replace(/[^A-Z0-9\-\/]/g, "");
+}
+
+function resolveClubMeta(clubId) {
+  const clean = (clubId || "").toLowerCase().trim();
+  const clubs = getClubsList();
+  const mentors = getMentorsList();
+  const c = clubs.find(x => (x.clubId || "").toLowerCase() === clean) || {};
+  const m = mentors.find(x => (x.clubId || "").toLowerCase() === clean) || {};
+  return {
+    clubId: m.clubId || c.clubId || clean,
+    name: c.name || m.name || clean,
+    mentorName: c.mentorName || m.mentorName || "",
+    timings: c.timings || c.day || "",
+    grades: c.grades || "",
+    link: c.link || ""
+  };
+}
+
+function sortMembersByRole(list) {
+  const roleRank = { president: 0, vice_president: 1, member: 2 };
+  return list.sort((a, b) => {
+    if (a.status !== b.status) return a.status === "active" ? -1 : 1;
+    const ra = roleRank[a.role] ?? 2;
+    const rb = roleRank[b.role] ?? 2;
+    if (ra !== rb) return ra - rb;
+    return (a.enrollmentNo || "").localeCompare(b.enrollmentNo || "");
+  });
+}
+
+// POST /api/student/login — enrollmentNo + clubId + individual or mentor password
+app.post("/api/student/login", async (req, res) => {
+  try {
+    await connectDB();
+    const ip = req.ip || req.headers["x-forwarded-for"] || "unknown";
+    const enrollmentNo = normalizeEnrollmentNo(req.body?.enrollmentNo);
+    const clubId = (req.body?.clubId || "").toLowerCase().trim();
+    const password = req.body?.password;
+
+    if (!enrollmentNo || enrollmentNo.length < 3 || !clubId || !password) {
+      return res.status(400).json({ error: "Valid enrollment number, club, and password are required." });
+    }
+
+    const targetKey = `student:${clubId}`;
+    const lockout = checkLoginRateLimit(ip, targetKey);
+    if (lockout.isLocked) {
+      res.setHeader("Retry-After", lockout.secondsLeft || 900);
+      return res.status(429).json({
+        error: `Too many failed attempts. Please try again in ${lockout.minutesLeft} minute${lockout.minutesLeft > 1 ? "s" : ""}.`
+      });
+    }
+
+    const member = await ClubMember.findOne({ clubId, enrollmentNo });
+    if (!member) {
+      await recordFailedLogin(ip, targetKey);
+      return res.status(401).json({
+        error: "Enrollment number not found in this club. Speak with your club mentor during club hours."
+      });
+    }
+
+    if (member.status === "revoked") {
+      return res.status(403).json({
+        error: "Your access for this club was revoked by the mentor. Please speak with your club mentor."
+      });
+    }
+
+    const settings = await ClubSettings.findOne({ clubId });
+    const hashToCheck = member.passwordHash || settings?.memberPasswordHash;
+    if (!hashToCheck || !bcrypt.compareSync(String(password), hashToCheck)) {
+      const failedRecord = await recordFailedLogin(ip, targetKey);
+      const attemptsLeft = Math.max(0, MAX_FAILED_ATTEMPTS - failedRecord.count);
+      return res.status(401).json({
+        error: `Incorrect password. (${attemptsLeft} attempt${attemptsLeft !== 1 ? "s" : ""} remaining)`
+      });
+    }
+
+    clearFailedLogins(ip, targetKey);
+    member.lastLoginAt = new Date().toISOString();
+    await member.save();
+
+    const allMembers = sortMembersByRole(await ClubMember.find({ clubId, status: "active" }).lean());
+    const president = allMembers.find(m => m.role === "president")?.enrollmentNo || null;
+    const vicePresident = allMembers.find(m => m.role === "vice_president")?.enrollmentNo || null;
+    const clubInfo = resolveClubMeta(clubId);
+
+    const token = jwt.sign(
+      { role: "student", clubId, enrollmentNo },
+      JWT_SECRET,
+      { expiresIn: "12h" }
+    );
+
+    res.json({
+      token,
+      enrollmentNo,
+      memberRole: member.role,
+      clubId,
+      clubInfo,
+      leadership: { president, vicePresident },
+      memberCount: allMembers.length
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/student/me — refresh current student session & role
+app.get("/api/student/me", requireStudentAuth, async (req, res) => {
+  try {
+    await connectDB();
+    const { clubId, enrollmentNo } = req.student;
+    const member = await ClubMember.findOne({ clubId, enrollmentNo }).lean();
+    if (!member || member.status === "revoked") {
+      return res.status(403).json({ error: "Membership is inactive or revoked." });
+    }
+    const allMembers = sortMembersByRole(await ClubMember.find({ clubId, status: "active" }).lean());
+    const president = allMembers.find(m => m.role === "president")?.enrollmentNo || null;
+    const vicePresident = allMembers.find(m => m.role === "vice_president")?.enrollmentNo || null;
+
+    res.json({
+      enrollmentNo,
+      memberRole: member.role,
+      clubId,
+      clubInfo: resolveClubMeta(clubId),
+      leadership: { president, vicePresident },
+      memberCount: allMembers.length
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/mentor/members — fetch club member roster & password status
+app.get("/api/mentor/members", requireAuth, async (req, res) => {
+  try {
+    await connectDB();
+    const clubId = req.mentor.clubId.toLowerCase();
+    const settings = await ClubSettings.findOne({ clubId }).lean();
+    const members = sortMembersByRole(await ClubMember.find({ clubId }).select("-passwordHash").lean());
+
+    res.json({
+      passwordConfigured: Boolean(settings?.memberPasswordHash),
+      members
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/mentor/member-password — mentor sets optional fallback club password
+app.post("/api/mentor/member-password", requireAuth, async (req, res) => {
+  try {
+    await connectDB();
+    const clubId = req.mentor.clubId.toLowerCase();
+    const password = String(req.body?.password || "").trim();
+    if (password.length < 4) {
+      return res.status(400).json({ error: "Password must be at least 4 characters." });
+    }
+    const hash = bcrypt.hashSync(password, 10);
+    await ClubSettings.findOneAndUpdate(
+      { clubId },
+      { clubId, memberPasswordHash: hash, updatedAt: new Date().toISOString() },
+      { upsert: true, new: true }
+    );
+    res.json({ message: "Club fallback password updated." });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/mentor/members — mentor adds/restores a member with individual password
+app.post("/api/mentor/members", requireAuth, async (req, res) => {
+  try {
+    await connectDB();
+    const clubId = req.mentor.clubId.toLowerCase();
+    const enrollmentNo = normalizeEnrollmentNo(req.body?.enrollmentNo);
+    const name = String(req.body?.name || "").trim();
+    const grade = String(req.body?.grade || "").trim();
+    const section = String(req.body?.section || "").trim().toUpperCase();
+    const role = ["member", "president", "vice_president"].includes(req.body?.role) ? req.body.role : "member";
+    const rawPassword = String(req.body?.password || "").trim();
+    const finalPassword = rawPassword.length >= 4 ? rawPassword : generateReadableStudentPassword(clubId);
+
+    if (!enrollmentNo || enrollmentNo.length < 3) {
+      return res.status(400).json({ error: "Enter a valid enrollment number (min 3 characters)." });
+    }
+
+    if (role === "president" || role === "vice_president") {
+      await ClubMember.updateMany({ clubId, role }, { $set: { role: "member" } });
+    }
+
+    const passwordHash = bcrypt.hashSync(finalPassword, 10);
+    const existing = await ClubMember.findOne({ clubId, enrollmentNo });
+    if (existing) {
+      existing.status = "active";
+      existing.role = role;
+      if (name) existing.name = name;
+      if (grade) existing.grade = grade;
+      if (section) existing.section = section;
+      existing.passwordHash = passwordHash;
+      await existing.save();
+      return res.json({
+        member: { enrollmentNo: existing.enrollmentNo, name: existing.name, grade: existing.grade, section: existing.section, role: existing.role, status: existing.status },
+        generatedPassword: finalPassword,
+        message: `${enrollmentNo} updated. Member password: ${finalPassword}`
+      });
+    }
+
+    const member = await ClubMember.create({
+      clubId,
+      enrollmentNo,
+      name,
+      grade,
+      section,
+      passwordHash,
+      role,
+      status: "active",
+      addedBy: "mentor",
+      addedAt: new Date().toISOString()
+    });
+    res.status(201).json({
+      member: { enrollmentNo: member.enrollmentNo, name: member.name, grade: member.grade, section: member.section, role: member.role, status: member.status },
+      generatedPassword: finalPassword,
+      message: `${enrollmentNo} added. Give them password: ${finalPassword}`
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/mentor/members/:enrollmentNo/reset-password — generate fresh individual password
+app.post("/api/mentor/members/:enrollmentNo/reset-password", requireAuth, async (req, res) => {
+  try {
+    await connectDB();
+    const clubId = req.mentor.clubId.toLowerCase();
+    const enrollmentNo = normalizeEnrollmentNo(decodeURIComponent(req.params.enrollmentNo));
+    const newPassword = generateReadableStudentPassword(clubId);
+
+    const member = await ClubMember.findOneAndUpdate(
+      { clubId, enrollmentNo },
+      { $set: { passwordHash: bcrypt.hashSync(newPassword, 10), status: "active" } },
+      { new: true }
+    );
+    if (!member) return res.status(404).json({ error: "Member not found." });
+
+    res.json({
+      enrollmentNo,
+      generatedPassword: newPassword,
+      message: `New password for ${enrollmentNo}: ${newPassword}`
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PUT /api/mentor/members/:enrollmentNo/role — assign president, vice_president, or member
+app.put("/api/mentor/members/:enrollmentNo/role", requireAuth, async (req, res) => {
+  try {
+    await connectDB();
+    const clubId = req.mentor.clubId.toLowerCase();
+    const enrollmentNo = normalizeEnrollmentNo(decodeURIComponent(req.params.enrollmentNo));
+    const role = req.body?.role;
+
+    if (!["member", "president", "vice_president"].includes(role)) {
+      return res.status(400).json({ error: "Invalid role." });
+    }
+
+    if (role === "president" || role === "vice_president") {
+      await ClubMember.updateMany(
+        { clubId, role, enrollmentNo: { $ne: enrollmentNo } },
+        { $set: { role: "member" } }
+      );
+    }
+
+    const member = await ClubMember.findOneAndUpdate(
+      { clubId, enrollmentNo },
+      { $set: { role, status: "active" } },
+      { new: true }
+    );
+    if (!member) return res.status(404).json({ error: "Member not found." });
+
+    res.json({ member, message: `Updated ${enrollmentNo} to ${role.replace("_", " ")}.` });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// DELETE /api/mentor/members/:enrollmentNo — remove student from club roster
+app.delete("/api/mentor/members/:enrollmentNo", requireAuth, async (req, res) => {
+  try {
+    await connectDB();
+    const clubId = req.mentor.clubId.toLowerCase();
+    const enrollmentNo = normalizeEnrollmentNo(decodeURIComponent(req.params.enrollmentNo));
+    const result = await ClubMember.deleteOne({ clubId, enrollmentNo });
+    if (!result.deletedCount) return res.status(404).json({ error: "Member not found." });
+    res.json({ message: `Removed ${enrollmentNo} from the club roster.` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -15,16 +15,23 @@
     :root {
       --ccws-navy: #1b2a3a;
       --ccws-navy-deep: #0f1c29;
+      --ccws-navy-tint: #edf1f6;
       --ccws-crimson: #8b1d2c;
       --ccws-crimson-light: #a82739;
+      --ccws-crimson-tint: #faecef;
       --ccws-gold: #d4af37;
+      --ccws-gold-light: #ebd075;
+      --ccws-gold-tint: #fdf8e8;
       --ccws-white: #ffffff;
+      --ccws-bg: #f8fafc;
+      --ccws-slate: #475569;
+      --snap: cubic-bezier(0.2, 0.9, 0.25, 1);
     }
 
     body {
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--ccws-navy-deep);
-      color: #1a1a1a;
+      color: #111827;
       min-height: 100vh;
       display: flex;
       overflow-x: hidden;
@@ -32,15 +39,14 @@
 
     /* ─── LEFT HERO PANEL ─── */
     .left-panel {
-      flex: 1.05;
-      background: linear-gradient(155deg, #0b1520 0%, #162433 45%, #7a1725 100%);
+      flex: 1;
+      background: var(--ccws-navy);
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: clamp(36px, 6vw, 64px);
+      padding: clamp(36px, 5.5vw, 64px);
       color: #ffffff;
-      overflow: hidden;
     }
 
     .brand-top {
@@ -49,7 +55,11 @@
       gap: 14px;
       text-decoration: none;
       color: #ffffff;
+      width: fit-content;
+      transition: transform 0.2s var(--snap);
     }
+
+    .brand-top:hover { transform: translateY(-1px); }
 
     .brand-crest {
       width: 44px;
@@ -61,7 +71,7 @@
       font-family: 'Syne', sans-serif;
       font-size: 15px;
       font-weight: 800;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       line-height: 1.2;
     }
@@ -69,105 +79,107 @@
     .brand-sub {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--ccws-gold);
+      color: var(--ccws-gold-light);
     }
 
     .hero-center {
-      max-width: 460px;
+      max-width: 440px;
       margin: 40px 0;
     }
 
     .hero-title {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(36px, 4.5vw, 52px);
-      font-weight: 800;
+      font-size: clamp(34px, 4.2vw, 50px);
+      font-weight: 700;
       line-height: 1.06;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.015em;
       margin-bottom: 18px;
     }
 
     .hero-desc {
       font-size: 15px;
       line-height: 1.65;
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(255, 255, 255, 0.84);
+      letter-spacing: 0.01em;
+    }
+
+    .offline-note {
+      margin-top: 22px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.88);
     }
 
     .back-home {
       display: inline-block;
-      color: rgba(255, 255, 255, 0.72);
+      color: rgba(255, 255, 255, 0.78);
       text-decoration: none;
       font-size: 13.5px;
       font-weight: 600;
-      transition: color 0.2s;
+      transition: color 0.18s ease, transform 0.2s var(--snap);
       width: fit-content;
     }
 
     .back-home:hover {
       color: #ffffff;
+      transform: translateX(-3px);
     }
 
-    /* ─── RIGHT FORM PANEL ─── */
+    /* ─── RIGHT PANEL ─── */
     .right-panel {
-      flex: 1;
+      flex: 1.08;
       background: var(--ccws-white);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: clamp(36px, 6vw, 64px);
+      padding: clamp(36px, 5.5vw, 64px);
       overflow-y: auto;
     }
 
-    .form-wrap {
-      max-width: 440px;
+    .panel-view {
+      max-width: 480px;
       width: 100%;
       margin: 0 auto;
+      animation: snapIn 0.28s var(--snap) both;
     }
 
-    .tabs {
-      display: flex;
-      border-bottom: 2px solid #e2e8f0;
-      margin-bottom: 28px;
-      gap: 20px;
+    @keyframes snapIn {
+      from { opacity: 0; transform: translateY(10px) scale(0.985); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .tab-btn {
-      padding: 10px 0 14px;
-      border: none;
-      background: none;
-      font-family: 'DM Sans', sans-serif;
+    .login-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ccws-navy);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .login-sub {
       font-size: 14.5px;
-      font-weight: 700;
-      color: #64748b;
-      cursor: pointer;
-      position: relative;
-      transition: color 0.2s;
-    }
-
-    .tab-btn.active {
-      color: var(--ccws-crimson);
-    }
-
-    .tab-btn.active::after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--ccws-crimson);
-      border-radius: 3px;
+      color: var(--ccws-slate);
+      margin-bottom: 28px;
+      line-height: 1.5;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .form-label {
       display: block;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       color: var(--ccws-navy);
       margin-bottom: 8px;
     }
@@ -178,16 +190,22 @@
       border: 1.5px solid #cbd5e1;
       border-radius: 10px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 14.5px;
+      font-size: 15px;
       color: #0f172a;
       background: #ffffff;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s var(--snap);
     }
 
     .form-input:focus, .form-select:focus {
       border-color: var(--ccws-crimson);
       box-shadow: 0 0 0 3px rgba(139, 29, 44, 0.12);
+    }
+
+    .form-input.mono {
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 600;
     }
 
     .btn-submit {
@@ -200,43 +218,240 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       font-weight: 700;
+      letter-spacing: 0.015em;
       cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.2s, transform 0.2s;
+      margin-top: 8px;
+      transition: background 0.16s ease, transform 0.18s var(--snap), box-shadow 0.18s ease;
+      box-shadow: 0 6px 18px rgba(15, 28, 41, 0.15);
     }
 
-    .btn-submit:hover {
+    .btn-submit:hover:not(:disabled) {
       background: var(--ccws-crimson-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(139, 29, 44, 0.26);
+    }
+
+    .btn-submit:active:not(:disabled) {
+      transform: scale(0.985);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .error-banner {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      background: #fef2f2;
+      border: 1.5px solid #fca5a5;
+      color: #991b1b;
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.45;
+      animation: snapShake 0.3s var(--snap);
+    }
+
+    .error-banner.show { display: block; }
+
+    @keyframes snapShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* ─── AUTHENTICATED STUDENT MEMBER SPACE ─── */
+    .member-hub {
+      display: none;
+      max-width: 560px;
+      width: 100%;
+      margin: 0 auto;
+      animation: snapIn 0.3s var(--snap) both;
+    }
+
+    .hub-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-bottom: 18px;
+      border-bottom: 1.5px solid #e2e8f0;
+      margin-bottom: 22px;
+    }
+
+    .hub-id-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .enroll-chip {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--ccws-navy);
+      background: var(--ccws-navy-tint);
+      padding: 6px 12px;
+      border-radius: 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .role-chip {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .role-chip.president {
+      background: var(--ccws-gold-tint);
+      color: #7c5806;
+      border: 1.5px solid var(--ccws-gold);
+    }
+
+    .role-chip.vice_president {
+      background: var(--ccws-crimson-tint);
+      color: var(--ccws-crimson);
+      border: 1.5px solid rgba(139, 29, 44, 0.35);
+    }
+
+    .role-chip.member {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    .logout-btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--ccws-navy);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.16s var(--snap);
+    }
+
+    .logout-btn:hover {
+      border-color: var(--ccws-crimson);
+      color: var(--ccws-crimson);
       transform: translateY(-1px);
     }
 
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: var(--ccws-navy-deep);
-      color: #ffffff;
-      padding: 14px 28px;
-      border-radius: 30px;
-      font-size: 14px;
-      font-weight: 600;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.35);
-      z-index: 1000;
-      opacity: 0;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
+    .hub-club-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ccws-navy);
+      margin-bottom: 6px;
     }
 
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
+    .hub-club-meta {
+      font-size: 14px;
+      color: var(--ccws-slate);
+      margin-bottom: 22px;
+    }
+
+    .notice-box {
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: var(--ccws-navy-tint);
+      border: 1.5px solid rgba(27, 42, 58, 0.16);
+      margin-bottom: 20px;
+      transition: transform 0.2s var(--snap);
+    }
+
+    .notice-box:hover { transform: translateY(-2px); }
+
+    .notice-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ccws-crimson);
+      margin-bottom: 6px;
+    }
+
+    .notice-text {
+      font-size: 14.5px;
+      color: var(--ccws-navy);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .hub-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .hub-stat {
+      padding: 16px;
+      border-radius: 12px;
+      background: var(--ccws-bg);
+      border: 1.5px solid #e2e8f0;
+      transition: transform 0.2s var(--snap), border-color 0.18s ease;
+    }
+
+    .hub-stat:hover {
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+
+    .hub-stat-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ccws-slate);
+      margin-bottom: 6px;
+    }
+
+    .hub-stat-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ccws-navy);
+      word-break: break-word;
+    }
+
+    .hub-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hub-link-btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: var(--ccws-navy);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 0.16s ease, transform 0.18s var(--snap);
+    }
+
+    .hub-link-btn:hover {
+      background: var(--ccws-crimson);
+      transform: translateY(-2px);
     }
 
     @media (max-width: 900px) {
       body { flex-direction: column; overflow-y: auto; }
-      .left-panel { min-height: 320px; flex: none; }
-      .right-panel { flex: none; padding: 36px 24px; }
+      .left-panel { min-height: 290px; flex: none; }
+      .right-panel { flex: none; padding: 36px 22px; }
+      .hub-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -254,163 +469,222 @@
 
     <div class="hero-center">
       <h1 class="hero-title">Student Member Portal</h1>
-      <p class="hero-desc">Access your club attendance, project repositories, showcase credentials, and connect directly with your faculty club mentors.</p>
+      <p class="hero-desc">Sign in with your school enrollment number and the club password issued offline by your mentor.</p>
+      <div class="offline-note">
+        Not a member yet? Attend the next club session or speak with your club mentor during club hours to receive this term's member password.
+      </div>
     </div>
 
     <a href="start.html" class="back-home">Return to Selection Portal</a>
   </aside>
 
-  <!-- Right Form Panel -->
+  <!-- Right Panel -->
   <main class="right-panel">
-    <div class="form-wrap">
-      <div class="tabs">
-        <button class="tab-btn active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
-        <button class="tab-btn" id="tabRequest" onclick="switchTab('request')">Request Account from Mentor</button>
-      </div>
+    <!-- Login View -->
+    <div class="panel-view" id="loginView">
+      <h2 class="login-heading">Member Sign In</h2>
+      <p class="login-sub">Enter your enrollment number, select your club, and enter your teacher-issued password.</p>
 
-      <!-- Sign In Form -->
-      <form id="formLogin" onsubmit="handleLogin(event)">
+      <form id="studentLoginForm">
         <div class="form-group">
-          <label class="form-label">Student ID or School Email</label>
-          <input type="text" class="form-input" placeholder="e.g. CCWS-2026-884" required />
+          <label class="form-label" for="enrollmentInput">Student Enrollment Number</label>
+          <input type="text" id="enrollmentInput" class="form-input mono" placeholder="e.g. 202520260438" autocomplete="username" required />
         </div>
-        <div class="form-group">
-          <label class="form-label">Passcode</label>
-          <input type="password" class="form-input" placeholder="Enter your passcode" required />
-        </div>
-        <button type="submit" class="btn-submit">Enter Student Space</button>
-      </form>
 
-      <!-- Request Account Form -->
-      <form id="formRequest" onsubmit="handleRequest(event)" style="display:none;">
         <div class="form-group">
-          <label class="form-label">Full Name</label>
-          <input type="text" class="form-input" id="reqName" placeholder="e.g. Aarav Sharma" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Grade and Section</label>
-          <input type="text" class="form-input" id="reqGrade" placeholder="e.g. Grade 9-B" required />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Select Club</label>
-          <select class="form-select" id="reqClub" required>
-            <option value="Robotics Club">Robotics Club</option>
-            <option value="TedEd Club">TedEd Club</option>
-            <option value="Science Club">Science Club</option>
-            <option value="Theatre Club">Theatre Club</option>
-            <option value="Eco Club">Eco Club</option>
-            <option value="Cookery Club">Cookery Club</option>
-            <option value="Literary Club">Literary Club</option>
+          <label class="form-label" for="clubSelect">Club</label>
+          <select id="clubSelect" class="form-select" required>
+            <option value="" disabled selected>Select your club</option>
+            <option value="teded">TedEd</option>
+            <option value="robotics">Robotics</option>
+            <option value="cookery">Cookery</option>
+            <option value="theatre">Theatre</option>
+            <option value="eco">Eco</option>
+            <option value="technocrates">Science</option>
+            <option value="literary">Literary</option>
           </select>
         </div>
-        <div class="form-group">
-          <label class="form-label">Note for Club Mentor (Optional)</label>
-          <input type="text" class="form-input" id="reqNote" placeholder="What inspires you to join?" />
-          <div id="draftHint" style="display:none; margin-top:6px; font-size:12px; color:#475569; font-weight:600;">Saved draft restored — finish sending when ready.</div>
-        </div>
-        <button type="submit" class="btn-submit">Send Request to Club Mentor</button>
-      </form>
 
-      <!-- Peak-End Request Confirmation View -->
-      <div id="requestSuccessView" style="display:none; padding:24px; border:1.5px solid #cbd5e1; border-radius:14px; background:#f8fafc;">
-        <h2 style="font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:#1b2a3a; margin-bottom:8px;">Request Submitted</h2>
-        <p id="requestSuccessText" style="font-size:14.5px; line-height:1.6; color:#334155; margin-bottom:20px;"></p>
-        <div style="display:flex; gap:12px; flex-wrap:wrap;">
-          <a href="explore.html" style="padding:10px 18px; border-radius:8px; background:#1b2a3a; color:#ffffff; text-decoration:none; font-size:13.5px; font-weight:700;">Browse All Clubs</a>
-          <button type="button" onclick="resetRequestView()" style="padding:10px 18px; border-radius:8px; border:1.5px solid #cbd5e1; background:#ffffff; color:#1b2a3a; font-size:13.5px; font-weight:700; cursor:pointer;">Send Another Request</button>
+        <div class="form-group">
+          <label class="form-label" for="passwordInput">Club Member Password</label>
+          <input type="password" id="passwordInput" class="form-input" placeholder="Password from your club mentor" autocomplete="current-password" required />
         </div>
+
+        <button type="submit" class="btn-submit" id="loginSubmitBtn">Enter Student Space</button>
+        <div class="error-banner" id="loginError"></div>
+      </form>
+    </div>
+
+    <!-- Authenticated Member Hub -->
+    <div class="member-hub" id="memberHub">
+      <div class="hub-topbar">
+        <div class="hub-id-row">
+          <span class="enroll-chip" id="hubEnrollment"></span>
+          <span class="role-chip member" id="hubRoleBadge">Member</span>
+        </div>
+        <button type="button" class="logout-btn" id="studentLogoutBtn">Sign out</button>
+      </div>
+
+      <h2 class="hub-club-title" id="hubClubName">Club Space</h2>
+      <p class="hub-club-meta" id="hubClubMeta"></p>
+
+      <div class="hub-grid">
+        <div class="hub-stat">
+          <div class="hub-stat-label">Club President</div>
+          <div class="hub-stat-value" id="hubPresident">Unassigned</div>
+        </div>
+        <div class="hub-stat">
+          <div class="hub-stat-label">Vice President</div>
+          <div class="hub-stat-value" id="hubVicePresident">Unassigned</div>
+        </div>
+        <div class="hub-stat">
+          <div class="hub-stat-label">Club Mentor</div>
+          <div class="hub-stat-value" id="hubMentor">—</div>
+        </div>
+        <div class="hub-stat">
+          <div class="hub-stat-label">Weekly Schedule</div>
+          <div class="hub-stat-value" id="hubSchedule">—</div>
+        </div>
+      </div>
+
+      <div class="hub-actions">
+        <a href="explore.html" class="hub-link-btn" id="hubClubPageLink">Visit Club Page</a>
       </div>
     </div>
   </main>
 
-  <div class="toast" id="toast"></div>
-
   <script>
-    const DRAFT_KEY = 'ccws_student_request_draft';
+    const TOKEN_KEY = 'ccws_student_token';
+    const loginView = document.getElementById('loginView');
+    const memberHub = document.getElementById('memberHub');
+    const clubSelect = document.getElementById('clubSelect');
+    const loginError = document.getElementById('loginError');
+    const submitBtn = document.getElementById('loginSubmitBtn');
 
-    function switchTab(mode) {
-      const isLogin = mode === 'login';
-      document.getElementById('tabLogin').classList.toggle('active', isLogin);
-      document.getElementById('tabRequest').classList.toggle('active', !isLogin);
-      document.getElementById('formLogin').style.display = isLogin ? 'block' : 'none';
-      document.getElementById('formRequest').style.display = isLogin ? 'none' : 'block';
-      document.getElementById('requestSuccessView').style.display = 'none';
+    function formatRole(role) {
+      if (role === 'president') return 'President';
+      if (role === 'vice_president') return 'Vice President';
+      return 'Member';
     }
 
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3500);
+    function showError(msg) {
+      loginError.textContent = msg;
+      loginError.classList.remove('show');
+      void loginError.offsetWidth;
+      loginError.classList.add('show');
     }
 
-    function handleLogin(e) {
-      e.preventDefault();
-      showToast('Welcome back, Scholar! Connecting to Member Dashboard...');
+    function renderHub(data) {
+      loginView.style.display = 'none';
+      memberHub.style.display = 'block';
+
+      document.getElementById('hubEnrollment').textContent = data.enrollmentNo;
+      const roleEl = document.getElementById('hubRoleBadge');
+      roleEl.textContent = formatRole(data.memberRole);
+      roleEl.className = 'role-chip ' + (data.memberRole || 'member');
+
+      const info = data.clubInfo || {};
+      document.getElementById('hubClubName').textContent = (info.name || data.clubId) + ' Club';
+      document.getElementById('hubClubMeta').textContent =
+        `${data.memberCount || 1} active member${data.memberCount === 1 ? '' : 's'}` +
+        (info.grades ? ` · Open to ${info.grades}` : '');
+
+      document.getElementById('hubPresident').textContent = data.leadership?.president || 'Unassigned';
+      document.getElementById('hubVicePresident').textContent = data.leadership?.vicePresident || 'Unassigned';
+      document.getElementById('hubMentor').textContent = info.mentorName || 'Faculty Mentor';
+      document.getElementById('hubSchedule').textContent = info.timings || 'Check with mentor';
+
+      const clubLink = document.getElementById('hubClubPageLink');
+      clubLink.href = info.link ? info.link : 'explore.html';
     }
 
-    function handleRequest(e) {
-      e.preventDefault();
-      const name = document.getElementById('reqName').value.trim() || 'Student';
-      const club = document.getElementById('reqClub').value || 'Club';
-      localStorage.removeItem(DRAFT_KEY);
-      document.getElementById('formRequest').reset();
-      document.getElementById('draftHint').style.display = 'none';
-      document.getElementById('formRequest').style.display = 'none';
-      document.getElementById('requestSuccessText').textContent =
-        `Thank you, ${name}. Your account request for ${club} has been logged for review. Your club mentor will confirm your scholar pass during the next club session.`;
-      document.getElementById('requestSuccessView').style.display = 'block';
-      showToast(`Request sent to ${club} Mentor!`);
-    }
-
-    function resetRequestView() {
-      document.getElementById('requestSuccessView').style.display = 'none';
-      document.getElementById('formRequest').style.display = 'block';
-    }
-
-    // Default Effect (?club=...) + Zeigarnik Draft Save/Restore
-    (function initStudentUX() {
-      const params = new URLSearchParams(window.location.search);
-      const clubParam = params.get('club');
-      const clubSelect = document.getElementById('reqClub');
-      const nameInput = document.getElementById('reqName');
-      const gradeInput = document.getElementById('reqGrade');
-      const noteInput = document.getElementById('reqNote');
-
+    // Load live clubs list & apply ?club= Default Effect
+    (async function initClubsAndSession() {
       try {
-        const saved = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
-        if (saved && (saved.name || saved.grade || saved.note)) {
-          if (saved.name) nameInput.value = saved.name;
-          if (saved.grade) gradeInput.value = saved.grade;
-          if (saved.note) noteInput.value = saved.note;
-          if (saved.club) clubSelect.value = saved.club;
-          document.getElementById('draftHint').style.display = 'block';
+        const res = await fetch('/api/clubs');
+        if (res.ok) {
+          const clubs = await res.json();
+          if (Array.isArray(clubs) && clubs.length) {
+            clubSelect.innerHTML = '<option value="" disabled selected>Select your club</option>';
+            clubs.forEach(c => {
+              const opt = document.createElement('option');
+              opt.value = (c.clubId || '').toLowerCase();
+              opt.textContent = c.name;
+              clubSelect.appendChild(opt);
+            });
+          }
         }
       } catch {}
 
-      if (clubParam && clubSelect) {
+      const clubParam = new URLSearchParams(window.location.search).get('club');
+      if (clubParam) {
+        const lower = clubParam.toLowerCase();
         const match = Array.from(clubSelect.options).find(opt =>
-          opt.value.toLowerCase().includes(clubParam.toLowerCase())
+          opt.value.includes(lower) ||
+          opt.textContent.toLowerCase().includes(lower) ||
+          (lower.includes('science') && opt.value === 'technocrates') ||
+          (lower.includes('drama') && opt.value === 'theatre')
         );
-        if (match) {
-          clubSelect.value = match.value;
-          switchTab('request');
-        }
+        if (match) clubSelect.value = match.value;
       }
 
-      function saveDraft() {
-        localStorage.setItem(DRAFT_KEY, JSON.stringify({
-          name: nameInput.value,
-          grade: gradeInput.value,
-          club: clubSelect.value,
-          note: noteInput.value
-        }));
+      const existingToken = localStorage.getItem(TOKEN_KEY);
+      if (existingToken) {
+        try {
+          const meRes = await fetch('/api/student/me', {
+            headers: { 'Authorization': `Bearer ${existingToken}` }
+          });
+          if (meRes.ok) {
+            const meData = await meRes.json();
+            renderHub(meData);
+            return;
+          }
+        } catch {}
+        localStorage.removeItem(TOKEN_KEY);
       }
-
-      [nameInput, gradeInput, clubSelect, noteInput].forEach(el => {
-        if (el) el.addEventListener('input', saveDraft);
-      });
     })();
+
+    document.getElementById('studentLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.classList.remove('show');
+      const enrollmentNo = document.getElementById('enrollmentInput').value.trim();
+      const clubId = clubSelect.value;
+      const password = document.getElementById('passwordInput').value;
+
+      if (!enrollmentNo || !clubId || !password) {
+        showError('Please enter your enrollment number, select your club, and enter the password.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Verifying...';
+
+      try {
+        const res = await fetch('/api/student/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ enrollmentNo, clubId, password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Sign-in failed.');
+        }
+        localStorage.setItem(TOKEN_KEY, data.token);
+        renderHub(data);
+      } catch (err) {
+        showError(err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enter Student Space';
+      }
+    });
+
+    document.getElementById('studentLogoutBtn').addEventListener('click', () => {
+      localStorage.removeItem(TOKEN_KEY);
+      document.getElementById('passwordInput').value = '';
+      memberHub.style.display = 'none';
+      loginView.style.display = 'block';
+    });
   </script>
 </body>
 </html>
