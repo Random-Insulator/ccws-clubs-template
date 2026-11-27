@@ -453,6 +453,54 @@
       .right-panel { flex: none; padding: 36px 22px; }
       .hub-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Custom Oxford Navy Dropdown (#1B2A3A) ──────────────── */
+    .cc-select-wrap { position: relative; width: 100%; }
+    .cc-native-hidden {
+      position: absolute !important; opacity: 0 !important; pointer-events: none !important;
+      width: 1px !important; height: 1px !important; margin: 0 !important; padding: 0 !important; border: 0 !important;
+    }
+    .cc-select-trigger {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 13px 16px;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      color: #0f172a;
+      font-family: inherit;
+      font-size: 0.96rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease;
+    }
+    .cc-select-trigger.is-placeholder { color: #94a3b8; font-weight: 400; }
+    .cc-select-trigger:hover { border-color: #cbd5e1; }
+    .cc-select-trigger.is-open,
+    .cc-select-trigger:focus-visible {
+      outline: none;
+      border-color: #1B2A3A !important;
+      box-shadow: 0 0 0 3px rgba(27, 42, 58, 0.14) !important;
+    }
+    .cc-select-chevron { width: 15px; height: 15px; color: #1B2A3A; flex-shrink: 0; transition: transform 0.14s ease; }
+    .cc-select-trigger.is-open .cc-select-chevron { transform: rotate(180deg); }
+    #ccSelectMenu {
+      position: fixed; z-index: 1500; background: #ffffff; border: 1px solid #cbd5e1;
+      border-radius: 12px; padding: 6px; box-shadow: 0 12px 30px rgba(27, 42, 58, 0.14);
+      display: none; max-height: 260px; overflow-y: auto;
+    }
+    #ccSelectMenu.open { display: block; }
+    .cc-select-option {
+      width: 100%; padding: 9px 12px; border: none; border-radius: 8px;
+      background: transparent; color: #1e293b; font-family: inherit; font-size: 0.92rem;
+      text-align: left; display: flex; align-items: center; justify-content: space-between; cursor: pointer;
+      transition: background 0.1s ease, color 0.1s ease;
+    }
+    .cc-select-option.is-selected { background: #EEF3F8; color: #1B2A3A; font-weight: 600; }
+    .cc-select-option:hover { background: #1B2A3A; color: #ffffff; }
+    .cc-select-check { width: 15px; height: 15px; opacity: 0; }
+    .cc-select-option.is-selected .cc-select-check { opacity: 1; }
   </style>
 </head>
 <body>
@@ -685,6 +733,67 @@
       memberHub.style.display = 'none';
       loginView.style.display = 'block';
     });
+
+    // ── Custom Oxford Navy Dropdown for Club Select ───────────────────
+    (function initClubSelect() {
+      const selectEl = document.getElementById('clubSelect');
+      if (!selectEl) return;
+      const menu = document.createElement('div');
+      menu.id = 'ccSelectMenu';
+      menu.setAttribute('role', 'listbox');
+      document.body.appendChild(menu);
+
+      const wrap = document.createElement('div');
+      wrap.className = 'cc-select-wrap';
+      selectEl.parentNode.insertBefore(wrap, selectEl);
+      wrap.appendChild(selectEl);
+      selectEl.classList.add('cc-native-hidden');
+      selectEl.tabIndex = -1;
+
+      const trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'cc-select-trigger';
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.innerHTML = `<span class="cc-select-label"></span><svg class="cc-select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+      wrap.appendChild(trigger);
+
+      function sync() {
+        const opt = selectEl.options[selectEl.selectedIndex];
+        trigger.querySelector('.cc-select-label').textContent = opt ? opt.textContent : 'Select your club';
+        trigger.classList.toggle('is-placeholder', !selectEl.value);
+      }
+      function closeMenu() {
+        menu.classList.remove('open');
+        trigger.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (menu.classList.contains('open')) { closeMenu(); return; }
+        menu.innerHTML = Array.from(selectEl.options).filter(o => !o.disabled).map(opt => {
+          const isSel = opt.value === selectEl.value;
+          return `<button type="button" role="option" class="cc-select-option ${isSel ? 'is-selected' : ''}" data-val="${opt.value}"><span>${opt.textContent}</span><svg class="cc-select-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>`;
+        }).join('');
+        menu.querySelectorAll('.cc-select-option').forEach(btn => {
+          btn.addEventListener('click', () => {
+            selectEl.value = btn.getAttribute('data-val');
+            sync();
+            closeMenu();
+          });
+        });
+        menu.classList.add('open');
+        trigger.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        const rect = trigger.getBoundingClientRect();
+        menu.style.minWidth = `${rect.width}px`;
+        menu.style.left = `${rect.left}px`;
+        menu.style.top = `${rect.bottom + 6}px`;
+      });
+      document.addEventListener('click', (e) => { if (!e.target.closest('#ccSelectMenu') && !e.target.closest('.cc-select-trigger')) closeMenu(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+      sync();
+    })();
   </script>
 </body>
 </html>

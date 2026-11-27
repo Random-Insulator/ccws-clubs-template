@@ -148,6 +148,9 @@ async function connectDB() {
 
   try {
     await dbConnectionPromise;
+    if (mongoose.connection.readyState !== 1) {
+      throw new Error("Database unavailable: could not connect to MongoDB.");
+    }
     await seedSampleMembersIfEmpty();
   } finally {
     dbConnectionPromise = null;
